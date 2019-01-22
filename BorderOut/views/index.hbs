@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css/main.css">
+    <title>BorderOut</title>
+</head>
+
+<body>
+     <!--Menu de navegacion-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><img class="Pollo" id="pollo" src="imagenes/polloperron1.png" alt="BorderOut Logo">BorderOut</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#registro">Registrarse</button>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <button type="button" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#log-in">Ingresar</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+         <!--Estos siguientes container solo los que aparecen cuando clickeas el evento-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="registro" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Registro</h5>
+                                <button class="close" data-dismiss="modal" aria-label="cerrar"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/agregar" method="POST">
+                                    <div class="form-group">
+                                        <label for="apaterno">Apellido paterno</label>
+                                        <input type="text" name="apaterno" class="form-control" placeholder="Apellido paterno" required id="apaterno">
+                                        <label for="amaterno">Apellido materno</label>
+                                        <input type="text" name="amaterno" class="form-control" placeholder="Apellido materno" required id="amaterno">
+                                        <label for="nombre">Nombre(s)</label>
+                                        <input type="text" name="nombre" class="form-control" placeholder="Nombres" required id="nombre">
+                                        <label for="email">Correo electronico</label>
+                                        <input type="email" name="email" class="form-control" placeholder="Correo electronico" required id="email">
+                                        <label for="username">Nombre de usuario</label>
+                                        <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" required id="username">
+                                        <label for="password">Contraseña</label>
+                                        <input type="password" name="password" class="form-control" placeholder="Contraseña" required id="password">
+                                        <br>
+                                        <button class="btn btn btn-outline-success" type="submit" id="crearCuenta" name="crearCuenta">CREAR</button>
+                                        <button class="btn btn btn-outline-danger" data-dismiss="modal">Regresar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="modal fade" id="log-in" tabindex="-1" role="dialog" aria-labelledby="log-in" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ingreso</h5>
+                                <button class="close" data-dismiss="modal" aria-label="cerrar"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="Funciones/checklogin.php" method="POST">
+                                    <div class="form-group">
+
+                                        <label for="email">Correo electronico</label>
+                                        <input type="email" name="email" class="form-control" placeholder="Correo electronico" required id="emaillog">
+                                        <label for="password">Contraseña</label>
+                                        <input type="password" name="password" class="form-control" placeholder="Contraseña" required id="passwordlog">
+                                        <br>
+                                        <button class="btn btn btn-outline-success" type="submit" id="ingresarCuenta" name="crearCuenta">Listo</a></button>
+                                        <button class="btn btn btn-outline-danger" data-dismiss="modal">Regresar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </nav>
+
+
+    <script src="css/js/jquery-3.3.1.min.js.js"></script>
+    <script src="css/js/bootstrap.min.js"></script>
+    <script src="css/js/popper.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/socket-custom.js"></script>
+    <!--<script>
+        var registroEvento = document.getElementById("crearCuenta");
+
+        registroEvento.addEventListener('click', Validaregistro);
+    </script>-->
+
+
+</body>
+
+</html>

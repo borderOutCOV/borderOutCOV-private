@@ -1,0 +1,50 @@
+body {
+    background: #f2f2f2;
+    font-size: 16px;
+}
+
+
+/*-------Barra lateral-------*/
+
+.barra-lateral {
+    background: #262a34;
+    color: #ffffff;
+    min-width: 380px;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.barra-lateral .logo {
+    margin-bottom: 2px;
+}
+
+.barra-lateral .logo h2 {
+    font-size: 30px;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: 300;
+    margin: 0;
+}
+
+
+/*-------Amigos-------*/
+
+.barra-lateral .menu div {
+    display: block;
+    padding: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.barra-lateral .menu div span {
+    margin-right: 20px;
+}
+
+.barra-lateral .menu div:hover {
+    background: #35ae6b;
+    text-decoration: none;
+}
+
+.Pollo {
+    max-width: 50px;
+}
