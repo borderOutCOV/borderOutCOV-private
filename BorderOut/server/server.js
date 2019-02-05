@@ -28,12 +28,12 @@ module.exports.io = socketIO(server);
 require('./sockets/socket');
 
 
-var connection = mysql.createConnection({
+/*var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'Alejandro',
     database: 'limitbreaker'
-});
+});*/
 
 server.listen(port, (err) => {
 

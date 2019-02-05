@@ -1,5 +1,5 @@
 body {
-    background: #f2f2f2;
+    background: #ffffff;
     font-size: 16px;
 }
 
@@ -7,10 +7,11 @@ body {
 /*-------Barra lateral-------*/
 
 .barra-lateral {
-    background: #262a34;
+    background: #343a40;
     color: #ffffff;
-    min-width: 380px;
+    /*min-width: 380px;*/
     min-height: 100vh;
+    border-top: 1px solid rgba(255, 255, 255, .1);
     padding: 0;
 }
 
@@ -47,4 +48,11 @@ body {
 
 .Pollo {
     max-width: 50px;
+}
+
+
+/**Contenido principal*/
+
+.principal {
+    min-height: 100vh;
 }

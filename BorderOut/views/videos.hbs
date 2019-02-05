@@ -1,50 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <link rel="stylesheet" href="css/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/css/main.css">
-    <title>BorderOut</title>
-</head>
-<body>
-    {{> navbar}}    
-    <div class="conrainer-fluid">
-        <div class="row">
+{{> head}}
+{{> navbar}}    
+<div class="conrainer-fluid">
+    <div class="row">
 
 
-            <main class="main columna col-lg-8">
-                <div class="widget nueva_entrada">
-                    <h3 class="titulo">Videos</h3>
-                </div>
-            </main>
-
-
-            <!--Será el parcial de amigos-->
-
-            <div class="barra-lateral col-3 col-sm-auto" >
-                <div class="logo">
-                    <h2>Amigos</h2>
-                </div>
-                <nav class="menu d-fex d-sm-block justify-content-center flex-wrap">
-                    <div>foto <span>Amigo 1</span></div>
-                    <div>foto <span>Amigo 2</span></div>
-                    <div>foto <span>Amigo 3</span></div>
-                    <div>foto <span>Amigo 4</span></div>
-                    
-                </nav>
+        <main class="main principal columna col-sm-12 col-md-10">
+            <div class="widget nueva_entrada">
+                <h3 class="titulo">Videos</h3>
             </div>
+        </main>
+
+
+        <!--Será el parcial de amigos-->
+
+        <div class="barra-lateral col-sm-12 col-md-2" >
+            <div class="logo">
+                <h2>Amigos</h2>
+            </div>
+            <nav class="menu d-fex d-sm-block justify-content-center flex-wrap">
+                <div>foto <span>Amigo 1</span></div>
+                <div>foto <span>Amigo 2</span></div>
+                <div>foto <span>Amigo 3</span></div>
+                <div>foto <span>Amigo 4</span></div>
+                
+            </nav>
         </div>
     </div>
+</div>
+{{> footer}}
 
-
-
-
-    <script src="css/js/jquery-3.3.1.min.js.js"></script>
-    <script src="css/js/bootstrap.min.js"></script>
-    <script src="css/js/popper.min.js"></script>
-    <script src="socket.io/socket.io.js"></script>
-    <script src="js/socket-custom.js"></script>
-</body>
-</html>
