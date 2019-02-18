@@ -1,9 +1,9 @@
+require('./config/config');
 const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 const hbs = require('hbs');
-const mysql = require('mysql');
-
+const session = require('express-session');
 const path = require('path');
 
 const app = express();
@@ -14,6 +14,18 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(publicPath));
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: (60 * 60 * 24 * 30)
+    }
+}));
+
+
+
+
 
 app.use('/', rutasUsuario);
 

@@ -23,7 +23,7 @@ body {
     font-size: 30px;
     padding: 20px 0;
     text-align: center;
-    font-weight: 300;
+    /*font-weight: 300;*/
     margin: 0;
 }
 
@@ -42,7 +42,7 @@ body {
 }
 
 .barra-lateral .menu div:hover {
-    background: #35ae6b;
+    background: #007bff;
     text-decoration: none;
 }
 
@@ -55,4 +55,21 @@ body {
 
 .principal {
     min-height: 100vh;
+}
+
+.azulhover div .nav-item a:hover {
+    background: #007bff;
+    color: #ffffff
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.escala img {
+    -webkit-transition: all .5s ease-in-out;
+}
+
+.escala:hover img {
+    -webkit-transform: scale(1.1);
 }
