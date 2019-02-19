@@ -57,6 +57,14 @@ body {
     min-height: 100vh;
 }
 
+.ochenta {
+    min-height: 80vh;
+}
+
+.cuarenta {
+    min-height: 40vh;
+}
+
 .azulhover div .nav-item a:hover {
     background: #007bff;
     color: #ffffff

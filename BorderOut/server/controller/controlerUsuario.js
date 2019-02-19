@@ -11,6 +11,14 @@ controller.abreAmpliarVocabulario = (req, res) => {
     res.render('ampliarVocabulario', {});
 }
 
+controller.getCategorias = async(req, res) => {
+    let categorias = await pool.query('SELECT * FROM categoria');
+    res.json(categorias)
+}
+controller.abreTinder = (req, res) => {
+    console.log(req.body.id);
+    res.render(`tinder`, {});
+}
 
 //Funciones de apollo 
 function encriptaContrasena(contrasena) {
@@ -109,11 +117,23 @@ controller.verificaToken = (req, res, netx) => {
              res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
          } else {
              req.session.usuario = decode.usuario;
-             console.log(req.session.usuario);*/
+             console.log(req.session.usuario);
     netx();
     /* }
     })*/
-
+    const newuser = {
+        username: 'a',
+        nombre: 'a',
+        paterno: 'a',
+        materno: 'a',
+        monedas: 5,
+        contrasena: 'a',
+        tipo: 0,
+        enlace: 'aaaaa',
+        correo: 'a'
+    };
+    req.session.usuario = newuser;
+    netx();
 }
 
 module.exports = controller;
