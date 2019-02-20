@@ -81,3 +81,7 @@ body {
 .escala:hover img {
     -webkit-transform: scale(1.1);
 }
+
+.redonda {
+    max-width: 50px;
+}
