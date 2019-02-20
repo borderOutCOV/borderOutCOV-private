@@ -1,7 +1,7 @@
 //==============================
 //Contraseña de base de datos
 //==============================
-process.env.Contrasena = process.env.Contrasena || 'Alejandro'
+process.env.Contrasena = process.env.Contrasena || ''
 
 //==============================
 //Semilla del Token
