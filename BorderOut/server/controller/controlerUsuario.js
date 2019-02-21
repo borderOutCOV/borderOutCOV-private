@@ -20,6 +20,11 @@ controller.abreTinder = (req, res) => {
     res.render(`tinder`, {});
 }
 
+controller.abreAddPalabra = (req, res) => {
+    console.log(req.body.id);
+    res.render(`addPalabra`, {});
+}
+
 //Funciones de apollo 
 function encriptaContrasena(contrasena) {
     var salt = bcryptjs.genSaltSync(10);
