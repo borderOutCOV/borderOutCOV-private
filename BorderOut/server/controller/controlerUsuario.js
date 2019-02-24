@@ -15,9 +15,15 @@ controller.getCategorias = async(req, res) => {
     let categorias = await pool.query('SELECT * FROM categoria');
     res.json(categorias)
 }
-controller.abreTinder = (req, res) => {
-    console.log(req.body.id);
-    res.render(`tinder`, {});
+
+controller.setcategoria = (req, res) => {
+    req.session.idcategoria = req.params.id;
+    res.json({ message: "listo" });
+}
+controller.abreTinder = async(req, res) => {
+    let categoria = await pool.query('SELECT * FROM categoria WHERE idCategoria = ?', [req.session.idcategoria]);
+    //res.json(categoria[0].nombre);
+    res.render(`tinder`, { categoria: categoria[0].nombre });
 }
 
 //Funciones de apollo 
@@ -110,17 +116,18 @@ controller.login = async(req, res) => {
 }
 
 controller.verificaToken = (req, res, netx) => {
-    /* var token = req.session.token;
+    /*var token = req.session.token;
 
-     jwt.verify(token, process.env.seed, (err, decode) => {
-         if (err) {
-             res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-         } else {
-             req.session.usuario = decode.usuario;
-             console.log(req.session.usuario);
-    netx();
-    /* }
-    })*/
+    jwt.verify(token, process.env.seed, (err, decode) => {
+            if (err) {
+                res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+            } else {
+                req.session.usuario = decode.usuario;
+                console.log(req.session.usuario);
+                netx();
+            }
+        })
+        */
     const newuser = {
         username: 'a',
         nombre: 'a',

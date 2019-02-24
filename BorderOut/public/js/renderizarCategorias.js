@@ -33,7 +33,15 @@ renderizarCategoria();
 divCategoria.on('click', 'div', function() {
 
     var id = $(this).data('id');
+
+    $.ajax({
+        url: `/setcategoria/${id}`,
+        success: function() {
+            alert("Hola mundo")
+        }
+    });
     if (id) {
-        window.location = `/escogePalabras?id=${id}`;
+        window.location = `/escogePalabras`;
     }
+
 });

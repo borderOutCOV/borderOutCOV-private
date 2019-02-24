@@ -16,4 +16,6 @@ router.get('/videos', controller.verificaToken, controller.abreVideos);
 router.get('/ampliarVocabulario', controller.verificaToken, controller.abreAmpliarVocabulario);
 router.get('/escogePalabras', controller.verificaToken, controller.abreTinder);
 router.get('/categorias', controller.getCategorias);
+router.get('/setcategoria/:id', controller.setcategoria);
+
 module.exports = router;
