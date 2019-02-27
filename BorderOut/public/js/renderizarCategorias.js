@@ -19,7 +19,6 @@ function renderizarCategoria() {
                 html += `</div>`;
                 html += `</div>`;
             }
-            console.log(categorias[0].nombre);
             divCategoria.html(html);
         }
     })
@@ -37,7 +36,7 @@ divCategoria.on('click', 'div', function() {
     $.ajax({
         url: `/setcategoria/${id}`,
         success: function() {
-            alert("Hola mundo")
+
         }
     });
     if (id) {

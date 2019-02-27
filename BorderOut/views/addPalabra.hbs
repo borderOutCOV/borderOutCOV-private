@@ -1,0 +1,28 @@
+{{> head}}
+{{> navbar}}    
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-md-2"></div>
+        <main class="main principal columna col-sm-12 col-md-6">
+             <h1 class="text-center">Agregar Palabra</h1>
+             <div class="form-group">
+                 <label for="pespanol">Palabra en español:</label>
+					<input type="text" name="pespanol" class="form-control" placeholder="Palabra en español" id="pespanol">
+					<label for="pingles">Palabra en ingles:</label>
+					<input type="text" name="pingles" class="form-control" placeholder="Palabra en ingles" id="pingles">
+					<label for="pcategoria">Categoria de palabra:</label>
+					<select class="form-control" name="categoria"></select>
+                    <label for="ptipo">Tipo de palabra:</label>
+                    <select class="form-control" name="tipo"></select>
+					<br>
+					<div class="col">
+					<button class= "btn btn-success btn-md btn-block " type="submit" id="btn-success" name="btn-success" >AGREGAR</button>
+					</div>
+             </div>
+        </main>
+        <div class="col-md-2"></div>
+        {{> amigos}}
+    </div>
+</div>
+{{> footer}}
+{{> librerias}}

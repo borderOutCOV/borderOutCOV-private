@@ -16,14 +16,38 @@ controller.getCategorias = async(req, res) => {
     res.json(categorias)
 }
 
+
+
+controller.getPalabras = async(req, res) => {
+    if (req.session.idcategoria == undefined) {
+        res.json();
+    } else {
+        let palabras = await pool.query('SELECT * FROM palabra WHERE categoria = ?', [req.session.idcategoria]);
+        res.json(palabras);
+    }
+}
+
+
+
+
+
 controller.setcategoria = (req, res) => {
     req.session.idcategoria = req.params.id;
     res.json({ message: "listo" });
 }
+
 controller.abreTinder = async(req, res) => {
     let categoria = await pool.query('SELECT * FROM categoria WHERE idCategoria = ?', [req.session.idcategoria]);
-    //res.json(categoria[0].nombre);
-    res.render(`tinder`, { categoria: categoria[0].nombre });
+    if (categoria.length === 0) {
+        res.render('ampliarVocabulario', {});
+    } else {
+        res.render(`tinder`, { categoria: categoria[0].nombre });
+    }
+}
+
+controller.abreAddPalabra = (req, res) => {
+    console.log(req.body.id);
+    res.render(`addPalabra`, {});
 }
 
 //Funciones de apollo 
