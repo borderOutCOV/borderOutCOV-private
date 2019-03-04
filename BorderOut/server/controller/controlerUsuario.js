@@ -16,13 +16,51 @@ controller.getCategorias = async(req, res) => {
     res.json(categorias)
 }
 
+controller.postPalabras = async(req, res) => {
+
+    const newPalabra = {
+        estado: 1,
+        contador: 20,
+        usuario: req.session.usuario.username,
+        palabra: req.body.palabra,
+        id: null
+    };
+    await pool.query('INSERT INTO palabrausuario set ?', [newPalabra]);
+    console.log(newPalabra);
+
+    res.send("Done");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 controller.getPalabras = async(req, res) => {
     if (req.session.idcategoria == undefined) {
         res.json();
     } else {
-        let palabras = await pool.query('SELECT * FROM palabra WHERE categoria = ?', [req.session.idcategoria]);
+
+
+        var query = `
+        SELECT  IdPalabra, ingles, espanol, palabrausuario.usuario, palabra, categoria
+        FROM palabra
+        LEFT JOIN palabrausuario
+            ON palabra.IdPalabra = palabrausuario.palabra and palabrausuario.usuario="${req.session.usuario.username}"
+        WHERE palabra.categoria=${req.session.idcategoria} and palabrausuario.usuario is null
+        `;
+        let palabras = await pool.query(query, []);
+        //  res.send(query);
         res.json(palabras);
     }
 }
@@ -143,17 +181,18 @@ controller.verificaToken = (req, res, netx) => {
     /*var token = req.session.token;
 
     jwt.verify(token, process.env.seed, (err, decode) => {
-            if (err) {
-                res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-            } else {
-                req.session.usuario = decode.usuario;
-                console.log(req.session.usuario);
-                netx();
-            }
-        })
-        */
+        if (err) {
+            res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+        } else {
+            req.session.usuario = decode.usuario;
+            console.log(req.session.usuario);
+            netx();
+        }
+    })
+
+    */
     const newuser = {
-        username: 'a',
+        username: 'q',
         nombre: 'a',
         paterno: 'a',
         materno: 'a',

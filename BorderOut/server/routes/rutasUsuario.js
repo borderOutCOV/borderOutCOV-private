@@ -18,6 +18,7 @@ router.get('/escogePalabras', controller.verificaToken, controller.abreTinder);
 router.get('/categorias', controller.getCategorias);
 router.get('/setcategoria/:id', controller.setcategoria);
 router.get('/getPalabras', controller.getPalabras);
+router.post('/postPalabras', controller.postPalabras);
 
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 module.exports = router;
