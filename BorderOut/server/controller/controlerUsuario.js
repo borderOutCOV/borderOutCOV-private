@@ -139,8 +139,8 @@ controller.save = async(req, res) => {
                 }, process.env.seed, { expiresIn: 60 * 60 * 24 * 30 });
 
 
-                req.token = token;
-                console.log(req.token);
+                req.session.token = token;
+                console.log(token);
                 res.redirect('videos');
             } catch {
                 res.render('error', { mensaje: "Hubo un error al tratar de guardar la información" });
@@ -178,7 +178,9 @@ controller.login = async(req, res) => {
 }
 
 controller.verificaToken = (req, res, netx) => {
-    /*var token = req.session.token;
+
+    /*
+    var token = req.session.token;
 
     jwt.verify(token, process.env.seed, (err, decode) => {
         if (err) {
@@ -189,8 +191,10 @@ controller.verificaToken = (req, res, netx) => {
             netx();
         }
     })
-
     */
+
+    
+    
     const newuser = {
         username: 'q',
         nombre: 'a',
@@ -204,6 +208,7 @@ controller.verificaToken = (req, res, netx) => {
     };
     req.session.usuario = newuser;
     netx();
+    
 }
 
 module.exports = controller;
