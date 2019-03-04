@@ -113,6 +113,26 @@ controller.abreLogin = (req, res) => {
 controller.abreError = (req, res) => {
     res.render('error', { mensaje: "No has iniciado sección" });
 }
+controller.addWord = async(req, res) => {
+
+    const newPalabraUsuario = {
+        IdPalabra: null,
+        ingles: req.body.pingles,
+        nivel: 3,
+        categoria: 5,
+        idTipoPalabra: 6,
+        espanol: req.body.pespanol,
+        usuario: req.session.usuario.username,
+        estado: 1,
+        contador: 21
+    }
+    try {
+        pool.query('INSERT INTO palabraagregadausuario set ?', [newPalabraUsuario]);
+        res.render("addPalabra", {});
+    } catch {
+        res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
+    }
+}
 
 controller.save = async(req, res) => {
     req.body.password = encriptaContrasena(req.body.password);
@@ -193,8 +213,8 @@ controller.verificaToken = (req, res, netx) => {
     })
     */
 
-    
-    
+
+
     const newuser = {
         username: 'q',
         nombre: 'a',
@@ -208,7 +228,7 @@ controller.verificaToken = (req, res, netx) => {
     };
     req.session.usuario = newuser;
     netx();
-    
+
 }
 
 module.exports = controller;
