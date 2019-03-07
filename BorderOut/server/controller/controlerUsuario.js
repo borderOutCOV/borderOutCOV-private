@@ -88,6 +88,11 @@ controller.abreAddPalabra = (req, res) => {
     res.render(`addPalabra`, {});
 }
 
+controller.openMyWords = (req, res) => {
+    console.log(req.body.id);
+    res.render(`myWords`, {});
+}
+
 //Funciones de apollo 
 function encriptaContrasena(contrasena) {
     var salt = bcryptjs.genSaltSync(10);

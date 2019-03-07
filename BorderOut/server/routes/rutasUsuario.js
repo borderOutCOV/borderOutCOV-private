@@ -21,6 +21,6 @@ router.get('/getPalabras', controller.getPalabras);
 router.post('/postPalabras', controller.postPalabras);
 router.post('/addWord', controller.addWord);
 
-
+router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 module.exports = router;
