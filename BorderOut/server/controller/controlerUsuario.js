@@ -21,7 +21,7 @@ controller.postPalabras = async(req, res) => {
     const newPalabra = {
         estado: 1,
         contador: 20,
-        usuario: req.session.usuario.username,
+        usuario: req.session.usuario,
         palabra: req.body.palabra,
         id: null
     };
@@ -33,7 +33,19 @@ controller.postPalabras = async(req, res) => {
 
 
 
-
+controller.getMyWords = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
+        SELECT  ingles, espanol
+        FROM limitbreaker.palabraagregadausuario
+        WHERE usuario="${req.session.usuario.correo}" `;
+        let palabras = await pool.query(query, []);
+        //  res.send(query);
+        res.json(palabras);
+    }
+}
 
 
 
@@ -127,7 +139,7 @@ controller.addWord = async(req, res) => {
         categoria: 5,
         idTipoPalabra: 6,
         espanol: req.body.pespanol,
-        usuario: req.session.usuario.username,
+        usuario: req.session.usuario.correo,
         estado: 1,
         contador: 21
     }
@@ -204,7 +216,7 @@ controller.login = async(req, res) => {
 
 controller.verificaToken = (req, res, netx) => {
 
-    /*
+
     var token = req.session.token;
 
     jwt.verify(token, process.env.seed, (err, decode) => {
@@ -216,23 +228,23 @@ controller.verificaToken = (req, res, netx) => {
             netx();
         }
     })
-    */
 
 
 
-    const newuser = {
-        username: 'q',
-        nombre: 'a',
-        paterno: 'a',
-        materno: 'a',
-        monedas: 5,
-        contrasena: 'a',
-        tipo: 0,
-        enlace: 'aaaaa',
-        correo: 'a'
-    };
-    req.session.usuario = newuser;
-    netx();
+    /*
+        const newuser = {
+            username: 'q',
+            nombre: 'a',
+            paterno: 'a',
+            materno: 'a',
+            monedas: 5,
+            contrasena: 'a',
+            tipo: 0,
+            enlace: 'aaaaa',
+            correo: 'a'
+        };
+        req.session.usuario = newuser;
+        netx();*/
 
 }
 
