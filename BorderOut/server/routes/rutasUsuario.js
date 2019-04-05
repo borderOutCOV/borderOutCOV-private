@@ -13,6 +13,7 @@ router.post('/login', controller.login);
 
 //Solo usuarios autenticados
 router.get('/videos', controller.verificaToken, controller.abreVideos);
+router.get('/practica', controller.verificaToken, controller.abrePractica);
 router.get('/ampliarVocabulario', controller.verificaToken, controller.abreAmpliarVocabulario);
 router.get('/escogePalabras', controller.verificaToken, controller.abreTinder);
 router.get('/categorias', controller.getCategorias);
@@ -21,6 +22,9 @@ router.get('/getPalabras', controller.getPalabras);
 router.get('/getMisPalabras', controller.getMyWords);
 router.post('/postPalabras', controller.postPalabras);
 router.post('/addWord', controller.addWord);
+router.get('/getPalabrasPractica', controller.verificaToken, controller.getPalabrasPractica);
+router.get('/getPalabrasPracticaUsuario', controller.verificaToken, controller.getPalabrasPracticaUsuario);
+
 
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);

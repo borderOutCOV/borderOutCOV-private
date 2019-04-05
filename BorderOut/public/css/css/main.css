@@ -108,3 +108,19 @@ tr:hover td.bonita {
     background-color: #343a40;
     color: white;
 }
+
+.enLinea {
+    display: inline;
+}
+
+.inicio {
+    with: 0%;
+}
+
+.final {
+    with: 100%;
+}
+
+.animacion {
+    tansition: all 2s ease.5s;
+}

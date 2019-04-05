@@ -7,6 +7,9 @@ const controller = {};
 controller.abreVideos = (req, res) => {
     res.render('videos', {});
 }
+controller.abrePractica = (req, res) => {
+    res.render('practica', {});
+}
 controller.abreAmpliarVocabulario = (req, res) => {
     res.render('ampliarVocabulario', {});
 }
@@ -21,10 +24,11 @@ controller.postPalabras = async(req, res) => {
     const newPalabra = {
         estado: 1,
         contador: 20,
-        usuario: req.session.usuario,
+        usuario: req.session.usuario.username,
         palabra: req.body.palabra,
         id: null
     };
+    console.log(req.session.usuario.username);
     await pool.query('INSERT INTO palabrausuario set ?', [newPalabra]);
     console.log(newPalabra);
 
@@ -60,7 +64,7 @@ controller.getMyWords = async(req, res) => {
 
 controller.getPalabras = async(req, res) => {
     if (req.session.idcategoria == undefined) {
-        res.json();
+        res.send("Error");
     } else {
 
 
@@ -75,6 +79,33 @@ controller.getPalabras = async(req, res) => {
         //  res.send(query);
         res.json(palabras);
     }
+}
+controller.getPalabrasPractica = async(req, res) => {
+    if (req.session.usuario.username == undefined) {
+        res.json("Error");
+    } else {
+        var query = `
+        select palabra.ingles, palabra.espanol, palabrausuario.contador, palabrausuario.id from palabra inner join palabrausuario on palabra.IdPalabra=palabrausuario.palabra and palabrausuario.usuario="${req.session.usuario.username}" and palabrausuario.estado=1 order by rand() limit 20;
+        `;
+        let palabras = await pool.query(query, []);
+        //res.send(query);
+        res.json(palabras);
+    }
+    res.json(req.session.username);
+}
+controller.getPalabrasPracticaUsuario = async(req, res) => {
+    if (req.session.usuario.username == undefined) {
+        res.json("Error");
+    } else {
+        var query = `
+        select palabraagregadausuario.ingles, palabraagregadausuario.espanol, palabraagregadausuario.contador, palabraagregadausuario.IdPalabra from palabraagregadausuario where palabraagregadausuario.usuario="${req.session.usuario.username}" and palabraagregadausuario.estado=1 order by rand() limit 20;
+
+        `;
+        let palabras = await pool.query(query, []);
+        //res.send(query);
+        res.json(palabras);
+    }
+    res.json(req.session.username);
 }
 
 
@@ -243,8 +274,9 @@ controller.verificaToken = (req, res, netx) => {
             enlace: 'aaaaa',
             correo: 'a'
         };
-        req.session.usuario = newuser;
-        netx();*/
+        req.session.usuario = newuser;*/
+
+    //netx();
 
 }
 
