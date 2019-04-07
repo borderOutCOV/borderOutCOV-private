@@ -24,6 +24,9 @@ router.post('/postPalabras', controller.postPalabras);
 router.post('/addWord', controller.addWord);
 router.get('/getPalabrasPractica', controller.verificaToken, controller.getPalabrasPractica);
 router.get('/getPalabrasPracticaUsuario', controller.verificaToken, controller.getPalabrasPracticaUsuario);
+router.post('/setNuevoContador', controller.verificaToken, controller.setNuevoContador);
+router.post('/setNuevoContadorPractica', controller.verificaToken, controller.setNuevoContadorPractica);
+
 
 
 router.get('/myWords', controller.verificaToken, controller.openMyWords);

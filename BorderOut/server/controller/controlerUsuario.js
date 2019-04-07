@@ -18,7 +18,14 @@ controller.getCategorias = async(req, res) => {
     let categorias = await pool.query('SELECT * FROM categoria');
     res.json(categorias)
 }
-
+controller.setNuevoContador = async(req, res) => {
+    await pool.query(`update palabraagregadausuario set contador = ${req.body.contador} where IdPalabra=${req.body.id};`);
+    res.send("Done");
+}
+controller.setNuevoContadorPractica = async(req, res) => {
+    await pool.query(`update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`);
+    res.send("Done");
+}
 controller.postPalabras = async(req, res) => {
 
     const newPalabra = {
@@ -247,36 +254,36 @@ controller.login = async(req, res) => {
 
 controller.verificaToken = (req, res, netx) => {
 
-
-    var token = req.session.token;
-
-    jwt.verify(token, process.env.seed, (err, decode) => {
-        if (err) {
-            res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-        } else {
-            req.session.usuario = decode.usuario;
-            console.log(req.session.usuario);
-            netx();
-        }
-    })
-
-
-
     /*
-        const newuser = {
-            username: 'q',
-            nombre: 'a',
-            paterno: 'a',
-            materno: 'a',
-            monedas: 5,
-            contrasena: 'a',
-            tipo: 0,
-            enlace: 'aaaaa',
-            correo: 'a'
-        };
-        req.session.usuario = newuser;*/
+        var token = req.session.token;
 
-    //netx();
+        jwt.verify(token, process.env.seed, (err, decode) => {
+            if (err) {
+                res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+            } else {
+                req.session.usuario = decode.usuario;
+                console.log(req.session.usuario);
+                netx();
+            }
+        })*/
+
+
+
+
+    const newuser = {
+        username: 'q',
+        nombre: 'a',
+        paterno: 'a',
+        materno: 'a',
+        monedas: 5,
+        contrasena: 'a',
+        tipo: 0,
+        enlace: 'aaaaa',
+        correo: 'a'
+    };
+    req.session.usuario = newuser;
+
+    netx();
 
 }
 
