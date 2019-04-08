@@ -26,6 +26,10 @@ controller.setNuevoContadorPractica = async(req, res) => {
     await pool.query(`update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`);
     res.send("Done");
 }
+controller.deletePalabra = async(req, res) => {
+    await pool.query(`DELETE FROM palabraagregadausuario WHERE IdPalabra =${req.body.id};`);
+    res.send("Done");
+}
 controller.postPalabras = async(req, res) => {
 
     const newPalabra = {
@@ -41,15 +45,12 @@ controller.postPalabras = async(req, res) => {
 
     res.send("Done");
 }
-
-
-
 controller.getMyWords = async(req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
         var query = `
-        SELECT  ingles, espanol
+        SELECT  ingles, espanol,IdPalabra
         FROM limitbreaker.palabraagregadausuario
         WHERE usuario="${req.session.usuario.correo}" `;
         let palabras = await pool.query(query, []);
@@ -58,23 +59,10 @@ controller.getMyWords = async(req, res) => {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 controller.getPalabras = async(req, res) => {
     if (req.session.idcategoria == undefined) {
         res.send("Error");
     } else {
-
-
         var query = `
         SELECT  IdPalabra, ingles, espanol, palabrausuario.usuario, palabra, categoria
         FROM palabra
@@ -114,10 +102,6 @@ controller.getPalabrasPracticaUsuario = async(req, res) => {
     }
     res.json(req.session.username);
 }
-
-
-
-
 
 controller.setcategoria = (req, res) => {
     req.session.idcategoria = req.params.id;

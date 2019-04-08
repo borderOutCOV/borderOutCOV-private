@@ -20,6 +20,7 @@ router.get('/categorias', controller.getCategorias);
 router.get('/setcategoria/:id', controller.setcategoria);
 router.get('/getPalabras', controller.getPalabras);
 router.get('/getMisPalabras', controller.getMyWords);
+router.post('/borrarPalabra', controller.deletePalabra);
 router.post('/postPalabras', controller.postPalabras);
 router.post('/addWord', controller.addWord);
 router.get('/getPalabrasPractica', controller.verificaToken, controller.getPalabrasPractica);
