@@ -38,7 +38,6 @@ function renderizarMisPalabras() {
 
 $(document).on('click', '.btn-danger', function() {
     var idBorrar = $(this).data("elemento");
-    alert(idBorrar);
     if (confirm("Estas seguro de eliminar esa Palabra?")) {
         $.ajax({
             url: '/borrarPalabra',
