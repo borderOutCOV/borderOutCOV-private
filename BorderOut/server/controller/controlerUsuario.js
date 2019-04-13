@@ -58,6 +58,19 @@ controller.getMyWords = async(req, res) => {
         res.json(palabras);
     }
 }
+controller.findFriend = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
+        SELECT  ingles, espanol,IdPalabra
+        FROM limitbreaker.palabraagregadausuario
+        WHERE usuario="${req.session.usuario.correo}" `;
+        let palabras = await pool.query(query, []);
+        //  res.send(query);
+        res.json(palabras);
+    }
+}
 
 controller.getPalabras = async(req, res) => {
     if (req.session.idcategoria == undefined) {
@@ -126,6 +139,12 @@ controller.openMyWords = (req, res) => {
     console.log(req.body.id);
     res.render(`myWords`, {});
 }
+
+controller.openfindFriend = (req, res) => {
+    console.log(req.body.id);
+    res.render(`findFriend`, {});
+}
+
 
 //Funciones de apollo 
 function encriptaContrasena(contrasena) {
