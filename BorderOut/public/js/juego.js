@@ -81,7 +81,6 @@ function verificando(e) {
                     palabrasEliminadas.push(palabrasSwap[indice]);
                 }
                 if (palabrasSwap[indice].tipo == "agregada") {
-
                     if (!palabrasSwap[indice].equibocacion) {
                         e.preventDefault();
                         $.ajax({
