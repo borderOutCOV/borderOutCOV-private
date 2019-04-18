@@ -27,6 +27,7 @@ router.get('/getPalabrasPractica', controller.verificaToken, controller.getPalab
 router.get('/getPalabrasPracticaUsuario', controller.verificaToken, controller.getPalabrasPracticaUsuario);
 router.post('/setNuevoContador', controller.verificaToken, controller.setNuevoContador);
 router.post('/setNuevoContadorPractica', controller.verificaToken, controller.setNuevoContadorPractica);
+router.post('/editarPalabra', controller.editarPalabra);
 
 
 

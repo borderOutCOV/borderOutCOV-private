@@ -30,6 +30,16 @@ controller.deletePalabra = async(req, res) => {
     await pool.query(`DELETE FROM palabraagregadausuario WHERE IdPalabra =${req.body.id};`);
     res.send("Done");
 }
+
+controller.editarPalabra = async(req, res) => {
+    var datos = req.body.datos.split("/");
+    var espanol = datos[0];
+    var ingles = datos[1];
+    var id = datos[2];
+    await pool.query(`UPDATE palabraagregadausuario SET ingles='${ingles}', espanol='${espanol}' WHERE IdPalabra =${id};`);
+    res.send("Done");
+}
+
 controller.postPalabras = async(req, res) => {
 
     const newPalabra = {
