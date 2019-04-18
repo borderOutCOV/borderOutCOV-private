@@ -19,11 +19,22 @@ controller.getCategorias = async(req, res) => {
     res.json(categorias)
 }
 controller.setNuevoContador = async(req, res) => {
-    await pool.query(`update palabraagregadausuario set contador = ${req.body.contador} where IdPalabra=${req.body.id};`);
+    if (req.body.contador > 0) {
+        query = `update palabraagregadausuario set contador = ${req.body.contador} where IdPalabra=${req.body.id};`;
+    } else {
+        query = `update palabraagregadausuario set contador = ${req.body.contador}, estado=2 where IdPalabra=${req.body.id};`;
+    }
+    await pool.query(query);
     res.send("Done");
 }
 controller.setNuevoContadorPractica = async(req, res) => {
-    await pool.query(`update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`);
+    if (req.body.contador > 0) {
+        query = `update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`;
+    } else {
+        query = `update palabrausuario set contador = ${req.body.contador}, estado=2 where id=${req.body.id};`;
+        //console.log("Es mayor");
+    }
+    await pool.query(query);
     res.send("Done");
 }
 controller.deletePalabra = async(req, res) => {
@@ -60,12 +71,12 @@ controller.getMyWords = async(req, res) => {
         res.json();
     } else {
         var query = `
-        SELECT  ingles, espanol,IdPalabra
-        FROM limitbreaker.palabraagregadausuario
-        WHERE usuario="${req.session.usuario.correo}" `;
+         SELECT  ingles, espanol,IdPalabra
+         FROM palabraagregadausuario
+         WHERE usuario="${req.session.usuario.username}" `;
         let palabras = await pool.query(query, []);
-        //  res.send(query);
         res.json(palabras);
+        //res.send(req.session.usuario.username);
     }
 }
 controller.findFriend = async(req, res) => {
@@ -75,7 +86,7 @@ controller.findFriend = async(req, res) => {
         var query = `
         SELECT  ingles, espanol,IdPalabra
         FROM limitbreaker.palabraagregadausuario
-        WHERE usuario="${req.session.usuario.correo}" `;
+        WHERE usuario="${req.session.usuario.username}" `;
         let palabras = await pool.query(query, []);
         //  res.send(query);
         res.json(palabras);
