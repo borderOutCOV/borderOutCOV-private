@@ -3,6 +3,8 @@ var divPrincipal = $('.principal');
 var traduciendo = $('#traduciendo');
 var answer = $('#answer');
 var verificaRespuesta = $("#verificaRespuesta");
+var reproducirAudio = $("#reproducirAudio");
+
 var restantes = $('#restantes');
 var barra = $('#barra');
 var equibocacion = $("#equibocacion");
@@ -53,6 +55,7 @@ async function getPalabras() {
             }
             indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
             html = `Traduce ${palabrasSwap[indice].espanol}`;
+            responsiveVoice.speak(palabrasSwap[indice].ingles);
             traduciendo.html(html);
             html = "";
             equibocacion.html(html);
@@ -62,12 +65,20 @@ async function getPalabras() {
 }
 getPalabras();
 verificaRespuesta.on('click', verificando);
+reproducirAudio.on('click',reproducir);
+
+
 
 answer.keypress(function(e) {
     if (e.which == 13) {
         verificando(e);
     }
 });
+
+function reproducir(e) {
+    responsiveVoice.speak(palabrasSwap[indice].ingles);
+    
+}
 
 function verificando(e) {
     if (bandera) {
