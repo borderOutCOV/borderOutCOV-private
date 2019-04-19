@@ -173,6 +173,7 @@ function verificando(e) {
                 indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
                 html = `Traduce ${palabrasSwap[indice].espanol}`
                 traduciendo.html(html);
+                responsiveVoice.speak(palabrasSwap[indice].ingles);
             }
         }
     } else {
