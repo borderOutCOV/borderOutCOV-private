@@ -33,19 +33,23 @@ async function getPalabras() {
     await $.ajax({
         url: '/getPalabrasPracticaUsuario',
         success: function(palabras) {
-            for (var i = 0; i < palabras.length; i++) {
-                nuevoelemento = {
-                    ingles: palabras[i].ingles,
-                    espanol: palabras[i].espanol,
-                    contador: palabras[i].contador,
-                    id: palabras[i].IdPalabra,
-                    tipo: "agregada",
-                    equibocacion: false
-                }
+            try {
+                for (var i = 0; i < palabras.length; i++) {
+                    nuevoelemento = {
+                        ingles: palabras[i].ingles,
+                        espanol: palabras[i].espanol,
+                        contador: palabras[i].contador,
+                        id: palabras[i].IdPalabra,
+                        tipo: "agregada",
+                        equibocacion: false
+                    }
 
-                palabrasSwap.push(nuevoelemento);
+                    palabrasSwap.push(nuevoelemento);
+                }
+            } catch {
+
             }
-            if (palabrasSwap.length < 21) {
+            if (palabrasSwap.length < 20) {
                 var insuficiente = `<h2>No tienes suficientes palabras para jugar, te hacen falta al menos ${20-palabrasSwap.length} palabras, ve a "ampliar vocabulario" o "mis palabras-> agregar palabras" para conseguir algunas</h2>`;
                 divPrincipal.html(insuficiente);
             }
@@ -65,7 +69,7 @@ async function getPalabras() {
 }
 getPalabras();
 verificaRespuesta.on('click', verificando);
-reproducirAudio.on('click',reproducir);
+reproducirAudio.on('click', reproducir);
 
 
 
@@ -77,7 +81,7 @@ answer.keypress(function(e) {
 
 function reproducir(e) {
     responsiveVoice.speak(palabrasSwap[indice].ingles);
-    
+
 }
 
 function verificando(e) {

@@ -7,6 +7,10 @@ const controller = {};
 controller.abreVideos = (req, res) => {
     res.render('videos', {});
 }
+controller.agregarCategoria = (req, res) => {
+    res.render('agregarCategoriaAdmin', {});
+}
+
 controller.abrePractica = (req, res) => {
     res.render('practica', {});
 }
@@ -201,12 +205,13 @@ controller.addWord = async(req, res) => {
         categoria: 5,
         idTipoPalabra: 6,
         espanol: req.body.pespanol,
-        usuario: req.session.usuario.correo,
+        usuario: req.session.usuario.username,
         estado: 1,
         contador: 21
     }
     try {
         pool.query('INSERT INTO palabraagregadausuario set ?', [newPalabraUsuario]);
+        // res.send("funciomo");
         res.render("addPalabra", {});
     } catch {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
@@ -278,37 +283,42 @@ controller.login = async(req, res) => {
 
 controller.verificaToken = (req, res, netx) => {
 
-    /*
-        var token = req.session.token;
 
-        jwt.verify(token, process.env.seed, (err, decode) => {
-            if (err) {
-                res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-            } else {
-                req.session.usuario = decode.usuario;
-                console.log(req.session.usuario);
-                netx();
-            }
-        })*/
+    /* var token = req.session.token;
+
+     jwt.verify(token, process.env.seed, (err, decode) => {
+         if (err) {
+             res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+         } else {
+             req.session.usuario = decode.usuario;
+             console.log(req.session.usuario);
+             netx();
+         }
+     })*/
 
 
 
 
     const newuser = {
         username: 'q',
-        nombre: 'a',
-        paterno: 'a',
-        materno: 'a',
+        nombre: 'q',
+        paterno: 'q',
+        materno: 'q',
         monedas: 5,
-        contrasena: 'a',
-        tipo: 0,
+        contrasena: 'q',
+        tipo: 1,
         enlace: 'aaaaa',
-        correo: 'a'
+        correo: 'q'
     };
     req.session.usuario = newuser;
 
     netx();
 
 }
-
+controller.verificaAdmin = (req, res, netx) => {
+    if (req.session.usuario.tipo == 1) {
+        netx();
+    }
+    res.render('error', { mensaje: `No está autorizado para ver esta información` });
+}
 module.exports = controller;
