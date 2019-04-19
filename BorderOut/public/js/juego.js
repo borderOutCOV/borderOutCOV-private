@@ -152,12 +152,12 @@ function verificando(e) {
                     if (palabrasEliminadas != 0) {
                         if (palabrasEliminadas.length == 1) {
                             html += `<h4>Palabra aprendida</h4>
-                                    <h6 >${palabrasEliminadas[0].espanol} + 3 monedas</h6>`;
+                                    <h6 >${palabrasEliminadas[0].espanol} + 5 monedas</h6>`;
                             monedas += 5;
                         } else {
                             html += `<h4>Palabras aprendidas</h4>`
                             for (var i = 0; i < palabrasEliminadas.length; i++) {
-                                html += `<h6 >${palabrasEliminadas[i].espanol} + 3 monedas</h6>`;
+                                html += `<h6 >${palabrasEliminadas[i].espanol} + 5 monedas</h6>`;
                                 monedas += 5;
                             }
                         }
@@ -168,6 +168,17 @@ function verificando(e) {
                             <p class="text-center"><button class="btn btn btn-success" type="button" id="nuevoJuego" name="nuevoJuego">Nuevo Juego</button></p>
                             `;
                     divFinal.html(html)
+                    e.preventDefault();
+                    $.ajax({
+                        url: '/setMonedas',
+                        method: 'POST',
+                        data: {
+                            monedas
+                        },
+                        success: function() {
+                            console.log("exito");
+                        }
+                    });
                 }
             } else {
                 answer.value = "";

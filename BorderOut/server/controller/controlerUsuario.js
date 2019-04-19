@@ -36,8 +36,12 @@ controller.setNuevoContadorPractica = async(req, res) => {
         query = `update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`;
     } else {
         query = `update palabrausuario set contador = ${req.body.contador}, estado=2 where id=${req.body.id};`;
-        //console.log("Es mayor");
     }
+    await pool.query(query);
+    res.send("Done");
+}
+controller.setMonedas = async(req, res) => {
+    query = `update usuario set monedas = monedas+${req.body.monedas} where username="${req.session.usuario.username}";`;
     await pool.query(query);
     res.send("Done");
 }
