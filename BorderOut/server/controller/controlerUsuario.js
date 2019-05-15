@@ -174,8 +174,12 @@ controller.openfindFriend = (req, res) => {
     res.render(`findFriend`, {});
 }
 
+controller.abreConfigurar = (req, res) => {
+    res.render('configuration', {});
+}
 
-//Funciones de apollo 
+
+//Funciones de apollo
 function encriptaContrasena(contrasena) {
     var salt = bcryptjs.genSaltSync(10);
     var hash = bcryptjs.hashSync(contrasena, salt);
@@ -200,6 +204,8 @@ controller.abreLogin = (req, res) => {
 controller.abreError = (req, res) => {
     res.render('error', { mensaje: "No has iniciado sección" });
 }
+
+
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {

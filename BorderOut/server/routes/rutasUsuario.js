@@ -15,6 +15,7 @@ router.post('/login', controller.login);
 router.get('/videos', controller.verificaToken, controller.abreVideos);
 router.get('/practica', controller.verificaToken, controller.abrePractica);
 router.get('/ampliarVocabulario', controller.verificaToken, controller.abreAmpliarVocabulario);
+router.get('/configurar', controller.verificaToken, controller.abreConfigurar);
 router.get('/escogePalabras', controller.verificaToken, controller.abreTinder);
 router.get('/categorias', controller.verificaToken, controller.getCategorias);
 router.get('/setcategoria/:id', controller.verificaToken, controller.setcategoria);
