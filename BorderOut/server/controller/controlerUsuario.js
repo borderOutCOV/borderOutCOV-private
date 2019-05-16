@@ -50,6 +50,15 @@ controller.deletePalabra = async(req, res) => {
     res.send("Done");
 }
 
+controller.repasaPalabra = async(req, res) => {
+    var datos = req.body.datos.split("/");
+    var id = datos[2];
+    var bd_update = datos[3];
+    var id_tabla = datos[4];
+    await pool.query(`UPDATE ${bd_update} SET estado=1 WHERE ${id_tabla}=${id};`);
+    res.send("Done");
+}
+
 controller.editarPalabra = async(req, res) => {
     var datos = req.body.datos.split("/");
     var espanol = datos[0];

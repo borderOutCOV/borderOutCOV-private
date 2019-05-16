@@ -29,9 +29,9 @@ router.get('/getPalabrasPracticaUsuario', controller.verificaToken, controller.g
 router.post('/setNuevoContador', controller.verificaToken, controller.setNuevoContador);
 router.post('/setNuevoContadorPractica', controller.verificaToken, controller.setNuevoContadorPractica);
 router.post('/setMonedas', controller.verificaToken, controller.setMonedas);
-router.post('/editarPalabra', controller.editarPalabra);
 router.post('/editarPalabra', controller.verificaToken, controller.editarPalabra);
 router.get('/getPalabrasAprendidas', controller.verificaToken, controller.getPalabrasAprendidas);
+router.post('/repasaPalabra', controller.verificaToken, controller.repasaPalabra);
 
 
 router.get('/myWords', controller.verificaToken, controller.openMyWords);

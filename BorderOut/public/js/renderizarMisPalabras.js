@@ -40,7 +40,7 @@ $(document).on('click', '#eliminar', function() {
     var datos = $(this).data("elemento");
     var divisiones = datos.split("/");
     var idBorrar = divisiones[2];
-    if (confirm("Estas seguro de eliminar esa Palabra?")) {
+    if (confirm("Estas seguro de eliminar \"" + divisiones[0] + "/" + divisiones[1] + "\"" + " ?")) {
         $.ajax({
             url: '/borrarPalabra',
             method: 'POST',
