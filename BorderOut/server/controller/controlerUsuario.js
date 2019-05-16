@@ -87,6 +87,26 @@ controller.getMyWords = async(req, res) => {
         //res.send(req.session.usuario.username);
     }
 }
+
+
+
+controller.getUserData = async(req, res) => {
+    if (req.session.usuario.correo == undefined)
+    {
+        res.json();
+    }
+    else
+    {
+
+      var query = `
+      SELECT  username, nombre, paterno, materno
+      FROM usuario
+      WHERE username="${req.session.usuario.username}" `;
+      let data = await pool.query(query, []);
+      res.json(data);
+    }
+}
+
 controller.findFriend = async(req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();

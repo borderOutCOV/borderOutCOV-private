@@ -36,6 +36,9 @@ router.post('/editarPalabra', controller.editarPalabra);
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 router.get('/findFriend', controller.verificaToken, controller.openfindFriend);
+router.get('/getUserData', controller.verificaToken, controller.getUserData);
+
+
 
 //Solo administradores
 router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.agregarCategoria);
