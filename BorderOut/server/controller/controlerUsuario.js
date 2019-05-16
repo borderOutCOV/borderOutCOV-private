@@ -88,22 +88,17 @@ controller.getMyWords = async(req, res) => {
     }
 }
 
-
-
 controller.getUserData = async(req, res) => {
-    if (req.session.usuario.correo == undefined)
-    {
+    if (req.session.usuario.correo == undefined) {
         res.json();
-    }
-    else
-    {
+    } else {
 
-      var query = `
+        var query = `
       SELECT  username, nombre, paterno, materno
       FROM usuario
       WHERE username="${req.session.usuario.username}" `;
-      let data = await pool.query(query, []);
-      res.json(data);
+        let data = await pool.query(query, []);
+        res.json(data);
     }
 }
 
@@ -122,7 +117,7 @@ controller.findFriend = async(req, res) => {
 }
 
 controller.getPalabras = async(req, res) => {
-    if (req.session.idcategoria == undefined) {
+    if (req.session.usuario.correo == undefined) {
         res.send("Error");
     } else {
         var query = `
@@ -135,6 +130,29 @@ controller.getPalabras = async(req, res) => {
         let palabras = await pool.query(query, []);
         //  res.send(query);
         res.json(palabras);
+    }
+}
+controller.getPalabrasAprendidas = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.send("Error");
+    } else {
+        var query = `
+        SELECT  p.ingles,p.espanol,pu.palabra
+        FROM palabrausuario AS pu
+        LEFT JOIN palabra AS p
+        ON pu.palabra=p.IdPalabra
+        WHERE pu.estado=2 AND pu.usuario="${req.session.usuario.username}"; `;
+        var query1 = `
+        SELECT  ingles,espanol,IdPalabra
+        from palabraagregadausuario 
+        where estado=2 and usuario="${req.session.usuario.username}";`;
+        let palabrasUsuario = await pool.query(query, []);
+        let palabrasAgregadaUsuario = await pool.query(query1, []);
+        //  res.send(query);
+        var result = [];
+        result.push(palabrasUsuario);
+        result.push(palabrasAgregadaUsuario);
+        res.json(result);
     }
 }
 controller.getPalabrasPractica = async(req, res) => {
@@ -197,9 +215,12 @@ controller.openfindFriend = (req, res) => {
 controller.abreConfigurar = (req, res) => {
     res.render('configuration', {});
 }
+controller.abrePalabrasAprendidas = (req, res) => {
+    console.log(req.body.id);
+    res.render(`palabras_aprendidas`, {});
+}
 
-
-//Funciones de apollo
+//Funciones de apoyo
 function encriptaContrasena(contrasena) {
     var salt = bcryptjs.genSaltSync(10);
     var hash = bcryptjs.hashSync(contrasena, salt);

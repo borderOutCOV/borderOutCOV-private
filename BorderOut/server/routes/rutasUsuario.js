@@ -30,10 +30,12 @@ router.post('/setNuevoContador', controller.verificaToken, controller.setNuevoCo
 router.post('/setNuevoContadorPractica', controller.verificaToken, controller.setNuevoContadorPractica);
 router.post('/setMonedas', controller.verificaToken, controller.setMonedas);
 router.post('/editarPalabra', controller.editarPalabra);
-
+router.post('/editarPalabra', controller.verificaToken, controller.editarPalabra);
+router.get('/getPalabrasAprendidas', controller.verificaToken, controller.getPalabrasAprendidas);
 
 
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
+router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePalabrasAprendidas);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 router.get('/findFriend', controller.verificaToken, controller.openfindFriend);
 router.get('/getUserData', controller.verificaToken, controller.getUserData);
