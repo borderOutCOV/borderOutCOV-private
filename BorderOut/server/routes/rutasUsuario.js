@@ -39,6 +39,7 @@ router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePala
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 router.get('/findFriend', controller.verificaToken, controller.openfindFriend);
 router.get('/getUserData', controller.verificaToken, controller.getUserData);
+router.post('/changeUserData', controller.verificaToken, controller.changeUserData);
 
 
 

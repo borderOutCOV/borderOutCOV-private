@@ -153,7 +153,7 @@ controller.getPalabrasAprendidas = async(req, res) => {
         WHERE pu.estado=2 AND pu.usuario="${req.session.usuario.username}"; `;
         var query1 = `
         SELECT  ingles,espanol,IdPalabra
-        from palabraagregadausuario 
+        from palabraagregadausuario
         where estado=2 and usuario="${req.session.usuario.username}";`;
         let palabrasUsuario = await pool.query(query, []);
         let palabrasAgregadaUsuario = await pool.query(query1, []);
@@ -255,6 +255,29 @@ controller.abreError = (req, res) => {
     res.render('error', { mensaje: "No has iniciado sección" });
 }
 
+
+controller.changeUserData = async(req, res) => {
+    var username = req.body.username;
+    var nombre = req.body.nombre;
+    var paterno = req.body.paterno;
+    var materno = req.body.materno;
+    var contra = req.body.contra;
+
+    try {
+      let username_exists = await pool.query(`SELECT * FROM usuario where username = '${username}';`);
+      //res.send(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
+      await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
+      if(contra.length > 0)
+      {
+        contra = encriptaContrasena(contra);
+        await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
+      }
+      res.render("configuration", {});
+
+    } catch {
+        res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
+    }
+}
 
 controller.addWord = async(req, res) => {
 
