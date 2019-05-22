@@ -272,6 +272,8 @@ controller.changeUserData = async(req, res) => {
         contra = encriptaContrasena(contra);
         await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
       }
+
+
       res.render("configuration", {});
 
     } catch {
