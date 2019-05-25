@@ -18,13 +18,14 @@
                <input class="form-control" type="text" name="materno" placeholder="" id="materno">
                <label class="text-center">Contraseña:</label>
                <input class="form-control" type="text" name="contra" placeholder="" id="contra">
-               <label class="text-center">Subir nueva foto de perfil:</label>
-               <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpeg">
                <div class="col">
                  <br>
                  <button class= "btn btn-success btn-md btn-block " type="submit" id="btn-changeUserData" name="btn-changeUserData" >Modificar datos</button>
                </div>
              </form>
+             <br>
+             <label class="text-center">Subir nueva foto de perfil:</label>
+             <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpeg">
         </main>
         <div class="col-md-2"></div>
         {{> amigos}}
@@ -32,4 +33,5 @@
 </div>
 {{> footer}}
 <script src="js/getUserData.js"></script>
+<script src="js/uploadFile.js"></script>
 {{> librerias}}

@@ -256,12 +256,14 @@ controller.abreError = (req, res) => {
 }
 
 
+
 controller.changeUserData = async(req, res) => {
     var username = req.body.username;
     var nombre = req.body.nombre;
     var paterno = req.body.paterno;
     var materno = req.body.materno;
     var contra = req.body.contra;
+    res.send(req.body.foto);
 
     try {
       let username_exists = await pool.query(`SELECT * FROM usuario where username = '${username}';`);
