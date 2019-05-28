@@ -164,6 +164,22 @@ controller.getPalabrasAprendidas = async(req, res) => {
         res.json(result);
     }
 }
+controller.getPalabrasActuales = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.send("Error");
+    } else {
+        var query = `
+        SELECT  p.ingles,p.espanol,pu.palabra
+        FROM palabrausuario AS pu
+        LEFT JOIN palabra AS p
+        ON pu.palabra=p.IdPalabra
+        WHERE pu.estado=1 AND pu.usuario="${req.session.usuario.username}"; `;
+        let palabrasUsuario = await pool.query(query, []);
+        var result = [];
+        result.push(palabrasUsuario);
+        res.json(result);
+    }
+}
 controller.getPalabrasPractica = async(req, res) => {
     if (req.session.usuario.username == undefined) {
         res.json("Error");
@@ -225,8 +241,12 @@ controller.abreConfigurar = (req, res) => {
     res.render('configuration', {});
 }
 controller.abrePalabrasAprendidas = (req, res) => {
-    console.log(req.body.id);
     res.render(`palabras_aprendidas`, {});
+}
+
+controller.abrePalabrasActuales = (req, res) => {
+    console.log(req.body.id);
+    res.render(`palabras_actuales`, {});
 }
 
 //Funciones de apoyo
@@ -266,17 +286,16 @@ controller.changeUserData = async(req, res) => {
     res.send(req.body.foto);
 
     try {
-      let username_exists = await pool.query(`SELECT * FROM usuario where username = '${username}';`);
-      //res.send(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
-      await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
-      if(contra.length > 0)
-      {
-        contra = encriptaContrasena(contra);
-        await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
-      }
+        let username_exists = await pool.query(`SELECT * FROM usuario where username = '${username}';`);
+        //res.send(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
+        await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
+        if (contra.length > 0) {
+            contra = encriptaContrasena(contra);
+            await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
+        }
 
 
-      res.render("configuration", {});
+        res.render("configuration", {});
 
     } catch {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });

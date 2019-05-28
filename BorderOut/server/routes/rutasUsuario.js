@@ -9,8 +9,6 @@ router.get('/', controller.abreLogin);
 router.get('/error', controller.abreError);
 router.post('/agregar', controller.save);
 router.post('/login', controller.login);
-
-
 //Solo usuarios autenticados
 router.get('/videos', controller.verificaToken, controller.abreVideos);
 router.get('/practica', controller.verificaToken, controller.abrePractica);
@@ -32,14 +30,15 @@ router.post('/setMonedas', controller.verificaToken, controller.setMonedas);
 router.post('/editarPalabra', controller.verificaToken, controller.editarPalabra);
 router.get('/getPalabrasAprendidas', controller.verificaToken, controller.getPalabrasAprendidas);
 router.post('/repasaPalabra', controller.verificaToken, controller.repasaPalabra);
-
+router.get('/getPalabrasActuales', controller.verificaToken, controller.getPalabrasActuales);
 
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
-router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePalabrasAprendidas);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 router.get('/findFriend', controller.verificaToken, controller.openfindFriend);
 router.get('/getUserData', controller.verificaToken, controller.getUserData);
 router.post('/changeUserData', controller.verificaToken, controller.changeUserData);
+router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePalabrasAprendidas);
+router.get('/palabras_actuales', controller.verificaToken, controller.abrePalabrasActuales);
 
 
 
