@@ -3,6 +3,9 @@ const bcryptjs = require('bcryptjs');
 const pool = require('../data/database');
 const jwt = require('jsonwebtoken');
 const controller = {};
+
+
+
 //Rutas de usuario
 controller.abreVideos = (req, res) => {
     res.render('videos', {});
@@ -276,27 +279,24 @@ controller.abreError = (req, res) => {
 }
 
 
-
 controller.changeUserData = async(req, res) => {
+
     var username = req.body.username;
     var nombre = req.body.nombre;
     var paterno = req.body.paterno;
     var materno = req.body.materno;
     var contra = req.body.contra;
-    res.send(req.body.foto);
+    var imagen = req.body.foto_data;
+
 
     try {
-        let username_exists = await pool.query(`SELECT * FROM usuario where username = '${username}';`);
-        //res.send(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
         await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
-        if (contra.length > 0) {
+        if (contra.length > 0)
+        {
             contra = encriptaContrasena(contra);
             await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
         }
-
-
         res.render("configuration", {});
-
     } catch {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
     }

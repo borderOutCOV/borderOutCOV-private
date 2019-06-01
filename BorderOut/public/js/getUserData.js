@@ -8,7 +8,7 @@ function MostrarDatos() {
       {
           if (data != undefined)
           {
-              $("#username").val(data[0].username);
+              //$("#username").val(data[0].username);
               $("#nombre").val(data[0].nombre);
               $("#paterno").val(data[0].paterno);
               $("#materno").val(data[0].materno);

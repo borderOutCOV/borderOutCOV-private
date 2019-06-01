@@ -7,7 +7,7 @@
              <h1 class="text-center">Configuración</h1>
              <label class="text-center">Modifica los datos de tu elección</label>
              <br>
-             <form action="/changeUserData" method="POST">
+             <form action="/changeUserData" method="post">
                <label class="text-center">Nombre de usuario: </label>
                <input class="form-control" type="text" name="username" placeholder="" id="username">
                <label class="text-center">Nombre:</label>
@@ -18,14 +18,18 @@
                <input class="form-control" type="text" name="materno" placeholder="" id="materno">
                <label class="text-center">Contraseña:</label>
                <input class="form-control" type="text" name="contra" placeholder="" id="contra">
+               <label class="text-center">Subir nueva foto de perfil:</label>
+               <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpeg">
+               <br>
+               <img id="imagen" name="imagen" src="" alt="No tienes una foto de perfil" height="100" width="100">
+               <input type="hidden" id="foto_data" name="foto_data" value="">
                <div class="col">
                  <br>
                  <button class= "btn btn-success btn-md btn-block " type="submit" id="btn-changeUserData" name="btn-changeUserData" >Modificar datos</button>
                </div>
              </form>
              <br>
-             <label class="text-center">Subir nueva foto de perfil:</label>
-             <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpeg">
+
         </main>
         <div class="col-md-2"></div>
         {{> amigos}}

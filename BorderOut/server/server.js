@@ -4,9 +4,12 @@ const socketIO = require('socket.io');
 const http = require('http');
 const hbs = require('hbs');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 let server = http.createServer(app);
 const rutasUsuario = require('./routes/rutasUsuario.js');
 const publicPath = path.resolve(__dirname, '../public');

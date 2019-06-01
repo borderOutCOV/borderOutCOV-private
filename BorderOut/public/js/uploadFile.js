@@ -24,7 +24,20 @@ function readFile (evt)
     reader.readAsDataURL(file);
     reader.onload = function ()
     {
-      console.log(reader.result);
+      document.getElementById("foto_data").value= reader.result;
+      document.getElementById("imagen").src= reader.result;
+      /*
+      let blob = new Blob([reader.result], {type: 'text/plain'});
+      console.log(blob);
+      document.getElementById("foto_data").value= blob;
+
+
+      var reader2 = new FileReader();
+      reader2.readAsText(blob);
+      reader2.onload = function() {
+        console.log(reader2.result);
+      };
+      */
     };
   }
 }
