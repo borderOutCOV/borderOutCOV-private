@@ -106,7 +106,7 @@ controller.getUserData = async(req, res) => {
     } else {
 
         var query = `
-      SELECT  username, nombre, paterno, materno
+      SELECT  username, nombre, paterno, materno, foto
       FROM usuario
       WHERE username="${req.session.usuario.username}" `;
         let data = await pool.query(query, []);
@@ -286,6 +286,7 @@ controller.changeUserData = async(req, res) => {
     var paterno = req.body.paterno;
     var materno = req.body.materno;
     var contra = req.body.contra;
+    var contra2 = req.body.contra2;
     var imagen = req.body.foto_data;
 
 
@@ -293,15 +294,21 @@ controller.changeUserData = async(req, res) => {
         await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
         if (contra.length > 0)
         {
+          if(contra.localeCompare(contra2)==0)
+          {
             contra = encriptaContrasena(contra);
             await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
+          }
+        }
+        if(imagen.length > 0)
+        {
+          await pool.query(`UPDATE usuario SET foto='${imagen}' WHERE username ='${req.session.usuario.username}';`);
         }
         res.render("configuration", {});
     } catch {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
     }
 }
-
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {
