@@ -114,18 +114,21 @@ controller.getUserData = async(req, res) => {
     }
 }
 
-controller.findFriend = async(req, res) => {
-    if (req.session.usuario.correo == undefined) {
-        res.json();
-    } else {
-        var query = `
-        SELECT  ingles, espanol,IdPalabra
-        FROM limitbreaker.palabraagregadausuario
-        WHERE usuario="${req.session.usuario.username}" `;
-        let palabras = await pool.query(query, []);
-        //  res.send(query);
-        res.json(palabras);
-    }
+controller.searchFriend = async(req, res) => {
+  if (req.session.usuario.correo == undefined)
+  {
+    res.json();
+  }
+  else
+  {
+    var query = `
+    SELECT  username
+    FROM usuario
+    WHERE username LIKE "%${req.params.friendToFind}%" `;
+    let usuarios = await pool.query(query, []);
+    //  res.send(query);
+    res.json(usuarios);
+  }
 }
 
 controller.getPalabras = async(req, res) => {
@@ -236,7 +239,6 @@ controller.openMyWords = (req, res) => {
 }
 
 controller.openfindFriend = (req, res) => {
-    console.log(req.body.id);
     res.render(`findFriend`, {});
 }
 

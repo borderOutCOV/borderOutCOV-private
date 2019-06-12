@@ -35,6 +35,7 @@ router.get('/getPalabrasActuales', controller.verificaToken, controller.getPalab
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/addPalabra', controller.verificaToken, controller.abreAddPalabra);
 router.get('/findFriend', controller.verificaToken, controller.openfindFriend);
+router.get('/searchFriend/:friendToFind', controller.verificaToken, controller.searchFriend);
 router.get('/getUserData', controller.verificaToken, controller.getUserData);
 router.post('/changeUserData', controller.verificaToken, controller.changeUserData);
 router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePalabrasAprendidas);
