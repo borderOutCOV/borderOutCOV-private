@@ -3,15 +3,6 @@ var divTabla = $('#tabla');
 
 $(document).ready(function()
 {
-  var html5 = '';
-  html5 += `<table class='table table-bordered table-striped table-hover '>
-  <thead class='bonita'>
-      <tr class='bonita'>
-          <th class='text-center'>Usuario</th>
-      </tr>
-  </thead>`;
-  divTabla.html(html5);
-
   fieldListener();
 });
 
@@ -33,12 +24,14 @@ function getFieldValue (evt)
             <thead class='bonita'>
               <tr class='bonita'>
                 <th class='text-center'>Usuario</th>
+                <th class='text-center'></th>
               </tr>
             </thead>`;
             for (var i = 0; i < data.length; i++)
             {
               html5 += `<tr class='bonita'>
                 <td class='bonita text-center'>${data[i].username}</td>
+                <td class='bonita text-center'><button type="button" class="btn btn-info" data-elemento="${data[i].username}" id="agregar">Agregar</button></td>
               </tr>`;
             }
             divTabla.html(html5);
@@ -50,3 +43,22 @@ function getFieldValue (evt)
       }
   })
 }
+
+$(document).on('click', '#agregar', function() {
+    var datos = $(this).data("elemento");
+    $.ajax({
+      url: '/sendFriendRequest/'+datos,
+      success: function(data)
+      {
+        if(data=="Done")
+        {
+          alert("Solicitud enviada");
+        }
+        else
+        {
+          alert("Algo fallo");
+        }
+      }
+    });
+
+});

@@ -131,6 +131,22 @@ controller.searchFriend = async(req, res) => {
   }
 }
 
+controller.sendFriendRequest = async(req, res) => {
+  if (req.session.usuario.correo == undefined)
+  {
+    res.json("Error");
+  }
+  else
+  {
+    const newSolicitud = {
+        emisor: req.session.usuario.username,
+        receptor: req.params.friend
+    };
+    await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
+    res.json("Done");
+  }
+}
+
 controller.getPalabras = async(req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.send("Error");
