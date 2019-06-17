@@ -150,8 +150,11 @@ controller.sendFriendRequest = async(req, res) => {
     FROM amigos
     WHERE amigo1 = "${req.session.usuario.username}" AND amigo2 = "${req.params.friend}";`;
     let solicitud = await pool.query(querySolicitud, []);
-
-    if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0))
+    if(req.session.usuario.username == req.params.friend)
+    {
+      res.json("Same");
+    }
+    else if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0))
     {
       const newSolicitud = {
           emisor: req.session.usuario.username,

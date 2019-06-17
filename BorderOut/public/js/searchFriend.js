@@ -49,8 +49,11 @@ $(document).on('click', '#agregar', function() {
       url: '/sendFriendRequest/'+datos,
       success: function(data)
       {
-        console.log(data);
-        if(data=="Already")
+        if(data=="Same")
+        {
+          alert("No puedes mandarte solicitud a ti mismo");
+        }
+        else if(data=="Already")
         {
           alert("El usuario ya es tu amigo o ya enviste una solicitud");
         }
