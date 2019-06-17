@@ -130,7 +130,6 @@ controller.searchFriend = async(req, res) => {
     res.json(usuarios);
   }
 }
-
 controller.sendFriendRequest = async(req, res) => {
   if (req.session.usuario.correo == undefined)
   {
@@ -138,12 +137,33 @@ controller.sendFriendRequest = async(req, res) => {
   }
   else
   {
-    const newSolicitud = {
-        emisor: req.session.usuario.username,
-        receptor: req.params.friend
-    };
-    await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
-    res.json("Done");
+
+    var isYourFriend = `
+    SELECT  *
+    FROM solicitud
+    WHERE emisor = "${req.session.usuario.username}" AND receptor = "${req.params.friend}";`;
+    let friendAlready = await pool.query(isYourFriend, []);
+
+
+    var querySolicitud = `
+    SELECT  *
+    FROM amigos
+    WHERE amigo1 = "${req.session.usuario.username}" AND amigo2 = "${req.params.friend}";`;
+    let solicitud = await pool.query(querySolicitud, []);
+
+    if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0))
+    {
+      const newSolicitud = {
+          emisor: req.session.usuario.username,
+          receptor: req.params.friend
+      };
+      await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
+      res.json("Done");
+    }
+    else
+    {
+      res.json("Already");
+    }
   }
 }
 

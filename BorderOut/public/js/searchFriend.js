@@ -19,7 +19,6 @@ function getFieldValue (evt)
       {
           if (data != undefined)
           {
-            console.log(data);
             html5 += `<table class='table table-bordered table-striped table-hover '>
             <thead class='bonita'>
               <tr class='bonita'>
@@ -50,7 +49,12 @@ $(document).on('click', '#agregar', function() {
       url: '/sendFriendRequest/'+datos,
       success: function(data)
       {
-        if(data=="Done")
+        console.log(data);
+        if(data=="Already")
+        {
+          alert("El usuario ya es tu amigo o ya enviste una solicitud");
+        }
+        else if(data=="Done")
         {
           alert("Solicitud enviada");
         }
