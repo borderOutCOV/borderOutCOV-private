@@ -143,6 +143,34 @@ controller.searchFriend = async(req, res) => {
     res.json(usuarios);
   }
 }
+
+controller.acceptRequest = async(req, res) => {
+  if (req.session.usuario.correo == undefined)
+  {
+    res.json();
+  }
+  else
+  {
+    var query = `
+    DELETE FROM solicitud
+    WHERE emisor ="${req.session.usuario.username}" AND receptor = "${req.params.friend}" `;
+    await pool.query(query, []);
+
+    var query2 = `
+    DELETE FROM solicitud
+    WHERE emisor ="${req.params.friend}" AND receptor = "${req.session.usuario.username}" `;
+    await pool.query(query2, []);
+
+    const nuevoAmigo = {
+        amigo1: req.session.usuario.username,
+        amigo2: req.params.friend
+    };
+    
+    await pool.query('INSERT INTO amigos set ?', [nuevoAmigo]);
+    res.json("Done");
+  }
+}
+
 controller.sendFriendRequest = async(req, res) => {
   if (req.session.usuario.correo == undefined)
   {
@@ -157,6 +185,12 @@ controller.sendFriendRequest = async(req, res) => {
     WHERE emisor = "${req.session.usuario.username}" AND receptor = "${req.params.friend}";`;
     let friendAlready = await pool.query(isYourFriend, []);
 
+    var isYourFriend2 = `
+    SELECT  *
+    FROM solicitud
+    WHERE emisor = "${req.params.friend}" AND receptor = "${req.session.usuario.username}";`;
+    let friendAlready2 = await pool.query(isYourFriend2, []);
+
 
     var querySolicitud = `
     SELECT  *
@@ -167,7 +201,7 @@ controller.sendFriendRequest = async(req, res) => {
     {
       res.json("Same");
     }
-    else if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0))
+    else if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0) && (friendAlready2 === undefined || friendAlready2.length == 0))
     {
       const newSolicitud = {
           emisor: req.session.usuario.username,
