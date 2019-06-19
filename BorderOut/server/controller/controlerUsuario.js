@@ -114,6 +114,19 @@ controller.getUserData = async(req, res) => {
     }
 }
 
+controller.myRequests = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
+      SELECT  emisor
+      FROM solicitud
+      WHERE receptor="${req.session.usuario.username}" `;
+        let data = await pool.query(query, []);
+        res.json(data);
+    }
+}
+
 controller.searchFriend = async(req, res) => {
   if (req.session.usuario.correo == undefined)
   {
@@ -279,6 +292,10 @@ controller.openMyWords = (req, res) => {
 
 controller.openfindFriend = (req, res) => {
     res.render(`findFriend`, {});
+}
+
+controller.openAcceptFriend = (req,res) => {
+  res.render(`aceptFriend`, {});
 }
 
 controller.abreConfigurar = (req, res) => {
