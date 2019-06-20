@@ -127,6 +127,28 @@ controller.myRequests = async(req, res) => {
     }
 }
 
+
+controller.getActualUser = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+      res.json(req.session.usuario.username);
+    }
+}
+
+controller.getMyFriends = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
+      SELECT  *
+      FROM amigos
+      WHERE amigo1="${req.session.usuario.username}" OR amigo2="${req.session.usuario.username}"`;
+        let data = await pool.query(query, []);
+        res.json(data);
+    }
+}
+
 controller.searchFriend = async(req, res) => {
   if (req.session.usuario.correo == undefined)
   {
@@ -165,8 +187,23 @@ controller.acceptRequest = async(req, res) => {
         amigo1: req.session.usuario.username,
         amigo2: req.params.friend
     };
-    
+
     await pool.query('INSERT INTO amigos set ?', [nuevoAmigo]);
+    res.json("Done");
+  }
+}
+
+controller.deleteFriend = async(req, res) => {
+  if (req.session.usuario.correo == undefined)
+  {
+    res.json();
+  }
+  else
+  {
+    var query = `
+    DELETE FROM amigos
+    WHERE amigo1 ="${req.session.usuario.username}" AND amigo2 = "${req.params.friend}"  OR amigo2 ="${req.session.usuario.username}" AND amigo1 = "${req.params.friend}"`;
+    await pool.query(query, []);
     res.json("Done");
   }
 }
@@ -330,6 +367,10 @@ controller.openfindFriend = (req, res) => {
 
 controller.openAcceptFriend = (req,res) => {
   res.render(`aceptFriend`, {});
+}
+
+controller.openMyFriends = (req,res) => {
+  res.render(`myFriends`, {});
 }
 
 controller.abreConfigurar = (req, res) => {

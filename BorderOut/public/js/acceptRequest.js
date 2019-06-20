@@ -47,7 +47,7 @@ $(document).on('click', '#agregar', function() {
       {
         if(data=="Done")
         {
-          alert("Solicitud enviada");
+          alert("Solicitud aceptada");
           location.reload();
         }
         else
