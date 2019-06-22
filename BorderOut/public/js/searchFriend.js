@@ -13,34 +13,44 @@ function fieldListener()
 function getFieldValue (evt)
 {
   var html5 = '';
-  $.ajax({
-      url: '/searchFriend/'+$('#amigo').val(),
-      success: function(data)
-      {
-          if (data != undefined)
-          {
-            html5 += `<table class='table table-bordered table-striped table-hover '>
-            <thead class='bonita'>
-              <tr class='bonita'>
-                <th class='text-center'>Usuario</th>
-                <th class='text-center'></th>
-              </tr>
-            </thead>`;
-            for (var i = 0; i < data.length; i++)
+  var cadena = $('#amigo').val();
+  if(cadena.includes(';') || cadena.includes("'")||cadena.includes('"')||cadena.includes("´"))
+  {
+    document.getElementById("mensajeCaracterInvalido").style.visibility = "visible"; 
+  }
+  else
+  {
+    document.getElementById("mensajeCaracterInvalido").style.visibility = "hidden";
+    $.ajax({
+        url: '/searchFriend/'+$('#amigo').val(),
+        success: function(data)
+        {
+            if (data != undefined)
             {
-              html5 += `<tr class='bonita'>
-                <td class='bonita text-center'>${data[i].username}</td>
-                <td class='bonita text-center'><button type="button" class="btn btn-info" data-elemento="${data[i].username}" id="agregar">Agregar</button></td>
-              </tr>`;
+              html5 += `<table class='table table-bordered table-striped table-hover '>
+              <thead class='bonita'>
+                <tr class='bonita'>
+                  <th class='text-center'>Usuario</th>
+                  <th class='text-center'></th>
+                </tr>
+              </thead>`;
+              for (var i = 0; i < data.length; i++)
+              {
+                html5 += `<tr class='bonita'>
+                  <td class='bonita text-center'>${data[i].username}</td>
+                  <td class='bonita text-center'><button type="button" class="btn btn-info" data-elemento="${data[i].username}" id="agregar">Agregar</button></td>
+                </tr>`;
+              }
+              divTabla.html(html5);
             }
-            divTabla.html(html5);
-          }
-          else
-          {
-              alert("Algo esta mal");
-          }
-      }
-  })
+            else
+            {
+                alert("Algo esta mal");
+            }
+        }
+    })
+
+  }
 }
 
 $(document).on('click', '#agregar', function() {
