@@ -45,7 +45,7 @@
                                 <button class="close" data-dismiss="modal" aria-label="cerrar"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/agregar" method="POST">
+                                <form action="/agregar" method="POST" onsubmit="return validarRegistro()">
                                     <div class="form-group">
                                         <label for="apaterno">Apellido paterno</label>
                                         <input type="text" name="apaterno" class="form-control" placeholder="Apellido paterno" required id="apaterno">
@@ -82,7 +82,7 @@
                                 <button class="close" data-dismiss="modal" aria-label="cerrar"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/login" method="POST">
+                                <form action="/login" method="POST" onsubmit="return validarLogin()">
                                     <div class="form-group">
 
                                         <label for="emaillog">Correo electronico</label>
@@ -110,6 +110,8 @@
     <script src="css/js/popper.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script src="js/socket-custom.js"></script>
+    <script src="js/validarIndex.js"></script>
+
     <!--<script>
         var registroEvento = document.getElementById("crearCuenta");
 
