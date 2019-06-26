@@ -1,0 +1,29 @@
+{{> head}}
+{{> navbar}}
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-md-2"></div>
+        <main class="main principal columna col-sm-12 col-md-6">
+             <h1 class="text-center">Ayudanos a mejorar</h1>
+
+             <br>
+             <form action="/agregarQueja" method="post" onsubmit="return validarQueja()">
+               <label class="text-center">Escribe tu queja o sugerencia</label>
+               <textarea class="form-control" name="queja" rows="10" id="queja">
+               </textarea>
+               <label class="text-center"  id="mensajeCaracterInvalido" style="color:red; visibility:hidden;">Este campo tiene un caracter invalido</label>
+               <div class="col">
+                 <br>
+                 <button class= "btn btn-success btn-md btn-block " type="submit" id="btn-agregarQueja" name="btn-agregarQueja" >Agregar Queja</button>
+               </div>
+             </form>
+             <br>
+
+        </main>
+        <div class="col-md-2"></div>
+        {{> amigos}}
+    </div>
+</div>
+{{> footer}}
+<script src="js/validarIndex.js"></script>
+{{> librerias}}

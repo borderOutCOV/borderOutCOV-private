@@ -10,7 +10,20 @@ function invalida(variable)
   }
 }
 
-function validarLogin(){
+function validarQueja()
+{
+  var queja = $("#queja").val();
+
+  if(invalida(queja))
+  {
+    document.getElementById("mensajeCaracterInvalido").style.visibility = "visible";
+    return false;
+  }
+
+  return true;
+}
+function validarLogin()
+{
   var email = $("#emaillog").val();
   var password = $("#passwordlog").val();
   if(invalida(email))

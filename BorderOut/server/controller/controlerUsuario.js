@@ -10,6 +10,9 @@ const controller = {};
 controller.abreVideos = (req, res) => {
     res.render('videos', {});
 }
+controller.openQuejas = (req, res) => {
+    res.render('quejas', {});
+}
 controller.agregarCategoria = (req, res) => {
     res.render('agregarCategoriaAdmin', {});
 }
@@ -191,6 +194,15 @@ controller.acceptRequest = async(req, res) => {
     await pool.query('INSERT INTO amigos set ?', [nuevoAmigo]);
     res.json("Done");
   }
+}
+
+controller.agregarQueja = async(req,res) =>{
+  const nuevaQueja = {
+      usuario: req.session.usuario.username,
+      mensaje: req.body.queja
+  };
+  await pool.query('INSERT INTO queja set ?', [nuevaQueja]);
+  res.render("quejas", {});
 }
 
 controller.deleteFriend = async(req, res) => {

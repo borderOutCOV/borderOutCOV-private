@@ -32,27 +32,27 @@ function validar(){
   var contra = $("#contra").val();
   var contra2 = $("#contra2").val();
 
-  if(nombre.includes(';') || nombre.includes("'")||nombre.includes('"')||nombre.includes("´"))
+  if(invalida(nombre))
   {
     document.getElementById("mensajeCaracterInvalidoNombre").style.visibility = "visible";
     return false;
   }
-  else if(paterno.includes(';') || paterno.includes("'")||paterno.includes('"')||paterno.includes("´"))
+  else if(invalida(paterno))
   {
     document.getElementById("mensajeCaracterInvalidoPaterno").style.visibility = "visible";
     return false;
   }
-  else if(materno.includes(';') || materno.includes("'")||materno.includes('"')||materno.includes("´"))
+  else if(invalida(materno))
   {
     document.getElementById("mensajeCaracterInvalidoMaterno").style.visibility = "visible";
     return false;
   }
-  else if(contra.includes(';') || contra.includes("'")||contra.includes('"')||contra.includes("´"))
+  else if(invalida(contra))
   {
     document.getElementById("mensajeCaracterInvalidoContra").style.visibility = "visible";
     return false;
   }
-  else if(contra2.includes(';') || contra2.includes("'")||contra2.includes('"')||contra2.includes("´"))
+  else if(invalida(contra2))
   {
     document.getElementById("mensajeCaracterInvalidoContra2").style.visibility = "visible";
     return false;

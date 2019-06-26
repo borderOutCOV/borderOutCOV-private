@@ -31,8 +31,9 @@ router.post('/editarPalabra', controller.verificaToken, controller.editarPalabra
 router.get('/getPalabrasAprendidas', controller.verificaToken, controller.getPalabrasAprendidas);
 router.post('/repasaPalabra', controller.verificaToken, controller.repasaPalabra);
 router.get('/getPalabrasActuales', controller.verificaToken, controller.getPalabrasActuales);
-
+router.post('/agregarQueja', controller.verificaToken, controller.agregarQueja);
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
+router.get('/quejas', controller.verificaToken, controller.openQuejas);
 router.get('/myRequests', controller.verificaToken, controller.myRequests);
 router.get('/getMyFriends', controller.verificaToken, controller.getMyFriends);
 router.get('/deleteFriend/:friend', controller.verificaToken, controller.deleteFriend);

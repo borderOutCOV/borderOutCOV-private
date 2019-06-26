@@ -14,9 +14,9 @@ function getFieldValue (evt)
 {
   var html5 = '';
   var cadena = $('#amigo').val();
-  if(cadena.includes(';') || cadena.includes("'")||cadena.includes('"')||cadena.includes("´"))
+  if(invalida(cadena))
   {
-    document.getElementById("mensajeCaracterInvalido").style.visibility = "visible"; 
+    document.getElementById("mensajeCaracterInvalido").style.visibility = "visible";
   }
   else
   {
