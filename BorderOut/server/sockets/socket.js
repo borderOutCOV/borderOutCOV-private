@@ -6,32 +6,28 @@ const usuarios = new Usuarios();
 
 io.on('connection', (client) => {
 
-    console.log('Usuario conectado');
+  client.on('conectarse', (data, callback) => {
+    console.log(data);
+    if(data){
+      let personas = usuarios.agregarPersona(client.id,data);
+      console.log(personas);
+      callback(personas);
+    }else {
+      callback("Inicia sesión primero");
+    }
 
-    /*
-    client.emit('enviarMensaje', {
-        usuario: 'Administrador',
-        mensaje: 'Bienvenido a esta aplicación'
-    });*/
+  });
 
-    client.on('connect', (data, callback) => {
-      console.log("xdxdxdxd");
-      }else {
-        callback("Inicia sesion");
+  client.on('disconnect', () => {
+      let personaBorrada = usuarios.borrarPersona(client.id);
+      if(personaBorrada){
+        console.log("Persona borrada");
+        console.log(personaBorrada);
+        console.log(usuarios);
+
       }
-      });
+  });
 
-    });
-
-    client.on('disconnect', () => {
-      if(client.id){
-        let personaBorrada = usuarios.borrarPersona(client.id);
-        if(personaBorrada){
-          console.log("Usuario borrado: ");
-          console.log(personaBorrada);
-        }
-      }
-    });
 
 
 
