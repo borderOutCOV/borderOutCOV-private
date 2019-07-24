@@ -49,6 +49,7 @@ router.get('/getUserData', controller.verificaToken, controller.getUserData);
 router.post('/changeUserData', controller.verificaToken, controller.changeUserData);
 router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePalabrasAprendidas);
 router.get('/palabras_actuales', controller.verificaToken, controller.abrePalabrasActuales);
+router.get('/getUserConected', controller.verificaToken, controller.getUserConected);
 
 
 

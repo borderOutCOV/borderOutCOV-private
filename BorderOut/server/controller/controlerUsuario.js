@@ -24,6 +24,10 @@ controller.abreAmpliarVocabulario = (req, res) => {
     res.render('ampliarVocabulario', {});
 }
 
+controller.getUserConected = (req,res) => {
+  res.json(req.session.usuario.username);
+}
+
 controller.getCategorias = async(req, res) => {
     let categorias = await pool.query('SELECT * FROM categoria');
     res.json(categorias)
@@ -541,22 +545,20 @@ controller.login = async(req, res) => {
 
 controller.verificaToken = (req, res, netx) => {
 
-
-    /* var token = req.session.token;
-
-     jwt.verify(token, process.env.seed, (err, decode) => {
-         if (err) {
-             res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-         } else {
-             req.session.usuario = decode.usuario;
-             console.log(req.session.usuario);
-             netx();
-         }
-     })*/
+  var token = req.session.token;
+   jwt.verify(token, process.env.seed, (err, decode) => {
+     if (err) {
+       res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+     } else {
+       req.session.usuario = decode.usuario;
+       netx();
+        }
+     })
 
 
 
 
+     /*
     const newuser = {
         username: 'q',
         nombre: 'q',
@@ -567,11 +569,9 @@ controller.verificaToken = (req, res, netx) => {
         tipo: 1,
         enlace: 'aaaaa',
         correo: 'q'
-    };
-    req.session.usuario = newuser;
-
-    netx();
-
+    };*/
+    //req.session.usuario = newuser;
+    //netx();
 }
 controller.verificaAdmin = (req, res, netx) => {
     if (req.session.usuario.tipo == 1) {

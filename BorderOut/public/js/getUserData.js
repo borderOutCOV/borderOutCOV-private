@@ -18,8 +18,6 @@ function MostrarDatos() {
           {
               alert("Algo esta mal");
           }
-
-
       }
   })
 }
