@@ -5,8 +5,10 @@ socket.on('connect', function() {
     console.log('Conectado al servidor');
     var userConnected = $("#mySelf").val();
 
-    socket.emit('conectarse', userConnected, function(resp) {
-      console.log('Usuarios conectados: ', resp);
+    socket.emit('conectarse', userConnected, function(personas) {
+      if(personas){
+        renderConnectedFriends(personas);
+      }
     });
 
 });
@@ -14,6 +16,10 @@ socket.on('connect', function() {
 // escuchar
 socket.on('disconnect', function() {
     console.log('Perdimos conexión con el servidor');
+});
+
+socket.on('usuariosConectados', function(personas) {
+    renderConnectedFriends(personas);
 });
 
 /*

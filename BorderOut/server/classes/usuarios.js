@@ -17,6 +17,11 @@ class Usuarios {
         return persona;
     }
 
+    getPersonaConectada(nombre) {
+        let persona = this.personas.filter(persona => persona.nombre === nombre)[0];
+        return persona;
+    }
+
     getPersonas() {
         return this.personas;
     }

@@ -7,24 +7,25 @@ const usuarios = new Usuarios();
 io.on('connection', (client) => {
 
   client.on('conectarse', (data, callback) => {
-    console.log(data);
     if(data){
       let personas = usuarios.agregarPersona(client.id,data);
       console.log(personas);
+      client.broadcast.emit('usuariosConectados', usuarios);
       callback(personas);
     }else {
-      callback("Inicia sesión primero");
+      callback(null);
     }
 
   });
 
   client.on('disconnect', () => {
+    console.log("Persona desconectada");
       let personaBorrada = usuarios.borrarPersona(client.id);
       if(personaBorrada){
         console.log("Persona borrada");
         console.log(personaBorrada);
         console.log(usuarios);
-
+        client.broadcast.emit('usuariosConectados', usuarios);
       }
   });
 
