@@ -4,7 +4,6 @@ var socket = io();
 socket.on('connect', function() {
     console.log('Conectado al servidor');
     var userConnected = $("#mySelf").val();
-
     socket.emit('conectarse', userConnected, function(personas) {
       if(personas){
         renderConnectedFriends(personas);
@@ -19,7 +18,7 @@ socket.on('disconnect', function() {
 });
 
 socket.on('usuariosConectados', function(personas) {
-    renderConnectedFriends(personas);
+  renderConnectedFriends(personas);
 });
 
 /*

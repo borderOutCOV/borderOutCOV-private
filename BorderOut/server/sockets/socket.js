@@ -19,7 +19,6 @@ io.on('connection', (client) => {
   });
 
   client.on('disconnect', () => {
-    console.log("Persona desconectada");
       let personaBorrada = usuarios.borrarPersona(client.id);
       if(personaBorrada){
         console.log("Persona borrada");

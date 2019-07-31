@@ -64,7 +64,7 @@ function showMyFriends ()
               alert("Algo esta mal");
           }
       }
-  })
+  });
 }
 
 $(document).on('click', '#eliminar', function() {
