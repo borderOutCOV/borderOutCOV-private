@@ -10,7 +10,7 @@ io.on('connection', (client) => {
     if(data){
       let personas = usuarios.agregarPersona(client.id,data);
       console.log(personas);
-      client.broadcast.emit('usuariosConectados', usuarios);
+      client.broadcast.emit('usuariosConectados', personas);
       callback(personas);
     }else {
       callback(null);

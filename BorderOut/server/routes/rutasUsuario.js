@@ -36,6 +36,7 @@ router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/quejas', controller.verificaToken, controller.openQuejas);
 router.get('/myRequests', controller.verificaToken, controller.myRequests);
 router.get('/getMyFriends', controller.verificaToken, controller.getMyFriends);
+router.get('/getFriends/:myself', controller.verificaToken, controller.getFriends);
 router.get('/deleteFriend/:friend', controller.verificaToken, controller.deleteFriend);
 router.get('/user', controller.verificaToken, controller.getActualUser);
 router.get("/acceptFriend", controller.verificaToken, controller.openAcceptFriend);

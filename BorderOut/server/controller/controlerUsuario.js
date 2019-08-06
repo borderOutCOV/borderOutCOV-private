@@ -156,6 +156,19 @@ controller.getMyFriends = async(req, res) => {
     }
 }
 
+controller.getFriends = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
+      SELECT  *
+      FROM amigos
+      WHERE amigo1="${req.params.myself}" OR amigo2="${req.params.myself}"`;
+        let data = await pool.query(query, []);
+        res.json(data);
+    }
+}
+
 controller.searchFriend = async(req, res) => {
   if (req.session.usuario.correo == undefined)
   {
