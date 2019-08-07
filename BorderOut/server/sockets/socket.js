@@ -24,7 +24,7 @@ io.on('connection', (client) => {
         console.log("Persona borrada");
         console.log(personaBorrada);
         console.log(usuarios);
-        client.broadcast.emit('usuariosConectados', usuarios);
+        client.broadcast.emit('usuariosConectados', usuarios.getPersonas());
       }
   });
 
