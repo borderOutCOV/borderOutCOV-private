@@ -1,5 +1,6 @@
 const { io } = require('../server');
 const { Usuarios } = require('../classes/usuarios');
+const fs = require('fs');
 
 const usuarios = new Usuarios();
 
@@ -10,6 +11,9 @@ io.on('connection', (client) => {
     if(data){
       let personas = usuarios.agregarPersona(client.id,data);
       console.log(personas);
+      var jsonObject = personas;
+      var jsonContent = JSON.stringify(jsonObject);
+      fs.writeFileSync('./server/data/userConnected.json',jsonContent);
       client.broadcast.emit('usuariosConectados', personas);
       callback(personas);
     }else {
@@ -24,11 +28,10 @@ io.on('connection', (client) => {
         console.log("Persona borrada");
         console.log(personaBorrada);
         console.log(usuarios);
+        var jsonObject = usuarios.getPersonas();
+        var jsonContent = JSON.stringify(jsonObject);
+        fs.writeFileSync('./server/data/userConnected.json',jsonContent);
         client.broadcast.emit('usuariosConectados', usuarios.getPersonas());
       }
   });
-
-
-
-
 });

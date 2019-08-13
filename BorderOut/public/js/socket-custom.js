@@ -6,7 +6,6 @@ socket.on('connect', function() {
     var userConnected = $("#mySelf").val();
     socket.emit('conectarse', userConnected, function(personas) {
       if(personas){
-        console.log(personas);
         renderConnectedFriends(personas);
       }
     });
@@ -19,8 +18,12 @@ socket.on('disconnect', function() {
 });
 
 socket.on('usuariosConectados', function(personas) {
-  console.log(personas);
   renderConnectedFriends(personas);
+});
+
+socket.on('recibirSolicitud', function(mensaje) {
+  alert(mensaje);
+  document.getElementById("solicitudes").style.color = 'blue';
 });
 
 /*

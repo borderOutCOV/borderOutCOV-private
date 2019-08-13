@@ -2,6 +2,7 @@ const bcryptjs = require('bcryptjs');
 
 const pool = require('../data/database');
 const jwt = require('jsonwebtoken');
+const { io } = require('../server');
 const controller = {};
 
 

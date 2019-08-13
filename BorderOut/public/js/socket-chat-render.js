@@ -7,9 +7,6 @@ function renderConnectedFriends(peopleConnected){
     url: '/getFriends/'+yo,
     success: function(data)
     {
-      console.log("Tus amigos");
-      console.log(data);
-
       if (data != undefined){
         for (var i = 0; i <data.length; i++) {
           var amigo = null;
@@ -18,7 +15,6 @@ function renderConnectedFriends(peopleConnected){
           }else {
             amigo = data[i].amigo1;
           }
-          console.log(amigo);
 
           $.ajax({
             url: '/getFriendData/'+amigo,
