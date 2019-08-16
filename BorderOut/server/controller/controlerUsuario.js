@@ -2,8 +2,16 @@ const bcryptjs = require('bcryptjs');
 
 const pool = require('../data/database');
 const jwt = require('jsonwebtoken');
-const { io } = require('../server');
 const controller = {};
+
+/*
+controller.respond = function(socket_io){
+
+  socket_io.on('connection', (client) => {
+    client.broadcast.emit('recibirSolicitud', "Eres chido");
+  });
+  return socket_io;
+}*/
 
 
 
@@ -292,6 +300,9 @@ controller.sendFriendRequest = async(req, res) => {
           receptor: req.params.friend
       };
       await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
+      let data = require('../data/userConnected.json');
+      const {io} = require('../server');
+      console.log(io);
       res.json("Done");
     }
     else

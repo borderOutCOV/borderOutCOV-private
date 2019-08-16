@@ -1,8 +1,11 @@
 const { io } = require('../server');
 const { Usuarios } = require('../classes/usuarios');
 const fs = require('fs');
+const controller = require('../controller/controlerUsuario');
 
 const usuarios = new Usuarios();
+
+
 
 
 io.on('connection', (client) => {
