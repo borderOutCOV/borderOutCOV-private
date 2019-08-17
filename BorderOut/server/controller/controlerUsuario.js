@@ -302,7 +302,11 @@ controller.sendFriendRequest = async(req, res) => {
       await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
       let data = require('../data/userConnected.json');
       const {io} = require('../server');
-      console.log(io);
+      for (var i = 0; i < data.length; i++) {
+        if (data[i]["nombre"].localeCompare(req.params.friend)==0) {
+          io.sockets.connected[data[i]["id"]].emit('recibirSolicitud',"Recibiste una solicitud de "+req.session.usuario.username);
+        }
+      }
       res.json("Done");
     }
     else
