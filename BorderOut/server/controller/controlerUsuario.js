@@ -504,6 +504,12 @@ controller.changeUserData = async(req, res) => {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
     }
 }
+
+
+controller.abreRoom = (req, res) => {
+    res.render('videos', {});
+}
+
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {
@@ -625,4 +631,5 @@ controller.verificaAdmin = (req, res, netx) => {
     }
     res.render('error', { mensaje: `No está autorizado para ver esta información` });
 }
+
 module.exports = controller;

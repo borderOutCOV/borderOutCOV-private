@@ -8,6 +8,7 @@ function WhoAmI() {
           {
               //$("#username").val(data[0].username);
               $("#mySelf").val(data);
+              
           }
           else
           {
