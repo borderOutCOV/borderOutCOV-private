@@ -1,6 +1,17 @@
 var socket = io();
 
 
+$(document).ready(function() {
+    $('#createRoom').click(function() {
+      var userConnected = $("#mySelf").val();
+      socket.emit('crearSala', userConnected, function(message) {
+        console.log(message);
+      });
+
+    });
+});
+
+
 socket.on('connect', function() {
     console.log('Conectado al servidor');
     var userConnected = $("#mySelf").val();

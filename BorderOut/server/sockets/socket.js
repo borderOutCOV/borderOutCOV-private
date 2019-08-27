@@ -9,7 +9,7 @@ const usuarios = new Usuarios();
 
 
 io.on('connection', (client) => {
-  
+
 
   client.on('conectarse', (data, callback) => {
     if(data){
@@ -25,6 +25,17 @@ io.on('connection', (client) => {
     }
 
   });
+
+  client.on('crearSala', (data, callback) => {
+    if(data){
+      client.join(data);
+      callback("Sala creada");
+    }else {
+      callback(null);
+    }
+
+  });
+
 
   client.on('disconnect', () => {
       let personaBorrada = usuarios.borrarPersona(client.id);

@@ -7,9 +7,10 @@ class Usuarios {
     }
 
     agregarPersona(id, nombre) {
-        let persona = { id, nombre};
-        this.personas.push(persona);
-        return this.personas;
+      var sala = null;
+      let persona = { id, nombre, sala};
+      this.personas.push(persona);
+      return this.personas;
     }
 
     getPersona(id) {

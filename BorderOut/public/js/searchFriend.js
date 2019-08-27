@@ -8,7 +8,9 @@ $(document).ready(function()
 
 function fieldListener()
 {
-  document.getElementById("amigo").addEventListener('change', getFieldValue, false);
+  if(document.getElementById("amigo")){
+    document.getElementById("amigo").addEventListener('change', getFieldValue, false);
+  }
 }
 function getFieldValue (evt)
 {

@@ -507,7 +507,7 @@ controller.changeUserData = async(req, res) => {
 
 
 controller.abreRoom = (req, res) => {
-    res.render('videos', {});
+    res.render('room', {});
 }
 
 controller.addWord = async(req, res) => {
