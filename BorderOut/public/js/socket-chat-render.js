@@ -26,7 +26,9 @@ function renderConnectedFriends(peopleConnected){
                   if(datosAmigo[0].foto){
                     foto = datosAmigo[0].foto;
                   }
+
                   html5 += `<div><img src="${foto}" class="redondaOnline" alt="Amigo 1" id="status"><span>${datosAmigo[0].username}</span></div>`;
+                  html5 += `<a href="#" onclick= sendInvitation("${datosAmigo[0].username}","${yo}");return false;">Invitar a sala</a>`;
                   html5 += `<input id="amigo:${datosAmigo[0].username}" type="hidden" value="xm234jq">`;
                   navAmigos.html(html5);
                   break;

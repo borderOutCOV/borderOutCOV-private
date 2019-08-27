@@ -29,11 +29,22 @@ io.on('connection', (client) => {
   client.on('crearSala', (data, callback) => {
     if(data){
       client.join(data);
+      console.log("Sala creada");
       callback("Sala creada");
     }else {
       callback(null);
     }
-
+  });
+  client.on('sendRoomInvitation', (data, callback) => {
+    if(data){
+      id = usuarios.getId(data.destino);
+      console.log(id);
+      client.broadcast.to(id).emit('recibeInvitation','Recibiste una invitacion de '+data.origen);
+      //console.log("Sala creada");
+      callback("Envitacion enviada");
+    }else {
+      callback(null);
+    }
   });
 
 

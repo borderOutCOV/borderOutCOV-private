@@ -13,6 +13,11 @@ class Usuarios {
       return this.personas;
     }
 
+    getId(nombre){
+      let persona = this.personas.filter(persona => persona.nombre === nombre)[0];
+      return persona.id;
+    }
+
     getPersona(id) {
         let persona = this.personas.filter(persona => persona.id === id)[0];
         return persona;

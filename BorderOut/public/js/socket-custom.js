@@ -1,6 +1,5 @@
 var socket = io();
 
-
 $(document).ready(function() {
     $('#createRoom').click(function() {
       var userConnected = $("#mySelf").val();
@@ -36,6 +35,30 @@ socket.on('recibirSolicitud', function(mensaje) {
   alert(mensaje);
   document.getElementById("solicitudes").style.color = 'blue';
 });
+
+function sendInvitation(amigo,yo){
+  url = window.location.href;
+  var invitacion = {
+    origen: yo,
+    destino: amigo
+  };
+  console.log(url);
+  if(url.includes("/room")){
+    socket.emit('sendRoomInvitation',invitacion, function(message) {
+      if(message){
+        alert(message);
+      }
+    });
+  }else {
+    alert("Necesitas crear una sala");
+  }
+  //alert(amigo+" "+yo);
+}
+
+socket.on('recibeInvitation', function(mensaje) {
+    alert(mensaje);
+});
+
 
 /*
 // Escuchar información
