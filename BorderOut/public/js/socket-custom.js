@@ -56,7 +56,9 @@ function sendInvitation(amigo,yo){
 }
 
 socket.on('recibeInvitation', function(mensaje) {
-    alert(mensaje);
+  var invitacion = "#"+mensaje;
+  $(invitacion).css("display", "inline");
+  alert("Recibiste una invitacion de "+mensaje);
 });
 
 

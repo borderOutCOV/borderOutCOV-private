@@ -39,7 +39,7 @@ io.on('connection', (client) => {
     if(data){
       id = usuarios.getId(data.destino);
       console.log(id);
-      client.broadcast.to(id).emit('recibeInvitation','Recibiste una invitacion de '+data.origen);
+      client.broadcast.to(id).emit('recibeInvitation',data.origen);
       //console.log("Sala creada");
       callback("Envitacion enviada");
     }else {
