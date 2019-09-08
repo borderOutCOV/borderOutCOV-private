@@ -55,6 +55,25 @@ function sendInvitation(amigo,yo){
   //alert(amigo+" "+yo);
 }
 
+function unirseASala(amigo){
+  socket.emit('unirseSala',amigo, function(message) {
+    if(message){
+      alert(message);
+    }
+  });
+}
+
+function mensajePrueba(){
+  amigo = "a";
+  console.log("Si estoy entrando");
+  socket.emit('test', amigo, function(message) {});
+}
+
+socket.on('test', function(mensaje) {
+  alert(mensaje);
+});
+
+
 socket.on('recibeInvitation', function(mensaje) {
   var invitacion = "#"+mensaje;
   $(invitacion).css("display", "inline");

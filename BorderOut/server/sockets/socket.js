@@ -35,6 +35,23 @@ io.on('connection', (client) => {
       callback(null);
     }
   });
+
+  client.on('unirseSala', (data, callback) => {
+    if(data){
+      client.join(data);
+      console.log("Te uniste a la sala");
+      callback("Te uniste a la sala de: "+data);
+    }else {
+      callback(null);
+    }
+  });
+
+  client.on('test', (data, callback) => {
+    client.broadcast.to(data).emit('test',"Si funciono");
+  });
+
+
+
   client.on('sendRoomInvitation', (data, callback) => {
     if(data){
       id = usuarios.getId(data.destino);
@@ -46,6 +63,9 @@ io.on('connection', (client) => {
       callback(null);
     }
   });
+
+
+
 
 
   client.on('disconnect', () => {
