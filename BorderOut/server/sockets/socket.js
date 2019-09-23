@@ -23,12 +23,13 @@ io.on('connection', (client) => {
     }else {
       callback(null);
     }
-
   });
 
   client.on('crearSala', (data, callback) => {
     if(data){
       client.join(data);
+      usuarios.unirASala(data,data);
+      console.log(personas);
       console.log("Sala creada");
       callback("Sala creada");
     }else {
@@ -38,7 +39,9 @@ io.on('connection', (client) => {
 
   client.on('unirseSala', (data, callback) => {
     if(data){
+      //Hacer un promise de ajax.
       client.join(data);
+      //usuarios.unirASala(nombre,data);
       console.log("Te uniste a la sala");
       callback("Te uniste a la sala de: "+data);
     }else {
@@ -47,6 +50,7 @@ io.on('connection', (client) => {
   });
 
   client.on('test', (data, callback) => {
+    console.log(data);
     client.broadcast.to(data).emit('test',"Si funciono");
   });
 

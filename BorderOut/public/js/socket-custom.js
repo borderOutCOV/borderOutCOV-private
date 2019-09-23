@@ -2,6 +2,7 @@ var socket = io();
 
 $(document).ready(function() {
     $('#createRoom').click(function() {
+      //Hacer otra promesa de ajax.
       var userConnected = $("#mySelf").val();
       socket.emit('crearSala', userConnected, function(message) {
         console.log(message);
@@ -13,10 +14,13 @@ $(document).ready(function() {
 
 socket.on('connect', function() {
     console.log('Conectado al servidor');
+    //Hacer otra promesa de ajax.
     var userConnected = $("#mySelf").val();
     socket.emit('conectarse', userConnected, function(personas) {
       if(personas){
         renderConnectedFriends(personas);
+      }else {
+        alert("Fallo algo");
       }
     });
 

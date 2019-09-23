@@ -12,6 +12,16 @@ class Usuarios {
       this.personas.push(persona);
       return this.personas;
     }
+    unirASala(nombre,sala){
+      let persona = this.personas.filter(persona => persona.nombre === nombre)[0];
+      persona.sala = sala;
+      return persona.sala;
+    }
+    salirSala(nombre,sala){
+      let persona = this.personas.filter(persona => persona.nombre === nombre)[0];
+      persona.sala = null;
+      return persona.sala;
+    }
 
     getId(nombre){
       let persona = this.personas.filter(persona => persona.nombre === nombre)[0];

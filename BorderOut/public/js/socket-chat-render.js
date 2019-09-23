@@ -1,5 +1,6 @@
 function renderConnectedFriends(peopleConnected){
   var navAmigos = $('#navAmigos');
+  //Hacer promesa de ajax
   var yo = $("#mySelf").val();
   var html5 = '';
   navAmigos.html(html5);
