@@ -29,7 +29,7 @@ io.on('connection', (client) => {
     if(data){
       client.join(data);
       usuarios.unirASala(data,data);
-      console.log(personas);
+      console.log(usuarios);
       console.log("Sala creada");
       callback("Sala creada");
     }else {

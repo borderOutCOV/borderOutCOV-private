@@ -1,29 +1,29 @@
 var socket = io();
 
-$(document).ready(function() {
-    $('#createRoom').click(function() {
-      //Hacer otra promesa de ajax.
-      var userConnected = $("#mySelf").val();
-      socket.emit('crearSala', userConnected, function(message) {
-        console.log(message);
-      });
-
-    });
-});
-
 
 socket.on('connect', function() {
     console.log('Conectado al servidor');
     //Hacer otra promesa de ajax.
-    var userConnected = $("#mySelf").val();
-    socket.emit('conectarse', userConnected, function(personas) {
-      if(personas){
-        renderConnectedFriends(personas);
-      }else {
-        alert("Fallo algo");
-      }
-    });
-
+    console.log("Esperando promesa");
+    let userConnected = WhoAmI();
+         userConnected.then((response) => {
+             if(response){
+               $('#createRoom').click(function() {
+                 socket.emit('crearSala', response, function(message) {
+                   console.log(message);
+                 });
+               });
+               socket.emit('conectarse', response, function(personas) {
+                 if(personas){
+                   renderConnectedFriends(personas);
+                 }else {
+                   alert("Fallo algo");
+                 }
+               });
+             }else {
+               console.log("Error consulta ajax");
+             }
+         });
 });
 
 // escuchar
