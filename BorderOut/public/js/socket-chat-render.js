@@ -1,3 +1,9 @@
+function waitRoomHtml(){
+  var divActual = $('#htmlToChange');
+  var html5 = '';
+  html5 += "<h3 class='titulo'>Sala de espera</h3>";
+  divActual.html(html5);
+}
 function renderConnectedFriends(peopleConnected){
   var navAmigos = $('#navAmigos');
   var html5 = '';

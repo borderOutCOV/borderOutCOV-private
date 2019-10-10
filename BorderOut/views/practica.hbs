@@ -1,8 +1,9 @@
 {{> head}}
-{{> navbar}}    
+{{> navbar}}
 <div class="container-fluid">
     <div class="row">
         <main class="main principal columna col-sm-12 col-md-10">
+          <div id="htmlToChange">
             <div class="widget nueva_entrada">
                 <div class="col-12">
 				    <h3 id="restantes">Palabras restantes 20</h3>
@@ -46,12 +47,13 @@
                             <p class="text-center"><button class="btn btn btn-warning" type="button" id="verificaRespuesta" name="verificaRespuesta">Responder</button></p>
                             <br>
                             <!--Esto es en caso de que se equiboque-->
-                            <p class="text-center" id="equibocacion"></p> 
+                            <p class="text-center" id="equibocacion"></p>
                         </div>
                     </div>
                 </div>
 
             </div>
+          </div>
         </main>
         {{> amigos}}
     </div>

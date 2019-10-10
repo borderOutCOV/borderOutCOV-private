@@ -4,6 +4,7 @@
     <div class="row text-center">
         <div class="col-md-2"></div>
         <main class="main principal columna col-sm-12 col-md-6">
+          <div id="htmlToChange">
              <h1 class="text-center">Agregar Palabra</h1>
              <form action="/addWord" method="POST" onsubmit="return validarAgregarPalabra()">
                 <div class="form-group">
@@ -24,6 +25,7 @@
                         </div>
                 </div>
              </form>
+           </div>
         </main>
         <div class="col-md-2"></div>
         {{> amigos}}

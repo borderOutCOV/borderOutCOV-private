@@ -11,6 +11,7 @@ socket.on('connect', function() {
                $('#createRoom').click(function() {
                  socket.emit('crearSala', response, function(message) {
                    console.log(message);
+                   waitRoomHtml();
                  });
                });
                socket.emit('conectarse', response, function(personas) {
@@ -55,7 +56,7 @@ function sendInvitation(amigo,yo){
 }
 
 function unirseASala(amigo,yo){
-  console.log("Entrando "+amigo+" "+yo);
+  waitRoomHtml();
   let unirse = {
     yo : yo,
     amigo: amigo
