@@ -39,13 +39,17 @@ io.on('connection', (client) => {
 
   client.on('unirseSala', (data, callback) => {
     if(data){
+      let usuario_actual = usuarios.getPersonaConectada(data.amigo);
+      let sala_actual = usuario_actual.sala;
       //Hacer un promise de ajax.
-      client.join(data);
+      client.join(sala_actual);
+      usuarios.unirASala(data.yo,sala_actual);
+      console.log(usuarios);
       //usuarios.unirASala(nombre,data);
       console.log("Te uniste a la sala");
-      callback("Te uniste a la sala de: "+data);
+      callback("Te uniste a la sala de: "+data.amigo);
     }else {
-      callback(null);
+      callback("Error mortal");
     }
   });
 
@@ -57,7 +61,9 @@ io.on('connection', (client) => {
 
 
   client.on('sendRoomInvitation', (data, callback) => {
-    if(data){
+    let usuario_actual = usuarios.getPersonaConectada(data.origen);
+    let sala_actual = usuario_actual.sala;
+    if(data && sala_actual){
       id = usuarios.getId(data.destino);
       console.log(id);
       client.broadcast.to(id).emit('recibeInvitation',data.origen);

@@ -41,28 +41,30 @@ socket.on('recibirSolicitud', function(mensaje) {
 });
 
 function sendInvitation(amigo,yo){
-  url = window.location.href;
   var invitacion = {
     origen: yo,
     destino: amigo
   };
-  console.log(url);
-  if(url.includes("/room")){
-    socket.emit('sendRoomInvitation',invitacion, function(message) {
-      if(message){
-        alert(message);
-      }
-    });
-  }else {
-    alert("Necesitas crear una sala");
-  }
-  //alert(amigo+" "+yo);
-}
-
-function unirseASala(amigo){
-  socket.emit('unirseSala',amigo, function(message) {
+  socket.emit('sendRoomInvitation',invitacion, function(message) {
     if(message){
       alert(message);
+    }else {
+      alert("Crea o unete a una sala primero")
+    }
+  });
+}
+
+function unirseASala(amigo,yo){
+  console.log("Entrando "+amigo+" "+yo);
+  let unirse = {
+    yo : yo,
+    amigo: amigo
+  };
+  socket.emit('unirseSala',unirse, function(message) {
+    if(message){
+      alert(message);
+    }else {
+      alert("No hay respuesta");
     }
   });
 }
