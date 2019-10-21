@@ -31,6 +31,8 @@ io.on('connection', (client) => {
       usuarios.unirASala(data,data);
       console.log(usuarios);
       console.log("Sala creada");
+      let personas  = usuarios.getPersonas();
+      client.broadcast.emit('usuariosConectadosSala', personas);
       callback("Sala creada");
     }else {
       callback(null);
@@ -47,6 +49,8 @@ io.on('connection', (client) => {
       console.log(usuarios);
       //usuarios.unirASala(nombre,data);
       console.log("Te uniste a la sala");
+      let personas  = usuarios.getPersonas();
+      client.broadcast.emit('usuariosConectadosSala', personas);
       callback("Te uniste a la sala de: "+data.amigo);
     }else {
       callback("Error mortal");

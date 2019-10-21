@@ -11,7 +11,7 @@ socket.on('connect', function() {
                $('#createRoom').click(function() {
                  socket.emit('crearSala', response, function(message) {
                    console.log(message);
-                   waitRoomHtml();
+                   waitRoomHtml(response);
                  });
                });
                socket.emit('conectarse', response, function(personas) {
@@ -36,6 +36,15 @@ socket.on('usuariosConectados', function(personas) {
   renderConnectedFriends(personas);
 });
 
+socket.on('usuariosConectadosSala', function(personas) {
+  var navSalaEspera = $('#renderSalaDeEspera');
+  if(navSalaEspera){
+    renderSalaDeEspera(personas);
+  }
+});
+
+
+
 socket.on('recibirSolicitud', function(mensaje) {
   alert(mensaje);
   document.getElementById("solicitudes").style.color = 'blue';
@@ -56,7 +65,7 @@ function sendInvitation(amigo,yo){
 }
 
 function unirseASala(amigo,yo){
-  waitRoomHtml();
+  waitRoomHtml(amigo);
   let unirse = {
     yo : yo,
     amigo: amigo

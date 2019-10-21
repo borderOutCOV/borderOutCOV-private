@@ -1,8 +1,16 @@
-function waitRoomHtml(){
+function waitRoomHtml(sala){
   var divActual = $('#htmlToChange');
   var html5 = '';
   html5 += "<h3 class='titulo'>Sala de espera</h3>";
+  html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
+  html5 += `<div id='renderSalaDeEspera'></div>`;
   divActual.html(html5);
+}
+function renderSalaDeEspera(peopleConnected){
+  var divSalaEspera = $('#renderSalaDeEspera');
+  var divIdSala = $('#sala').val();
+  var html5 = '';
+  alert("Estoy aca");
 }
 function renderConnectedFriends(peopleConnected){
   var navAmigos = $('#navAmigos');
