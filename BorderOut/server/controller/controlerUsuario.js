@@ -13,17 +13,18 @@ controller.respond = function(socket_io){
   return socket_io;
 }*/
 
-
-
 //Rutas de usuario
 controller.abreVideos = (req, res) => {
     res.render('videos', {});
 }
+controller.abreAdmin = (req, res) => {
+    res.render('adminView', {});
+}
 controller.openQuejas = (req, res) => {
     res.render('quejas', {});
 }
-controller.agregarCategoria = (req, res) => {
-    res.render('agregarCategoriaAdmin', {});
+controller.abreAdminConsole = (req, res) => {
+    res.render('adminConsole', {});
 }
 
 controller.abrePractica = (req, res) => {
@@ -33,8 +34,8 @@ controller.abreAmpliarVocabulario = (req, res) => {
     res.render('ampliarVocabulario', {});
 }
 
-controller.getUserConected = (req,res) => {
-  res.json(req.session.usuario.username);
+controller.getUserConected = (req, res) => {
+    res.json(req.session.usuario.username);
 }
 
 controller.getCategorias = async(req, res) => {
@@ -148,7 +149,7 @@ controller.getActualUser = async(req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
-      res.json(req.session.usuario.username);
+        res.json(req.session.usuario.username);
     }
 }
 
@@ -179,141 +180,121 @@ controller.getFriends = async(req, res) => {
 }
 
 controller.searchFriend = async(req, res) => {
-  if (req.session.usuario.correo == undefined)
-  {
-    res.json();
-  }
-  else
-  {
-    var query = `
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
     SELECT  username
     FROM usuario
     WHERE username LIKE "%${req.params.friendToFind}%" `;
-    let usuarios = await pool.query(query, []);
-    //  res.send(query);
-    res.json(usuarios);
-  }
+        let usuarios = await pool.query(query, []);
+        //  res.send(query);
+        res.json(usuarios);
+    }
 }
 
 controller.getFriendData = async(req, res) => {
-  if (req.session.usuario.correo == undefined)
-  {
-    res.json();
-  }
-  else
-  {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
 
-    var query = `
+        var query = `
     SELECT  username, foto
     FROM usuario
     WHERE username = "${req.params.friendToFind}" `;
-    let usuarios = await pool.query(query, []);
-    res.json(usuarios);
-  }
+        let usuarios = await pool.query(query, []);
+        res.json(usuarios);
+    }
 }
 
 controller.acceptRequest = async(req, res) => {
-  if (req.session.usuario.correo == undefined)
-  {
-    res.json();
-  }
-  else
-  {
-    var query = `
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
     DELETE FROM solicitud
     WHERE emisor ="${req.session.usuario.username}" AND receptor = "${req.params.friend}" `;
-    await pool.query(query, []);
+        await pool.query(query, []);
 
-    var query2 = `
+        var query2 = `
     DELETE FROM solicitud
     WHERE emisor ="${req.params.friend}" AND receptor = "${req.session.usuario.username}" `;
-    await pool.query(query2, []);
+        await pool.query(query2, []);
 
-    const nuevoAmigo = {
-        amigo1: req.session.usuario.username,
-        amigo2: req.params.friend
-    };
+        const nuevoAmigo = {
+            amigo1: req.session.usuario.username,
+            amigo2: req.params.friend
+        };
 
-    await pool.query('INSERT INTO amigos set ?', [nuevoAmigo]);
-    res.json("Done");
-  }
+        await pool.query('INSERT INTO amigos set ?', [nuevoAmigo]);
+        res.json("Done");
+    }
 }
 
-controller.agregarQueja = async(req,res) =>{
-  const nuevaQueja = {
-      usuario: req.session.usuario.username,
-      mensaje: req.body.queja
-  };
-  await pool.query('INSERT INTO queja set ?', [nuevaQueja]);
-  res.render("quejas", {});
+controller.agregarQueja = async(req, res) => {
+    const nuevaQueja = {
+        usuario: req.session.usuario.username,
+        mensaje: req.body.queja
+    };
+    await pool.query('INSERT INTO queja set ?', [nuevaQueja]);
+    res.render("quejas", {});
 }
 
 controller.deleteFriend = async(req, res) => {
-  if (req.session.usuario.correo == undefined)
-  {
-    res.json();
-  }
-  else
-  {
-    var query = `
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `
     DELETE FROM amigos
     WHERE amigo1 ="${req.session.usuario.username}" AND amigo2 = "${req.params.friend}"  OR amigo2 ="${req.session.usuario.username}" AND amigo1 = "${req.params.friend}"`;
-    await pool.query(query, []);
-    res.json("Done");
-  }
+        await pool.query(query, []);
+        res.json("Done");
+    }
 }
 
 controller.sendFriendRequest = async(req, res) => {
-  if (req.session.usuario.correo == undefined)
-  {
-    res.json("Error");
-  }
-  else
-  {
+    if (req.session.usuario.correo == undefined) {
+        res.json("Error");
+    } else {
 
-    var isYourFriend = `
+        var isYourFriend = `
     SELECT  *
     FROM solicitud
     WHERE emisor = "${req.session.usuario.username}" AND receptor = "${req.params.friend}";`;
-    let friendAlready = await pool.query(isYourFriend, []);
+        let friendAlready = await pool.query(isYourFriend, []);
 
-    var isYourFriend2 = `
+        var isYourFriend2 = `
     SELECT  *
     FROM solicitud
     WHERE emisor = "${req.params.friend}" AND receptor = "${req.session.usuario.username}";`;
-    let friendAlready2 = await pool.query(isYourFriend2, []);
+        let friendAlready2 = await pool.query(isYourFriend2, []);
 
 
-    var querySolicitud = `
+        var querySolicitud = `
     SELECT  *
     FROM amigos
     WHERE amigo1 = "${req.session.usuario.username}" AND amigo2 = "${req.params.friend}";`;
-    let solicitud = await pool.query(querySolicitud, []);
-    if(req.session.usuario.username == req.params.friend)
-    {
-      res.json("Same");
-    }
-    else if((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0) && (friendAlready2 === undefined || friendAlready2.length == 0))
-    {
-      const newSolicitud = {
-          emisor: req.session.usuario.username,
-          receptor: req.params.friend
-      };
-      await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
-      let data = require('../data/userConnected.json');
-      const {io} = require('../server');
-      for (var i = 0; i < data.length; i++) {
-        if (data[i]["nombre"].localeCompare(req.params.friend)==0) {
-          io.sockets.connected[data[i]["id"]].emit('recibirSolicitud',"Recibiste una solicitud de "+req.session.usuario.username);
+        let solicitud = await pool.query(querySolicitud, []);
+        if (req.session.usuario.username == req.params.friend) {
+            res.json("Same");
+        } else if ((friendAlready === undefined || friendAlready.length == 0) && (solicitud === undefined || solicitud.length == 0) && (friendAlready2 === undefined || friendAlready2.length == 0)) {
+            const newSolicitud = {
+                emisor: req.session.usuario.username,
+                receptor: req.params.friend
+            };
+            await pool.query('INSERT INTO solicitud set ?', [newSolicitud]);
+            let data = require('../data/userConnected.json');
+            const { io } = require('../server');
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]["nombre"].localeCompare(req.params.friend) == 0) {
+                    io.sockets.connected[data[i]["id"]].emit('recibirSolicitud', "Recibiste una solicitud de " + req.session.usuario.username);
+                }
+            }
+            res.json("Done");
+        } else {
+            res.json("Already");
         }
-      }
-      res.json("Done");
     }
-    else
-    {
-      res.json("Already");
-    }
-  }
 }
 
 controller.getPalabras = async(req, res) => {
@@ -427,12 +408,12 @@ controller.openfindFriend = (req, res) => {
     res.render(`findFriend`, {});
 }
 
-controller.openAcceptFriend = (req,res) => {
-  res.render(`aceptFriend`, {});
+controller.openAcceptFriend = (req, res) => {
+    res.render(`aceptFriend`, {});
 }
 
-controller.openMyFriends = (req,res) => {
-  res.render(`myFriends`, {});
+controller.openMyFriends = (req, res) => {
+    res.render(`myFriends`, {});
 }
 
 controller.abreConfigurar = (req, res) => {
@@ -487,17 +468,14 @@ controller.changeUserData = async(req, res) => {
 
     try {
         await pool.query(`UPDATE usuario SET nombre='${nombre}', paterno='${paterno}',  materno='${materno}' WHERE username ='${req.session.usuario.username}';`);
-        if (contra.length > 0)
-        {
-          if(contra.localeCompare(contra2)==0)
-          {
-            contra = encriptaContrasena(contra);
-            await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
-          }
+        if (contra.length > 0) {
+            if (contra.localeCompare(contra2) == 0) {
+                contra = encriptaContrasena(contra);
+                await pool.query(`UPDATE usuario SET contrasena='${contra}' WHERE username ='${req.session.usuario.username}';`);
+            }
         }
-        if(imagen.length > 0)
-        {
-          await pool.query(`UPDATE usuario SET foto='${imagen}' WHERE username ='${req.session.usuario.username}';`);
+        if (imagen.length > 0) {
+            await pool.query(`UPDATE usuario SET foto='${imagen}' WHERE username ='${req.session.usuario.username}';`);
         }
         res.render("configuration", {});
     } catch {
@@ -587,7 +565,11 @@ controller.login = async(req, res) => {
             }, process.env.seed, { expiresIn: 60 * 60 * 24 * 30 });
             req.session.token = token;
 
-            res.redirect('videos');
+            if (existe[0].tipo == 1) {
+                res.redirect('admin');
+            } else {
+                res.redirect('videos');
+            }
         } else {
             res.render('error', { mensaje: "Contraseña invalida" });
         }
@@ -597,20 +579,20 @@ controller.login = async(req, res) => {
 
 controller.verificaToken = (req, res, netx) => {
 
-  var token = req.session.token;
-   jwt.verify(token, process.env.seed, (err, decode) => {
-     if (err) {
-       res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
-     } else {
-       req.session.usuario = decode.usuario;
-       netx();
+    var token = req.session.token;
+    jwt.verify(token, process.env.seed, (err, decode) => {
+        if (err) {
+            res.render('error', { mensaje: `Usted aun no ha iniciado sesión` });
+        } else {
+            req.session.usuario = decode.usuario;
+            netx();
         }
-     })
+    })
 
 
 
 
-     /*
+    /*
     const newuser = {
         username: 'q',
         nombre: 'q',

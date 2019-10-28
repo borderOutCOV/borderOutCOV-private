@@ -57,5 +57,6 @@ router.get('/room', controller.verificaToken, controller.abreRoom);
 
 
 //Solo administradores
-router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.agregarCategoria);
+router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreAdminConsole);
+
 module.exports = router;
