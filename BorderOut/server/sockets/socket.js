@@ -32,7 +32,7 @@ io.on('connection', (client) => {
       console.log(usuarios);
       console.log("Sala creada");
       let personas  = usuarios.getPersonas();
-      client.broadcast.emit('usuariosConectadosSala', personas);
+      //client.broadcast.emit('usuariosConectadosSala', personas);
       callback("Sala creada");
     }else {
       callback(null);

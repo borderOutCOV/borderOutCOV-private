@@ -36,12 +36,12 @@ socket.on('usuariosConectados', function(personas) {
   renderConnectedFriends(personas);
 });
 
+/*
 socket.on('usuariosConectadosSala', function(personas) {
-  var navSalaEspera = $('#renderSalaDeEspera');
-  if(navSalaEspera){
-    renderSalaDeEspera(personas);
-  }
+  console.log(personas);
+  alert("Si me estoy mandando a llamar")
 });
+*/
 
 
 

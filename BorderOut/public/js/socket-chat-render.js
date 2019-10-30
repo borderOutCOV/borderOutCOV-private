@@ -5,13 +5,14 @@ function waitRoomHtml(sala){
   html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
   html5 += `<div id='renderSalaDeEspera'></div>`;
   divActual.html(html5);
-}
-function renderSalaDeEspera(peopleConnected){
+
   var divSalaEspera = $('#renderSalaDeEspera');
   var divIdSala = $('#sala').val();
   var html5 = '';
-  alert("Estoy aca");
+  html5 += "<h4 class='titulo'>Gente conectada</h4>"
+  divSalaEspera.html(html5);
 }
+
 function renderConnectedFriends(peopleConnected){
   var navAmigos = $('#navAmigos');
   var html5 = '';
