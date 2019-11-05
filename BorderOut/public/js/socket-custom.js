@@ -13,7 +13,7 @@ socket.on('connect', function() {
                    let room = response;
                    socket.emit('personasSala', room, function(personas) {
                      if(personas){
-                       console.log(personas);
+                       renderRoom(personas);
                      }else {
                        alert("Fallo algo en las personas de la sala");
                      }
@@ -86,7 +86,7 @@ function unirseASala(amigo,yo){
       alert(message);
       socket.emit('personasSala', amigo, function(personas) {
         if(personas){
-          console.log(personas);
+          renderRoom(personas)
         }else {
           alert("Fallo algo en las personas de la sala");
         }

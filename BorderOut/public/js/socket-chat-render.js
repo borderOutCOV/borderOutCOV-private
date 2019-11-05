@@ -13,6 +13,16 @@ function waitRoomHtml(sala){
   divSalaEspera.html(html5);
 }
 
+function  renderRoom(personas) {
+  var divSalaEspera = $('#renderSalaDeEspera');
+  var html5 = divSalaEspera.html();
+  for (var i = 0; i < personas.length; i++) {
+    persona = personas[i];
+    html5 += `<h5>'${persona.nombre}'</h5>`;
+  }
+  divSalaEspera.html(html5);
+}
+
 function renderConnectedFriends(peopleConnected){
   var navAmigos = $('#navAmigos');
   var html5 = '';
