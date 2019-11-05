@@ -25,6 +25,15 @@ io.on('connection', (client) => {
     }
   });
 
+  client.on('personasSala', (data, callback) => {
+    if(data){
+      let personas = usuarios.personasPorSala(data);
+      callback(personas);
+    }else {
+      callback(null);
+    }
+  });
+
   client.on('crearSala', (data, callback) => {
     if(data){
       client.join(data);
@@ -50,7 +59,7 @@ io.on('connection', (client) => {
       //usuarios.unirASala(nombre,data);
       console.log("Te uniste a la sala");
       let personas  = usuarios.getPersonas();
-      client.broadcast.emit('usuariosConectadosSala', personas);
+      //client.broadcast.emit('usuariosConectadosSala', personas);
       callback("Te uniste a la sala de: "+data.amigo);
     }else {
       callback("Error mortal");
@@ -61,8 +70,6 @@ io.on('connection', (client) => {
     console.log(data);
     client.broadcast.to(data).emit('test',"Si funciono");
   });
-
-
 
   client.on('sendRoomInvitation', (data, callback) => {
     let usuario_actual = usuarios.getPersonaConectada(data.origen);
@@ -77,10 +84,6 @@ io.on('connection', (client) => {
       callback(null);
     }
   });
-
-
-
-
 
   client.on('disconnect', () => {
       let personaBorrada = usuarios.borrarPersona(client.id);

@@ -17,6 +17,11 @@ class Usuarios {
       persona.sala = sala;
       return persona.sala;
     }
+    personasPorSala(sala){
+      let persona = this.personas.filter(persona => persona.sala === sala);
+      return persona;
+    }
+
     salirSala(nombre,sala){
       let persona = this.personas.filter(persona => persona.nombre === nombre)[0];
       persona.sala = null;

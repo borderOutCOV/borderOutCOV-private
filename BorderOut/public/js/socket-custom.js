@@ -3,8 +3,6 @@ var socket = io();
 
 socket.on('connect', function() {
     console.log('Conectado al servidor');
-    //Hacer otra promesa de ajax.
-    console.log("Esperando promesa");
     let userConnected = WhoAmI();
          userConnected.then((response) => {
              if(response){
@@ -12,6 +10,15 @@ socket.on('connect', function() {
                  socket.emit('crearSala', response, function(message) {
                    console.log(message);
                    waitRoomHtml(response);
+                   let room = response;
+                   socket.emit('personasSala', room, function(personas) {
+                     if(personas){
+                       console.log(personas);
+                     }else {
+                       alert("Fallo algo en las personas de la sala");
+                     }
+                   });
+
                  });
                });
                socket.emit('conectarse', response, function(personas) {
@@ -36,12 +43,16 @@ socket.on('usuariosConectados', function(personas) {
   renderConnectedFriends(personas);
 });
 
-/*
 socket.on('usuariosConectadosSala', function(personas) {
-  console.log(personas);
-  alert("Si me estoy mandando a llamar")
+  var divSalaEspera = $('#renderSalaDeEspera');
+  console.log("Estoy aqui esperando a ver si funciona");
+  if(divSalaEspera){
+    //alert("Habitacion");
+  }else {
+    //alert("No habitacion");
+  }
 });
-*/
+
 
 
 
@@ -73,6 +84,13 @@ function unirseASala(amigo,yo){
   socket.emit('unirseSala',unirse, function(message) {
     if(message){
       alert(message);
+      socket.emit('personasSala', amigo, function(personas) {
+        if(personas){
+          console.log(personas);
+        }else {
+          alert("Fallo algo en las personas de la sala");
+        }
+      });
     }else {
       alert("No hay respuesta");
     }
