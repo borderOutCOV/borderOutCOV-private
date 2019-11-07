@@ -8,17 +8,17 @@ function waitRoomHtml(sala){
 
   var divSalaEspera = $('#renderSalaDeEspera');
   var divIdSala = $('#sala').val();
-  var html5 = '';
-  html5 += "<h4 class='titulo'>Gente conectada</h4>"
-  divSalaEspera.html(html5);
+
 }
 
 function  renderRoom(personas) {
   var divSalaEspera = $('#renderSalaDeEspera');
-  var html5 = divSalaEspera.html();
+  var html5 = '';
+  html5 += "<h4 class='titulo'>Gente conectada</h4>"
+  divSalaEspera.html(html5);
   for (var i = 0; i < personas.length; i++) {
     persona = personas[i];
-    html5 += `<h5>'${persona.nombre}'</h5>`;
+    html5 += `<h5>${persona.nombre}</h5>`;
   }
   divSalaEspera.html(html5);
 }

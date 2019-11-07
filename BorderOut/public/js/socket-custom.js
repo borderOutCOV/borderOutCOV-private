@@ -44,13 +44,7 @@ socket.on('usuariosConectados', function(personas) {
 });
 
 socket.on('usuariosConectadosSala', function(personas) {
-  var divSalaEspera = $('#renderSalaDeEspera');
-  console.log("Estoy aqui esperando a ver si funciona");
-  if(divSalaEspera){
-    //alert("Habitacion");
-  }else {
-    //alert("No habitacion");
-  }
+  renderRoom(personas);
 });
 
 
@@ -86,7 +80,7 @@ function unirseASala(amigo,yo){
       alert(message);
       socket.emit('personasSala', amigo, function(personas) {
         if(personas){
-          renderRoom(personas)
+          renderRoom(personas);
         }else {
           alert("Fallo algo en las personas de la sala");
         }

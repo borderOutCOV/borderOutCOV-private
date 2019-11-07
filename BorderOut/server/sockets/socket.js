@@ -28,6 +28,7 @@ io.on('connection', (client) => {
   client.on('personasSala', (data, callback) => {
     if(data){
       let personas = usuarios.personasPorSala(data);
+      client.broadcast.emit('usuariosConectadosSala',personas);
       callback(personas);
     }else {
       callback(null);
@@ -95,6 +96,7 @@ io.on('connection', (client) => {
         var jsonContent = JSON.stringify(jsonObject);
         fs.writeFileSync('./server/data/userConnected.json',jsonContent);
         client.broadcast.emit('usuariosConectados', usuarios.getPersonas());
+        client.broadcast.emit('usuariosConectadosSala',usuarios.personasPorSala(personaBorrada.sala));
       }
   });
 });
