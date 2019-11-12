@@ -75,12 +75,16 @@ io.on('connection', (client) => {
   client.on('sendRoomInvitation', (data, callback) => {
     let usuario_actual = usuarios.getPersonaConectada(data.origen);
     let sala_actual = usuario_actual.sala;
+
     if(data && sala_actual){
       id = usuarios.getId(data.destino);
-      console.log(id);
-      client.broadcast.to(id).emit('recibeInvitation',data.origen);
-      //console.log("Sala creada");
-      callback("Envitacion enviada");
+      frienToInvite = usuarios.getPersona(id);
+      if(frienToInvite.sala==null){
+        client.broadcast.to(id).emit('recibeInvitation',data.origen);
+        callback("Envitacion enviada");
+      }else {
+        callback("El usurio ya se encuentra en una sala");
+      }
     }else {
       callback(null);
     }
