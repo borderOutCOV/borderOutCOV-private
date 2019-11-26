@@ -4,6 +4,9 @@ function waitRoomHtml(sala){
   html5 += "<h3 class='titulo'>Sala de espera</h3>";
   html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
   html5 += `<div id='renderSalaDeEspera'></div>`;
+  html5 += '<div id="div-start">';
+  html5 += 'Votos totales: 0/0';
+  html5 += '</div>';
   divActual.html(html5);
 
   var divSalaEspera = $('#renderSalaDeEspera');
@@ -20,6 +23,7 @@ function  renderRoom(personas) {
     persona = personas[i];
     html5 += `<h5>${persona.nombre}</h5>`;
   }
+  html5 += '<button class= "btn btn-success btn-md btn-block " type="submit" id="btn-start" name="btn-start" >Votar Para iniciar</button>';
   divSalaEspera.html(html5);
 }
 
