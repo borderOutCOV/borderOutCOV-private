@@ -91,6 +91,7 @@ function unirseASala(amigo,yo){
   });
 }
 
+/*
 function mensajePrueba(){
   amigo = "a";
   console.log("Si estoy entrando");
@@ -100,6 +101,7 @@ function mensajePrueba(){
 socket.on('test', function(mensaje) {
   alert(mensaje);
 });
+*/
 
 
 socket.on('recibeInvitation', function(mensaje) {
@@ -108,10 +110,12 @@ socket.on('recibeInvitation', function(mensaje) {
   alert("Recibiste una invitacion de "+mensaje);
 });
 
-
-/*
-// Escuchar información
-socket.on('enviarMensaje', function(mensaje) {
-    console.log('Servidor:', mensaje);
+socket.on('renderizarCategorias', function(categorias) {
+  alert(categorias);
+  var divSalaEspera = $('#renderSalaDeEspera');
+  var html5 = '';
+  html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
+  html5 += '<select id="seleccionarCategoria"></select> ';
+  divSalaEspera.html(html5);
+  renderCategoria(categorias);
 });
-*/

@@ -1,17 +1,29 @@
+var socket = io();
+
 function waitRoomHtml(sala){
   var divActual = $('#htmlToChange');
   var html5 = '';
   html5 += "<h3 class='titulo'>Sala de espera</h3>";
   html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
   html5 += `<div id='renderSalaDeEspera'></div>`;
-  html5 += '<div id="div-start">';
-  html5 += 'Votos totales: 0/0';
-  html5 += '</div>';
   divActual.html(html5);
-
+  //var divSalaEspera = $('#renderSalaDeEspera');
+  //var divIdSala = $('#sala').val();
+}
+function iniciarCategoria(){
+  var idSala = $('#sala').val();
   var divSalaEspera = $('#renderSalaDeEspera');
-  var divIdSala = $('#sala').val();
-
+  var html5 = '';
+  html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
+  html5 += '<select id="seleccionarCategoria"></select> ';
+  divSalaEspera.html(html5);
+  socket.emit('renderizarCategorias', idSala, function(categorias) {
+    if(categorias){
+      renderCategoria(categorias);
+    }else {
+      alert("Fallo algo en las categorias");
+    }
+  });
 }
 
 function  renderRoom(personas) {
@@ -23,8 +35,14 @@ function  renderRoom(personas) {
     persona = personas[i];
     html5 += `<h5>${persona.nombre}</h5>`;
   }
-  html5 += '<button class= "btn btn-success btn-md btn-block " type="submit" id="btn-start" name="btn-start" >Votar Para iniciar</button>';
-  divSalaEspera.html(html5);
+  let userConnected = WhoAmI();
+  userConnected.then((yo) => {
+    var divIdSala = $('#sala').val();
+    if(divIdSala==yo){
+       html5 += '<button class= "btn btn-success btn-md btn-block " onClick="iniciarCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Iniciar Partida</button>';
+    }
+    divSalaEspera.html(html5);
+  });
 }
 
 function renderConnectedFriends(peopleConnected){

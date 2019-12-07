@@ -53,6 +53,7 @@ router.get('/palabras_aprendidas', controller.verificaToken, controller.abrePala
 router.get('/palabras_actuales', controller.verificaToken, controller.abrePalabrasActuales);
 router.get('/getUserConected', controller.verificaToken, controller.getUserConected);
 router.get('/room', controller.verificaToken, controller.abreRoom);
+router.get('/dameCategorias', controller.verificaToken, controller.dameCategorias);
 
 
 

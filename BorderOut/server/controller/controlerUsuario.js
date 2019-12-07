@@ -488,6 +488,17 @@ controller.abreRoom = (req, res) => {
     res.render('room', {});
 }
 
+controller.dameCategorias = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `SELECT  * FROM categoria`;
+        let usuario
+        categorias = await pool.query(query, []);
+        res.json(categorias);
+    }
+}
+
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {

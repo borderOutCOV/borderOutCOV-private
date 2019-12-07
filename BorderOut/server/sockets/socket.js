@@ -25,6 +25,12 @@ io.on('connection', (client) => {
     }
   });
 
+  client.on('renderizarCategorias', (sala, callback) => {
+    console.log("Si estoy entrando aca");
+    client.broadcast.to(sala).emit('renderizarCategorias',"Si funciono");
+    callback(null);
+  });
+
   client.on('personasSala', (data, callback) => {
     if(data){
       let personas = usuarios.personasPorSala(data);
@@ -65,11 +71,6 @@ io.on('connection', (client) => {
     }else {
       callback("Error mortal");
     }
-  });
-
-  client.on('test', (data, callback) => {
-    console.log(data);
-    client.broadcast.to(data).emit('test',"Si funciono");
   });
 
   client.on('sendRoomInvitation', (data, callback) => {
