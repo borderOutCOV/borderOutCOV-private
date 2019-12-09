@@ -10,6 +10,10 @@ function waitRoomHtml(sala){
   //var divSalaEspera = $('#renderSalaDeEspera');
   //var divIdSala = $('#sala').val();
 }
+
+function renderCategoria(categorias){
+  alert("Si se manda a llamar esta cosa");
+}
 function iniciarCategoria(){
   var idSala = $('#sala').val();
   var divSalaEspera = $('#renderSalaDeEspera');
@@ -17,9 +21,15 @@ function iniciarCategoria(){
   html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
   html5 += '<select id="seleccionarCategoria"></select> ';
   divSalaEspera.html(html5);
-  socket.emit('renderizarCategorias', idSala, function(categorias) {
-    if(categorias){
-      renderCategoria(categorias);
+  socket.emit('renderizarCategorias', idSala, function(mensaje) {
+    if(mensaje){
+      $.ajax({
+        url: '/dameCategorias',
+        success: function(categorias)
+        {
+          renderCategoria(categorias);
+        }
+      });
     }else {
       alert("Fallo algo en las categorias");
     }

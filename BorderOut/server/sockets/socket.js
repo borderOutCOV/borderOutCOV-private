@@ -24,11 +24,9 @@ io.on('connection', (client) => {
       callback(null);
     }
   });
-
   client.on('renderizarCategorias', (sala, callback) => {
-    console.log("Si estoy entrando aca");
-    client.broadcast.to(sala).emit('renderizarCategorias',"Si funciono");
-    callback(null);
+    client.broadcast.to(sala).emit('renderizarCategorias',"funciona");
+    callback("funciona");
   });
 
   client.on('personasSala', (data, callback) => {

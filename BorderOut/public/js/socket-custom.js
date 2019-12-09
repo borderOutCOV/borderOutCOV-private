@@ -110,12 +110,17 @@ socket.on('recibeInvitation', function(mensaje) {
   alert("Recibiste una invitacion de "+mensaje);
 });
 
-socket.on('renderizarCategorias', function(categorias) {
-  alert(categorias);
+socket.on('renderizarCategorias', function(mensaje) {
   var divSalaEspera = $('#renderSalaDeEspera');
   var html5 = '';
   html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
   html5 += '<select id="seleccionarCategoria"></select> ';
   divSalaEspera.html(html5);
-  renderCategoria(categorias);
+  $.ajax({
+    url: '/dameCategorias',
+    success: function(categorias)
+    {
+      renderCategoria(categorias);
+    }
+  });
 });
