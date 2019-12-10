@@ -12,7 +12,13 @@ function waitRoomHtml(sala){
 }
 
 function renderCategoria(categorias){
-  alert("Si se manda a llamar esta cosa");
+  var divSalaEspera = $('#seleccionarCategoria');
+  for (var i = 0; i < categorias.length; i++) {
+    $('#seleccionarCategoria').append($('<option/>', {
+       value: categorias[i]['nombre'],
+       text : categorias[i]['nombre']
+   }));
+  }
 }
 function iniciarCategoria(){
   var idSala = $('#sala').val();

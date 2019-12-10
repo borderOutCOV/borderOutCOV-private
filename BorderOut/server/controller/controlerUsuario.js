@@ -492,7 +492,7 @@ controller.dameCategorias = async(req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
-        var query = `SELECT  * FROM categoria`;
+        var query = `SELECT  nombre FROM categoria`;
         let usuario
         categorias = await pool.query(query, []);
         res.json(categorias);
