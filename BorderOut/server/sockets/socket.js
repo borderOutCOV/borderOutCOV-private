@@ -31,8 +31,16 @@ io.on('connection', (client) => {
     callback("funciona");
   });
   client.on('escogerCategorias', (data, callback) => {
-    client.broadcast.to(data.sala).emit('escogerCategorias',"funciona");
-    callback("funciona");
+    salas.agregarCategoriaSala(data.divIdSala,data.categoriaSeleccionada);
+    salaActual = salas.getSala(data.divIdSala);
+    if(salaActual['categorias'].length >= salaActual['contador']){
+      client.broadcast.to(data.divIdSala).emit('escogerCategorias',"Llena");
+      callback("Llena");
+    }else {
+      client.broadcast.to(data.divIdSala).emit('escogerCategorias',"Vacia");
+      callback("Vacia");
+    }
+
   });
 
   client.on('personasSala', (data, callback) => {

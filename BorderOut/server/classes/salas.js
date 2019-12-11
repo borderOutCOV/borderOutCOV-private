@@ -40,7 +40,7 @@ class Salas {
   borrarSala(nombreSala) {
       let salaBorrada = this.getSala(nombreSala);
       if(salaBorrada){
-        this.datosSalas = this.datosSalas.filter(sala => sala.sala != nombreSala);
+        this.datosSalas = this.datosSalas.filter(sala => sala.nombreSala != nombreSala);
         return salaBorrada;
       }else {
         return null;
