@@ -1,9 +1,11 @@
 const { io } = require('../server');
 const { Usuarios } = require('../classes/usuarios');
+const { Salas } = require('../classes/salas');
 const fs = require('fs');
 const controller = require('../controller/controlerUsuario');
 
 const usuarios = new Usuarios();
+const salas = new Salas();
 
 
 
@@ -28,6 +30,10 @@ io.on('connection', (client) => {
     client.broadcast.to(sala).emit('renderizarCategorias',"funciona");
     callback("funciona");
   });
+  client.on('escogerCategorias', (data, callback) => {
+    client.broadcast.to(data.sala).emit('escogerCategorias',"funciona");
+    callback("funciona");
+  });
 
   client.on('personasSala', (data, callback) => {
     if(data){
@@ -46,6 +52,7 @@ io.on('connection', (client) => {
       console.log(usuarios);
       console.log("Sala creada");
       let personas  = usuarios.getPersonas();
+      salas.crearSala(data);
       //client.broadcast.emit('usuariosConectadosSala', personas);
       callback("Sala creada");
     }else {
@@ -57,14 +64,11 @@ io.on('connection', (client) => {
     if(data){
       let usuario_actual = usuarios.getPersonaConectada(data.amigo);
       let sala_actual = usuario_actual.sala;
-      //Hacer un promise de ajax.
       client.join(sala_actual);
       usuarios.unirASala(data.yo,sala_actual);
       console.log(usuarios);
-      //usuarios.unirASala(nombre,data);
       console.log("Te uniste a la sala");
-      let personas  = usuarios.getPersonas();
-      //client.broadcast.emit('usuariosConectadosSala', personas);
+      salas.incrementarContador(sala_actual);
       callback("Te uniste a la sala de: "+data.amigo);
     }else {
       callback("Error mortal");
@@ -99,7 +103,10 @@ io.on('connection', (client) => {
         var jsonContent = JSON.stringify(jsonObject);
         fs.writeFileSync('./server/data/userConnected.json',jsonContent);
         client.broadcast.emit('usuariosConectados', usuarios.getPersonas());
-        client.broadcast.emit('usuariosConectadosSala',usuarios.personasPorSala(personaBorrada.sala));
+        if(personaBorrada.sala){
+          client.broadcast.emit('usuariosConectadosSala',usuarios.personasPorSala(personaBorrada.sala));
+          salas.decrementarContador(personaBorrada.sala);
+        }
       }
   });
 });

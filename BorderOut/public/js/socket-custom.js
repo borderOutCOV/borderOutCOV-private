@@ -46,6 +46,9 @@ socket.on('usuariosConectados', function(personas) {
 socket.on('usuariosConectadosSala', function(personas) {
   renderRoom(personas);
 });
+socket.on('escogerCategorias', function(mensaje) {
+  alert(mensaje);
+});
 
 
 
@@ -119,6 +122,8 @@ socket.on('renderizarCategorias', function(mensaje) {
       var html5 = '';
       html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
       html5 += '<select id="seleccionarCategoria"></select> ';
+      html5 += '<button class= "btn btn-success btn-md btn-block " onClick="escogerCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Escoger Categoria</button>';
+      html5 += "<h4 class='titulo'>Esperando a los demas jugadores...</h4>";
       divSalaEspera.html(html5);
       renderCategoria(categorias);
     }

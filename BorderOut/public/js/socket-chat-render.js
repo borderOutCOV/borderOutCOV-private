@@ -10,6 +10,16 @@ function waitRoomHtml(sala){
   //var divSalaEspera = $('#renderSalaDeEspera');
   //var divIdSala = $('#sala').val();
 }
+function escogerCategoria(){
+  var categoriaSeleccionada =$( "#seleccionarCategoria" ).val();
+  var divIdSala = $('#sala').val();
+  let data = { divIdSala, categoriaSeleccionada};
+  socket.emit('escogerCategorias', data, function(mensaje) {
+    if(!mensaje){
+      alert("Fallo algo en las categorias");
+    }
+  });
+}
 
 function renderCategoria(categorias){
   var divSalaEspera = $('#seleccionarCategoria');
@@ -26,6 +36,8 @@ function iniciarCategoria(){
   var html5 = '';
   html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
   html5 += '<select id="seleccionarCategoria"></select> ';
+  html5 += '<button class= "btn btn-success btn-md btn-block " onClick="escogerCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Escoger Categoria</button>';
+  html5 += "<h4 class='titulo'>Esperando a los demas jugadores...</h4>";
   divSalaEspera.html(html5);
   socket.emit('renderizarCategorias', idSala, function(mensaje) {
     if(mensaje){
@@ -37,7 +49,7 @@ function iniciarCategoria(){
         }
       });
     }else {
-      alert("Fallo algo en las categorias");
+      alert("Fallo algo en la transicion a categorias");
     }
   });
 }
