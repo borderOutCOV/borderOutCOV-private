@@ -40,7 +40,10 @@ io.on('connection', (client) => {
       client.broadcast.to(data.divIdSala).emit('escogerCategorias',"Vacia");
       callback("Vacia");
     }
-
+  });
+    client.on('categoriasEscogidas', (sala,callback) => {
+    salaActual = salas.getSala(sala);
+    callback(salaActual['categorias']);
   });
 
   client.on('personasSala', (data, callback) => {

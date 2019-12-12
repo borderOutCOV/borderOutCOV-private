@@ -1,5 +1,24 @@
 var socket = io();
 
+function asignarIdCategorias(categorias,contador,ids){
+  console.log(categorias[contador]);
+  $.ajax({
+    url: '/dameIdCategoria/'+categorias[contador],
+    success: function(id)
+    {
+      ids.push(id);
+      contador += 1;
+      if(contador>=categorias.length){
+        return ids;
+      }else {
+        return asignarIdCategorias(categorias,contador,ids);
+      }
+    }
+
+  });
+
+
+}
 function waitRoomHtml(sala){
   var divActual = $('#htmlToChange');
   var html5 = '';
@@ -17,6 +36,24 @@ function escogerCategoria(){
   socket.emit('escogerCategorias', data, function(mensaje) {
     if(!mensaje){
       alert("Fallo algo en las categorias");
+    }else {
+      if(mensaje=="Llena"){
+        var divSalaEspera = $('#renderSalaDeEspera');
+        var html5 = '';
+        html5 += "<h4 class='titulo'>Juego</h4>";
+        divSalaEspera.html(html5);
+        socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
+          var idsCategorias = [];
+          let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
+          console.log(idsCategoriasObtenidos);
+          //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
+        });
+      }else {
+        var divSalaEspera = $('#renderSalaDeEspera');
+        var html5 = '';
+        html5 += "<h4 class='titulo'>Esperando a los demas jugadores...</h4>";
+        divSalaEspera.html(html5);
+      }
     }
   });
 }

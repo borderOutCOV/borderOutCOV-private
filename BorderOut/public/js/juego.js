@@ -81,7 +81,6 @@ answer.keypress(function(e) {
 
 function reproducir(e) {
     responsiveVoice.speak(palabrasSwap[indice].ingles);
-
 }
 
 function verificando(e) {

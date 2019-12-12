@@ -498,6 +498,16 @@ controller.dameCategorias = async(req, res) => {
         res.json(categorias);
     }
 }
+controller.dameIdCategoria = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `SELECT  idCategoria FROM categoria Where nombre = "${req.params.categoria}"`;
+        let usuario
+        categorias = await pool.query(query, []);
+        res.json(categorias);
+    }
+}
 
 controller.addWord = async(req, res) => {
 

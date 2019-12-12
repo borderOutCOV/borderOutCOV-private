@@ -54,6 +54,7 @@ router.get('/palabras_actuales', controller.verificaToken, controller.abrePalabr
 router.get('/getUserConected', controller.verificaToken, controller.getUserConected);
 router.get('/room', controller.verificaToken, controller.abreRoom);
 router.get('/dameCategorias', controller.verificaToken, controller.dameCategorias);
+router.get('/dameIdCategoria/:categoria', controller.verificaToken, controller.dameIdCategoria);
 
 //Solo administradores
 router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreAdminConsole);

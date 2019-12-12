@@ -47,7 +47,19 @@ socket.on('usuariosConectadosSala', function(personas) {
   renderRoom(personas);
 });
 socket.on('escogerCategorias', function(mensaje) {
-  alert(mensaje);
+  if(mensaje=="Llena"){
+    var divIdSala = $('#sala').val();
+    var divSalaEspera = $('#renderSalaDeEspera');
+    var html5 = '';
+    html5 += "<h4 class='titulo'>Juego</h4>";
+    divSalaEspera.html(html5);
+    socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
+      var idsCategorias = [];
+      let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
+      console.log(idsCategoriasObtenidos);
+      //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
+    });
+  }
 });
 
 
