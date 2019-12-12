@@ -48,7 +48,7 @@
                 <a class="nav-link" href="/Configurar">Configurar</a>
             </li>
             <li class="form-inline my-2 my-lg-0 nav-item active">
-                <a class="nav-link" href="#">Salir</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Salir</a>
             </li>
 
             </div>
@@ -104,7 +104,26 @@
                 <a class="nav-link" href="/Configurar">Configurar Perfil</a>
             </li>
             <li class="form-inline my-2 my-lg-0 nav-item active">
-                <a class="nav-link" href="#">Salir</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Salir</a>
             </li>
         </div>
     </nav>
+
+     <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Desea cerrar Sesion?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="salir()" >Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/salir.js"></script>

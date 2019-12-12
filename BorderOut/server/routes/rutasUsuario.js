@@ -3,9 +3,9 @@ const router = express.Router();
 const controller = require('../controller/controlerUsuario.js');
 const pool = require('../data/database');
 
-
 //Paginas publicas
 router.get('/', controller.abreLogin);
+router.get('/inicio', controller.abreLogin);
 router.get('/error', controller.abreError);
 router.post('/agregar', controller.save);
 router.post('/login', controller.login);
@@ -54,8 +54,6 @@ router.get('/palabras_actuales', controller.verificaToken, controller.abrePalabr
 router.get('/getUserConected', controller.verificaToken, controller.getUserConected);
 router.get('/room', controller.verificaToken, controller.abreRoom);
 router.get('/dameCategorias', controller.verificaToken, controller.dameCategorias);
-
-
 
 //Solo administradores
 router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreAdminConsole);
