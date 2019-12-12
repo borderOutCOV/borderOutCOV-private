@@ -577,7 +577,7 @@ controller.login = async(req, res) => {
             req.session.token = token;
 
             if (existe[0].tipo == 1) {
-                res.redirect('admin');
+                res.redirect('/admin');
             } else {
                 res.redirect('videos');
             }
@@ -621,8 +621,9 @@ controller.verificaToken = (req, res, netx) => {
 controller.verificaAdmin = (req, res, netx) => {
     if (req.session.usuario.tipo == 1) {
         netx();
+    } else {
+        res.render('error', { mensaje: `No está autorizado para ver esta información` });
     }
-    res.render('error', { mensaje: `No está autorizado para ver esta información` });
 }
 
 module.exports = controller;
