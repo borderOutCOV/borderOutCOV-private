@@ -503,12 +503,20 @@ controller.dameIdCategoria = async(req, res) => {
         res.json();
     } else {
         var query = `SELECT  idCategoria FROM categoria Where nombre = "${req.params.categoria}"`;
-        let usuario
         categorias = await pool.query(query, []);
         res.json(categorias);
     }
 }
 
+controller.palabraRandom = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `SELECT * FROM palabra WHERE categoria = "${req.params.idCategoria}" ORDER BY RAND() LIMIT 1`;
+        palabra = await pool.query(query, []);
+        res.json(palabra);
+    }
+}
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {

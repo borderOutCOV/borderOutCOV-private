@@ -58,6 +58,9 @@ socket.on('escogerCategorias', function(mensaje) {
       let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
       idsCategoriasObtenidos.then((response) => {
         console.log(response);
+        for (var i = 0; i < 20; i++) {
+
+        }
       });
       //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
     });
