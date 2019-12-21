@@ -56,7 +56,9 @@ socket.on('escogerCategorias', function(mensaje) {
     socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
       var idsCategorias = [];
       let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
-      console.log(idsCategoriasObtenidos);
+      idsCategoriasObtenidos.then((response) => {
+        console.log(response);
+      });
       //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
     });
   }

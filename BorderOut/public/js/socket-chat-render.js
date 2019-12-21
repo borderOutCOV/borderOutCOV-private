@@ -1,7 +1,31 @@
 var socket = io();
 
+
+function asignarIdCategorias(categorias,contador,ids) {
+       return new Promise(function(resolve, reject){
+           $.ajax({
+               url: '/dameIdCategoria/'+categorias[contador],
+               success: function(id)
+               {
+                 ids.push(id);
+                 contador += 1;
+                 if(contador>=categorias.length){
+                   resolve(ids);
+                 }else {
+                   resolve(asignarIdCategorias(categorias,contador,ids));
+                 }
+               },
+               error: function(error) {
+                   alert("Hubo un error en el sistema");
+                   console.log(error);
+                   resolve(false);
+               }
+           });
+       });
+   }
+
+/*
 function asignarIdCategorias(categorias,contador,ids){
-  console.log(categorias[contador]);
   $.ajax({
     url: '/dameIdCategoria/'+categorias[contador],
     success: function(id)
@@ -16,9 +40,8 @@ function asignarIdCategorias(categorias,contador,ids){
     }
 
   });
+}*/
 
-
-}
 function waitRoomHtml(sala){
   var divActual = $('#htmlToChange');
   var html5 = '';
@@ -29,6 +52,7 @@ function waitRoomHtml(sala){
   //var divSalaEspera = $('#renderSalaDeEspera');
   //var divIdSala = $('#sala').val();
 }
+
 function escogerCategoria(){
   var categoriaSeleccionada =$( "#seleccionarCategoria" ).val();
   var divIdSala = $('#sala').val();
@@ -45,7 +69,9 @@ function escogerCategoria(){
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
           var idsCategorias = [];
           let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
-          console.log(idsCategoriasObtenidos);
+          idsCategoriasObtenidos.then((response) => {
+            console.log(response);
+          });
           //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
         });
       }else {
