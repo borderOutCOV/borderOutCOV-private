@@ -51,19 +51,8 @@ socket.on('escogerCategorias', function(mensaje) {
     var divIdSala = $('#sala').val();
     var divSalaEspera = $('#renderSalaDeEspera');
     var html5 = '';
-    html5 += "<h4 class='titulo'>Juego</h4>";
+    html5 += "<h4 class='titulo'>Juego 2</h4>";
     divSalaEspera.html(html5);
-    socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
-      var idsCategorias = [];
-      let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
-      idsCategoriasObtenidos.then((response) => {
-        console.log(response);
-        for (var i = 0; i < 20; i++) {
-
-        }
-      });
-      //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
-    });
   }
 });
 

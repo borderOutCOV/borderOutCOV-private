@@ -1,6 +1,34 @@
 var socket = io();
 
 
+function obtenerPalabrasJuegoMultijugador(categorias,contador,contadorCategoria,palabras){
+  if(contadorCategoria >= categorias.length){
+    contadorCategoria = 0;
+  }
+  var categoriaActual = categorias[contadorCategoria];
+  return new Promise(function(resolve, reject){
+      $.ajax({
+          url: '/palabraRandom/'+categoriaActual[0]['idCategoria'],
+          success: function(palabra)
+          {
+            palabras.push(palabra);
+            contador += 1;
+            contadorCategoria += 1;
+            if(contador>=20){
+              resolve(palabras);
+            }else {
+              resolve(obtenerPalabrasJuegoMultijugador(categorias,contador,contadorCategoria,palabras));
+            }
+          },
+          error: function(error) {
+              alert("Hubo un error en el sistema");
+              console.log(error);
+              resolve(false);
+          }
+      });
+  });
+
+}
 function asignarIdCategorias(categorias,contador,ids) {
        return new Promise(function(resolve, reject){
            $.ajax({
@@ -64,13 +92,21 @@ function escogerCategoria(){
       if(mensaje=="Llena"){
         var divSalaEspera = $('#renderSalaDeEspera');
         var html5 = '';
-        html5 += "<h4 class='titulo'>Juego</h4>";
+        html5 += "<h4 class='titulo'>Juego 1</h4>";
         divSalaEspera.html(html5);
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
+          console.log(mensaje);
           var idsCategorias = [];
           let  idsCategoriasObtenidos = asignarIdCategorias(mensaje,0,idsCategorias);
           idsCategoriasObtenidos.then((response) => {
             console.log(response);
+            var contador = 0;
+            var categoriaInicial = 0;
+            var palabrasJuegoMultijugador = [];
+            let palabrasJuego = obtenerPalabrasJuegoMultijugador(response,contador,categoriaInicial,palabrasJuegoMultijugador);
+            palabrasJuego.then((palabrasObtenidas) => {
+              console.log(palabrasObtenidas);
+            });
           });
           //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1
         });
