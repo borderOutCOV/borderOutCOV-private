@@ -29,6 +29,11 @@ class Salas {
     for (var i = 0; i < this.datosSalas.length; i++) {
       if(this.datosSalas[i]['nombreSala']==nombreSala){
         this.datosSalas[i]['contador'] -= 1;
+        this.datosSalas[i]['categorias'].pop();
+        if(this.datosSalas[i]['contador']<=0){
+          this.borrarSala(nombreSala);  
+        }
+
         break;
       }
     }
@@ -46,7 +51,6 @@ class Salas {
         return null;
       }
   }
-
 }
 
 module.exports = {

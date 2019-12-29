@@ -52,6 +52,7 @@ socket.on('escogerCategorias', function(mensaje) {
     var divSalaEspera = $('#renderSalaDeEspera');
     var html5 = '';
     html5 += "<h4 class='titulo'>Juego 2</h4>";
+    html5 += htmlJuego;
     divSalaEspera.html(html5);
   }
 });
