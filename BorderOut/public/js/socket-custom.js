@@ -43,6 +43,10 @@ socket.on('usuariosConectados', function(personas) {
   renderConnectedFriends(personas);
 });
 
+socket.on('recibirPalabras', function(palabras) {
+  console.log(palabras);
+});
+
 socket.on('usuariosConectadosSala', function(personas) {
   renderRoom(personas);
 });
@@ -100,19 +104,6 @@ function unirseASala(amigo,yo){
     }
   });
 }
-
-/*
-function mensajePrueba(){
-  amigo = "a";
-  console.log("Si estoy entrando");
-  socket.emit('test', amigo, function(message) {});
-}
-
-socket.on('test', function(mensaje) {
-  alert(mensaje);
-});
-*/
-
 
 socket.on('recibeInvitation', function(mensaje) {
   var invitacion = "#"+mensaje;

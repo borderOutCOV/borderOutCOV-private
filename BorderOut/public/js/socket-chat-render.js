@@ -58,8 +58,6 @@ function waitRoomHtml(sala) {
   html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
   html5 += `<div id='renderSalaDeEspera'></div>`;
   divActual.html(html5);
-  //var divSalaEspera = $('#renderSalaDeEspera');
-  //var divIdSala = $('#sala').val();
 }
 
 function escogerCategoria() {
@@ -91,6 +89,13 @@ function escogerCategoria() {
             let palabrasJuego = obtenerPalabrasJuegoMultijugador(response, contador, categoriaInicial, palabrasJuegoMultijugador);
             palabrasJuego.then((palabrasObtenidas) => {
               console.log(palabrasObtenidas);
+              var palabras = {
+                palabras: palabrasObtenidas,
+                idSala: divIdSala
+              };
+              socket.emit('enviarPalabras', palabras, function(respuestaObtenida) {
+                console.log(respuestaObtenida);
+              });
             });
           });
           //SELECT * FROM palabra WHERE categoria = 5 ORDER BY RAND() LIMIT 1

@@ -41,9 +41,15 @@ io.on('connection', (client) => {
       callback("Vacia");
     }
   });
-    client.on('categoriasEscogidas', (sala,callback) => {
+
+  client.on('categoriasEscogidas', (sala,callback) => {
     salaActual = salas.getSala(sala);
     callback(salaActual['categorias']);
+  });
+
+  client.on('enviarPalabras', (data,callback) => {
+    client.broadcast.to(data.idSala).emit('recibirPalabras',data.palabras);
+    callback("Palabras enviadas");
   });
 
   client.on('personasSala', (data, callback) => {
