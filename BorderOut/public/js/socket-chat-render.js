@@ -78,23 +78,21 @@ function escogerCategoria() {
         html5 += htmlJuego;
         divSalaEspera.html(html5);
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
-          console.log(mensaje);
           var idsCategorias = [];
           let idsCategoriasObtenidos = asignarIdCategorias(mensaje, 0, idsCategorias);
           idsCategoriasObtenidos.then((response) => {
-            console.log(response);
             var contador = 0;
             var categoriaInicial = 0;
             var palabrasJuegoMultijugador = [];
             let palabrasJuego = obtenerPalabrasJuegoMultijugador(response, contador, categoriaInicial, palabrasJuegoMultijugador);
             palabrasJuego.then((palabrasObtenidas) => {
-              console.log(palabrasObtenidas);
               var palabras = {
                 palabras: palabrasObtenidas,
                 idSala: divIdSala
               };
               socket.emit('enviarPalabras', palabras, function(respuestaObtenida) {
                 console.log(respuestaObtenida);
+                asignarPalabras(palabrasObtenidas);
               });
             });
           });

@@ -45,6 +45,7 @@ socket.on('usuariosConectados', function(personas) {
 
 socket.on('recibirPalabras', function(palabras) {
   console.log(palabras);
+  asignarPalabras(palabras);
 });
 
 socket.on('usuariosConectadosSala', function(personas) {

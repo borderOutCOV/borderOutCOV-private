@@ -45,4 +45,5 @@ var htmlJuego = '<div class="widget nueva_entrada">\
             </div>\
         </div>\
     </div>\
+    <script src="js/multijugador.js"></script>\
 </div>';
