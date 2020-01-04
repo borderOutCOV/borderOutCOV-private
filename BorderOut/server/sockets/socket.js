@@ -30,6 +30,11 @@ io.on('connection', (client) => {
     client.broadcast.to(sala).emit('renderizarCategorias',"funciona");
     callback("funciona");
   });
+  client.on('estoyJugando', (data, callback) => {
+    console.console.log("LOlololo");
+    client.broadcast.to(data.sala).emit('estoyJugando',data.usuario)
+    callback("funciona");
+  });
   client.on('escogerCategorias', (data, callback) => {
     salas.agregarCategoriaSala(data.divIdSala,data.categoriaSeleccionada);
     salaActual = salas.getSala(data.divIdSala);
@@ -50,6 +55,10 @@ io.on('connection', (client) => {
   client.on('enviarPalabras', (data,callback) => {
     client.broadcast.to(data.idSala).emit('recibirPalabras',data.palabras);
     callback("Palabras enviadas");
+  });
+  client.on('aumentarContador', (data,callback) => {
+    client.broadcast.to(data.sala).emit('aumentarContador',data.usuario);
+    callback("Contador Enviado");
   });
 
   client.on('personasSala', (data, callback) => {

@@ -1,5 +1,21 @@
 var socket = io();
 
+function estoyJugando(sala){
+  let userConnected = WhoAmI();
+  userConnected.then((response) => {
+      if(response){
+        var divIdSala = $('#sala').val();
+        let datos = {
+          sala : divIdSala,
+          usuario: response
+        };
+        socket.emit('estoyJugando', datos, function(respuestaObtenida) {});
+      }else {
+        console.log("Error consulta ajax");
+      }
+    });
+
+}
 
 function obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategoria, palabras) {
   if (contadorCategoria >= categorias.length) {
@@ -10,6 +26,8 @@ function obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategori
     $.ajax({
       url: '/palabraRandom/' + categoriaActual[0]['idCategoria'],
       success: function(palabra) {
+        console.log(palabra);
+        console.log("Categoria Actual" + categoriaActual[0]['idCategoria']);
         palabras.push(palabra);
         contador += 1;
         contadorCategoria += 1;
@@ -54,9 +72,10 @@ function asignarIdCategorias(categorias, contador, ids) {
 function waitRoomHtml(sala) {
   var divActual = $('#htmlToChange');
   var html5 = '';
-  html5 += "<h3 class='titulo'>Sala de espera</h3>";
+  html5 += "<h3 class='titulo'>Sala de Juego</h3>";
   html5 += `<input id='sala' value = '${sala}' type='hidden'>`;
   html5 += `<div id='renderSalaDeEspera'></div>`;
+  html5 += `<div id='jugadoresJugando'></div>`;
   divActual.html(html5);
 }
 
@@ -74,8 +93,9 @@ function escogerCategoria() {
       if (mensaje == "Llena") {
         var divSalaEspera = $('#renderSalaDeEspera');
         var html5 = '';
-        html5 += "<h4 class='titulo'>Juego 1</h4>";
+        html5 += "<h4 class='titulo'>Juego</h4>";
         html5 += htmlJuego;
+
         divSalaEspera.html(html5);
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
           var idsCategorias = [];
@@ -91,6 +111,7 @@ function escogerCategoria() {
                 idSala: divIdSala
               };
               socket.emit('enviarPalabras', palabras, function(respuestaObtenida) {
+                console.log("Aca estoy");
                 console.log(respuestaObtenida);
                 asignarPalabras(palabrasObtenidas);
               });
@@ -125,7 +146,6 @@ function iniciarCategoria() {
   html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
   html5 += '<select id="seleccionarCategoria"></select> ';
   html5 += '<button class= "btn btn-success btn-md btn-block " onClick="escogerCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Escoger Categoria</button>';
-  html5 += "<h4 class='titulo'>Esperando a los demas jugadores...</h4>";
   divSalaEspera.html(html5);
   socket.emit('renderizarCategorias', idSala, function(mensaje) {
     if (mensaje) {

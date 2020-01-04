@@ -56,7 +56,7 @@ socket.on('escogerCategorias', function(mensaje) {
     var divIdSala = $('#sala').val();
     var divSalaEspera = $('#renderSalaDeEspera');
     var html5 = '';
-    html5 += "<h4 class='titulo'>Juego 2</h4>";
+    html5 += "<h4 class='titulo'>Juego</h4>";
     html5 += htmlJuego;
     divSalaEspera.html(html5);
   }
@@ -112,6 +112,15 @@ socket.on('recibeInvitation', function(mensaje) {
   alert("Recibiste una invitacion de "+mensaje);
 });
 
+socket.on('aumentarContador', function(usuario) {
+  console.log("El usuario "+usuario+" agrega 1");
+});
+socket.on('estoyJugando', function(usuario) {
+  var divActual = $('#jugadoresJugando');
+  var html5 = divActual.html();
+  html5 += "<h3>lolololo</h3>";
+});
+
 socket.on('renderizarCategorias', function(mensaje) {
   $.ajax({
     url: '/dameCategorias',
@@ -122,7 +131,6 @@ socket.on('renderizarCategorias', function(mensaje) {
       html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
       html5 += '<select id="seleccionarCategoria"></select> ';
       html5 += '<button class= "btn btn-success btn-md btn-block " onClick="escogerCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Escoger Categoria</button>';
-      html5 += "<h4 class='titulo'>Esperando a los demas jugadores...</h4>";
       divSalaEspera.html(html5);
       renderCategoria(categorias);
     }
