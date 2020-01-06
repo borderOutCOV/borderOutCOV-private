@@ -1,5 +1,29 @@
 var socket = io();
 
+
+function crearSalaDeJuego(){
+  let userConnected = WhoAmI();
+  userConnected.then((response) => {
+    socket.emit('crearSala', response, function(message) {
+      console.log(message);
+      waitRoomHtml(response);
+      let room = response;
+      socket.emit('personasSala', room, function(personas) {
+        if(personas){
+          renderRoom(personas);
+        }else {
+          alert("Fallo algo en las personas de la sala");
+        }
+      });
+    });  
+  });
+}
+
+
+
+       /*
+
+       */
 function estoyJugando(sala){
   let userConnected = WhoAmI();
   userConnected.then((response) => {
@@ -68,6 +92,8 @@ function asignarIdCategorias(categorias, contador, ids) {
     });
   });
 }
+
+
 
 function waitRoomHtml(sala) {
   var divActual = $('#htmlToChange');

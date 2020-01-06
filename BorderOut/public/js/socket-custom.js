@@ -6,21 +6,6 @@ socket.on('connect', function() {
     let userConnected = WhoAmI();
          userConnected.then((response) => {
              if(response){
-               $('#createRoom').click(function() {
-                 socket.emit('crearSala', response, function(message) {
-                   console.log(message);
-                   waitRoomHtml(response);
-                   let room = response;
-                   socket.emit('personasSala', room, function(personas) {
-                     if(personas){
-                       renderRoom(personas);
-                     }else {
-                       alert("Fallo algo en las personas de la sala");
-                     }
-                   });
-
-                 });
-               });
                socket.emit('conectarse', response, function(personas) {
                  if(personas){
                    renderConnectedFriends(personas);
