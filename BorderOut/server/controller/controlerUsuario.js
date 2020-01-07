@@ -517,6 +517,15 @@ controller.palabraRandom = async(req, res) => {
         res.json(palabra);
     }
 }
+controller.palabrasCategorias = async(req, res) => {
+    if (req.session.usuario.correo == undefined) {
+        res.json();
+    } else {
+        var query = `SELECT * FROM palabra WHERE categoria = "${req.params.idCategoria}"`;
+        palabra = await pool.query(query, []);
+        res.json(palabra);
+    }
+}
 controller.addWord = async(req, res) => {
 
     const newPalabraUsuario = {

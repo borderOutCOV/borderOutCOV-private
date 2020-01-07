@@ -17,8 +17,8 @@ function asignarPalabras(palabrasJugar){
 
   palabrasSwap = palabrasJugar;
   indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
-  html = `Traduce ${palabrasSwap[indice][0].espanol}`;
-  responsiveVoice.speak(palabrasSwap[indice][0].ingles);
+  html = `Traduce ${palabrasSwap[indice].espanol}`;
+  responsiveVoice.speak(palabrasSwap[indice].ingles);
   traduciendo.html(html);
   html = "";
   equibocacion.html(html);
@@ -58,7 +58,7 @@ function emitirIncrementoContador(){
     });
 }
 function reproducir(e) {
-    responsiveVoice.speak(palabrasSwap[indice][0].ingles);
+    responsiveVoice.speak(palabrasSwap[indice].ingles);
 }
 
 function verificando(e) {
@@ -67,10 +67,10 @@ function verificando(e) {
             alert("Felicidades ganaste");
         } else {
             answer = document.getElementById("answer");
-            if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice][0].ingles.toLowerCase())) {
+            if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice].ingles.toLowerCase())) {
                 answer.value = "";
-                if (palabrasSwap[indice][0].contador - 1 == 0 && !palabrasSwap[indice][0].equibocacion) {
-                    palabrasEliminadas.push(palabrasSwap[indice][0]);
+                if (palabrasSwap[indice].contador - 1 == 0 && !palabrasSwap[indice].equibocacion) {
+                    palabrasEliminadas.push(palabrasSwap[indice]);
                 }
                 palabrasSwap.splice(indice, 1);
                 indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
@@ -80,11 +80,11 @@ function verificando(e) {
                     porcentajeBarra += 5;
                     html = `<div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:${porcentajeBarra}%;">${porcentajeBarra}%</div>`;
                     barra.html(html);
-                    html = `Traduce ${palabrasSwap[indice][0].espanol}`
+                    html = `Traduce ${palabrasSwap[indice].espanol}`
                     traduciendo.html(html);
                     html = "";
                     equibocacion.html(html);
-                    responsiveVoice.speak(palabrasSwap[indice][0].ingles);
+                    responsiveVoice.speak(palabrasSwap[indice].ingles);
                     emitirIncrementoContador();
                   } else {
                     var monedas = 3;
@@ -113,13 +113,13 @@ function verificando(e) {
                 }
             } else {
                 answer.value = "";
-                palabrasSwap[indice][0].equibocacion = true;
-                html = `La respuesta correcta de "${palabrasSwap[indice][0].espanol}" es "${palabrasSwap[indice][0].ingles}"`;
+                palabrasSwap[indice].equibocacion = true;
+                html = `La respuesta correcta de "${palabrasSwap[indice].espanol}" es "${palabrasSwap[indice].ingles}"`;
                 equibocacion.html(html);
                 indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
-                html = `Traduce ${palabrasSwap[indice][0].espanol}`
+                html = `Traduce ${palabrasSwap[indice].espanol}`
                 traduciendo.html(html);
-                responsiveVoice.speak(palabrasSwap[indice][0].ingles);
+                responsiveVoice.speak(palabrasSwap[indice].ingles);
             }
         }
     } else {

@@ -64,7 +64,7 @@ io.on('connection', (client) => {
   client.on('personasSala', (data, callback) => {
     if(data){
       let personas = usuarios.personasPorSala(data);
-      client.broadcast.emit('usuariosConectadosSala',personas);
+      client.broadcast.to(data).emit('usuariosConectadosSala',personas);
       callback(personas);
     }else {
       callback(null);

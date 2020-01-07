@@ -15,15 +15,10 @@ function crearSalaDeJuego(){
           alert("Fallo algo en las personas de la sala");
         }
       });
-    });  
+    });
   });
 }
 
-
-
-       /*
-
-       */
 function estoyJugando(sala){
   let userConnected = WhoAmI();
   userConnected.then((response) => {
@@ -41,25 +36,16 @@ function estoyJugando(sala){
 
 }
 
-function obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategoria, palabras) {
-  if (contadorCategoria >= categorias.length) {
-    contadorCategoria = 0;
-  }
-  var categoriaActual = categorias[contadorCategoria];
+function damePalabra(categoria){
   return new Promise(function(resolve, reject) {
     $.ajax({
-      url: '/palabraRandom/' + categoriaActual[0]['idCategoria'],
-      success: function(palabra) {
-        console.log(palabra);
-        console.log("Categoria Actual" + categoriaActual[0]['idCategoria']);
-        palabras.push(palabra);
-        contador += 1;
-        contadorCategoria += 1;
-        if (contador >= 20) {
-          resolve(palabras);
-        } else {
-          resolve(obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategoria, palabras));
-        }
+      url: '/palabrasCategorias/' + categoria,
+      success: function(palabras) {
+        var date = new Date();
+        var miliseconds = date.getMilliseconds();
+        var numeroSeleccionado = miliseconds%palabras.length;
+        var palabra = palabras[numeroSeleccionado];
+        resolve(palabra);
       },
       error: function(error) {
         alert("Hubo un error en el sistema");
@@ -69,6 +55,26 @@ function obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategori
     });
   });
 
+}
+
+function obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategoria, palabras) {
+    return new Promise(function(resolve, reject) {
+      if (contadorCategoria >= categorias.length) {
+        contadorCategoria = 0;
+      }
+      var categoriaActual = categorias[contadorCategoria];
+      let palabraObtenida = damePalabra(categoriaActual[0]['idCategoria']);
+      palabraObtenida.then((palabraInsertar) => {
+        palabras.push(palabraInsertar);
+        contador += 1;
+        contadorCategoria += 1;
+      if (contador >= 20) {
+        resolve(palabras);
+      } else {
+        resolve(obtenerPalabrasJuegoMultijugador(categorias, contador, contadorCategoria, palabras));
+      }
+    });
+  });
 }
 
 function asignarIdCategorias(categorias, contador, ids) {
@@ -207,7 +213,7 @@ function renderRoom(personas) {
 }
 
 function renderConnectedFriends(peopleConnected) {
-  var navAmigos = $('#navAmigos');  
+  var navAmigos = $('#navAmigos');
   var html5 = '';
   navAmigos.html(html5);
   //Hacer promesa de ajax
