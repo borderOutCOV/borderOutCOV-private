@@ -114,13 +114,18 @@ tr:hover td.bonita {
 }
 
 .inicio {
-    with: 0%;
+    width: 0%;
 }
 
 .final {
-    with: 100%;
+    width: 100%;
 }
 
 .animacion {
-    tansition: all 2s ease.5s;
+    transition: all 2s ease.5s;
+}
+
+.buttonAddSala {
+    width:20%;
+    height:100%;
 }

@@ -207,7 +207,7 @@ function renderRoom(personas) {
 }
 
 function renderConnectedFriends(peopleConnected) {
-  var navAmigos = $('#navAmigos');
+  var navAmigos = $('#navAmigos');  
   var html5 = '';
   navAmigos.html(html5);
   //Hacer promesa de ajax
@@ -237,8 +237,9 @@ function renderConnectedFriends(peopleConnected) {
                         foto = datosAmigo[0].foto;
                       }
 
-                      html5 += `<div><img src="${foto}" class="redondaOnline" alt="Amigo 1" id="status"><span>${datosAmigo[0].username}</span></div>`;
-                      html5 += `<a href="#" onclick= sendInvitation("${datosAmigo[0].username}","${yo}");return false;">Invitar a sala</a>`;
+                      html5 += `<div class="col-12">
+                                    <img src="${foto}" class="redondaOnline" alt="Amigo 1" id="status"><span>${datosAmigo[0].username}</span>`;
+                      html5 += `<button type="button" class="btn btn-success buttonAddSala" onclick= sendInvitation("${datosAmigo[0].username}","${yo}");return false;">Invitar a sala</button></div>`;
                       html5 += `<a id="${datosAmigo[0].username}" href="#" onclick=unirseASala("${datosAmigo[0].username}","${yo}"); return false;" style="display: none;">Aceptar Invitacion</a>`;
                       html5 += `<input id="amigo:${datosAmigo[0].username}" type="hidden" value="xm234jq">`;
                       navAmigos.html(html5);
