@@ -33,7 +33,6 @@ function estoyJugando(sala){
         console.log("Error consulta ajax");
       }
     });
-
 }
 
 function damePalabra(categoria){
@@ -127,8 +126,8 @@ function escogerCategoria() {
         var html5 = '';
         html5 += "<h4 class='titulo'>Juego</h4>";
         html5 += htmlJuego;
-
         divSalaEspera.html(html5);
+        estoyJugando(divIdSala);
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
           var idsCategorias = [];
           let idsCategoriasObtenidos = asignarIdCategorias(mensaje, 0, idsCategorias);

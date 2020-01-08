@@ -44,6 +44,7 @@ socket.on('escogerCategorias', function(mensaje) {
     html5 += "<h4 class='titulo'>Juego</h4>";
     html5 += htmlJuego;
     divSalaEspera.html(html5);
+    estoyJugando(divIdSala);
   }
 });
 
@@ -98,12 +99,15 @@ socket.on('recibeInvitation', function(mensaje) {
 });
 
 socket.on('aumentarContador', function(usuario) {
+  var divContador = $('#contador'+usuario+'');
   console.log("El usuario "+usuario+" agrega 1");
 });
 socket.on('estoyJugando', function(usuario) {
   var divActual = $('#jugadoresJugando');
   var html5 = divActual.html();
-  html5 += "<h3>lolololo</h3>";
+  html5 += "<h3>" +usuario+"</h3>";
+  html5 += "<h3 id= 'contador"+usuario+"'>0</h3>";
+  divActual.html(html5);
 });
 
 socket.on('renderizarCategorias', function(mensaje) {

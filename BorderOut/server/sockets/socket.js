@@ -31,7 +31,6 @@ io.on('connection', (client) => {
     callback("funciona");
   });
   client.on('estoyJugando', (data, callback) => {
-    console.console.log("LOlololo");
     client.broadcast.to(data.sala).emit('estoyJugando',data.usuario)
     callback("funciona");
   });
