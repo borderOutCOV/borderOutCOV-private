@@ -243,11 +243,22 @@ function renderConnectedFriends(peopleConnected) {
                         foto = datosAmigo[0].foto;
                       }
 
-                      html5 += `<div class="col-12">
-                                    <img src="${foto}" class="redondaOnline" alt="Amigo 1" id="status"><span>${datosAmigo[0].username}</span>`;
-                      html5 += `<button type="button" class="btn btn-success buttonAddSala" onclick= sendInvitation("${datosAmigo[0].username}","${yo}");return false;">Invitar a sala</button></div>`;
-                      html5 += `<a id="${datosAmigo[0].username}" href="#" onclick=unirseASala("${datosAmigo[0].username}","${yo}"); return false;" style="display: none;">Aceptar Invitacion</a>`;
-                      html5 += `<input id="amigo:${datosAmigo[0].username}" type="hidden" value="xm234jq">`;
+                      html5 += `
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-12">
+                                <img src="${foto}" class="redondaOnline" alt="Amigo 1" id="status"><span>${datosAmigo[0].username}</span>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <button type="button" class="btn btn-primary buttonAddSala" onclick= sendInvitation("${datosAmigo[0].username}","${yo}");return false;">Invitar a sala</button>
+                        </div>
+                        <div class="row">
+                          <button type="button" class="btn btn-success buttonAddSala" id="${datosAmigo[0].username}" onclick=unirseASala("${datosAmigo[0].username}","${yo}"); return false;" style="display: none;">Aceptar Invitacion</button>
+                            <input id="amigo:${datosAmigo[0].username}" type="hidden" value="xm234jq">
+                        </div>
+                      </div>`;
                       navAmigos.html(html5);
                       break;
                     }
