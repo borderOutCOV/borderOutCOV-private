@@ -101,6 +101,7 @@ socket.on('recibeInvitation', function(mensaje) {
 socket.on('aumentarContador', function(usuario) {
   var porcentajeActual = $("#porcentaje"+usuario+"").val();
   console.log(porcentajeActual);
+  porcentajeActual = parseInt(porcentajeActual); 
   porcentajeActual += 5;
   var barra = $("#barra"+usuario+"");
   var html5 = "<input type='hidden' id='porcentaje"+usuario+"' value='"+porcentajeActual+"'>";
