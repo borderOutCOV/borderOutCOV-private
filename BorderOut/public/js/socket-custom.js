@@ -99,14 +99,24 @@ socket.on('recibeInvitation', function(mensaje) {
 });
 
 socket.on('aumentarContador', function(usuario) {
-  var divContador = $('#contador'+usuario+'');
-  console.log("El usuario "+usuario+" agrega 1");
+  var porcentajeActual = $("#porcentaje"+usuario+"").val();
+  console.log(porcentajeActual);
+  porcentajeActual += 5;
+  var barra = $("#barra"+usuario+"");
+  var html5 = "<input type='hidden' id='porcentaje"+usuario+"' value='"+porcentajeActual+"'>";
+  html5 += `<div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:${porcentajeActual}%;">${porcentajeActual}%</div>`;
+  barra.html(html5);
+  console.log("Aca estoy");
+  console.log(barra);
 });
 socket.on('estoyJugando', function(usuario) {
   var divActual = $('#jugadoresJugando');
   var html5 = divActual.html();
   html5 += "<h3>" +usuario+"</h3>";
-  html5 += "<h3 id= 'contador"+usuario+"'>0</h3>";
+  html5 += "<div class='progress mb-3' style='height:30px;' id='barra"+usuario+"'>";
+  html5 += "<input type='hidden' id='porcentaje"+usuario+"' value='0'>";
+  html5 += "<div class='progress-bar progress-bar-striped progress-bar-animated bg-info' role='progressbar' style='width:1%;'>0%</div>";
+  html5 += "</div> <hr>";
   divActual.html(html5);
 });
 
