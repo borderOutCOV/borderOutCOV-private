@@ -174,8 +174,15 @@ function iniciarCategoria() {
   var idSala = $('#sala').val();
   var divSalaEspera = $('#renderSalaDeEspera');
   var html5 = '';
-  html5 += "<h3 class='titulo'>Escoge una categoria</h3>";
-  html5 += '<select id="seleccionarCategoria"></select> ';
+  html5 += "<h3 class='titulo'>Escoge una categoria</h3> <br>";
+  html5 += `<div class="container">
+              <div class="row">
+                <div class="col col-lg-6 col-sm-12">
+                    <select class="form-control" id="seleccionarCategoria"></select>
+                </div>
+              </div>
+            </div>
+            <br>`;
   html5 += '<button class= "btn btn-success btn-md btn-block " onClick="escogerCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Escoger Categoria</button>';
   divSalaEspera.html(html5);
   socket.emit('renderizarCategorias', idSala, function(mensaje) {
