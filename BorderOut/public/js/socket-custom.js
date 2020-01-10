@@ -43,6 +43,7 @@ socket.on('escogerCategorias', function(mensaje) {
     var html5 = '';
     html5 += "<h4 class='titulo'>Juego</h4>";
     html5 += htmlJuego;
+    html5 += "<input id='lugar' value = '0' type='hidden'>";
     divSalaEspera.html(html5);
     estoyJugando(divIdSala);
   }
@@ -54,6 +55,9 @@ socket.on('escogerCategorias', function(mensaje) {
 socket.on('recibirSolicitud', function(mensaje) {
   alert(mensaje);
   document.getElementById("solicitudes").style.color = 'blue';
+});
+socket.on('terminarJuego', function(lugar) {
+  $("#lugar").val(lugar);
 });
 
 function sendInvitation(amigo,yo){
@@ -101,7 +105,7 @@ socket.on('recibeInvitation', function(mensaje) {
 socket.on('aumentarContador', function(usuario) {
   var porcentajeActual = $("#porcentaje"+usuario+"").val();
   console.log(porcentajeActual);
-  porcentajeActual = parseInt(porcentajeActual); 
+  porcentajeActual = parseInt(porcentajeActual);
   porcentajeActual += 5;
   var barra = $("#barra"+usuario+"");
   var html5 = "<input type='hidden' id='porcentaje"+usuario+"' value='"+porcentajeActual+"'>";

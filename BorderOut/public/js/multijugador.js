@@ -13,8 +13,8 @@ var indice = 0;
 var bandera = false;
 var divFinal = $("#divFinal");
 var palabrasEliminadas = [];
-function asignarPalabras(palabrasJugar){
 
+function asignarPalabras(palabrasJugar){
   palabrasSwap = palabrasJugar;
   indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
   html = `Traduce ${palabrasSwap[indice].espanol}`;
@@ -22,15 +22,60 @@ function asignarPalabras(palabrasJugar){
   traduciendo.html(html);
   html = "";
   equibocacion.html(html);
-
 }
 
-
-//getPalabras();
 verificaRespuesta.on('click', verificando);
 reproducirAudio.on('click', reproducir);
 
+function terminarJuego(e){
+  var monedas = 3;
+  porcentajeBarra += 5;
+  var html5 = `<div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:${porcentajeBarra}%;">${porcentajeBarra}%</div>`;
+  barra.html(html5);
+  html5 = `<h1 class="text-center">Resumen</h1>
+          <hr>
+          <h2>Has ganado 3 monedas por terminar esta ronda</h2>
+          <hr>`;
+  var lugarActual = $("#lugar").val();
+  lugarActual = parseInt(lugarActual);
+  lugarActual += 1;
+  if(lugarActual==1){
+    html5 += "<h2>Has ganado 5 monedas por terminar primero</h2> <hr>";
+    monedas += 5;
+  }else if(lugarActual==2){
+    html5 += "<h2>Has ganado 3 monedas por terminar segundo </h2> <hr>";
+    monedas += 3;
+  }else {
+    html5 += "<h2>Has ganado 1 monedas por terminar en "+lugarActual+" lugar  </h2> <hr>";
+    monedas += 1;
+  }
+  html5 += ` <hr>
+          <h2 class="text-center">Monedas totales = ${monedas}</h2>`;
+  divFinal.html(html5)
+  e.preventDefault();
 
+  var divIdSala = $('#sala').val();
+  let datos = {
+    sala : divIdSala,
+    resultado: lugarActual
+  };
+  socket.emit('terminarJuego', datos, function(mensaje) {
+    if(!mensaje){
+      console.log("Error mortal");
+    }
+  });
+
+  $.ajax({
+      url: '/setMonedas',
+      method: 'POST',
+      data: {
+          monedas
+      },
+      success: function() {
+          console.log("exito");
+      }
+  });
+}
 
 answer.keypress(function(e) {
     if (e.which == 13) {
@@ -64,7 +109,7 @@ function reproducir(e) {
 function verificando(e) {
     if (bandera) {
         if (palabrasSwap.length == 0) {
-            alert("Felicidades ganaste");
+            lalert("Terminaste el juego");
         } else {
             answer = document.getElementById("answer");
             if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice].ingles.toLowerCase())) {
@@ -76,7 +121,7 @@ function verificando(e) {
                 indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
                 html = `Palabras restantes ${palabrasSwap.length}`;
                 restantes.html(html);
-                if (palabrasSwap.length != 0) {
+                if (palabrasSwap.length > 0) {
                     porcentajeBarra += 5;
                     html = `<div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:${porcentajeBarra}%;">${porcentajeBarra}%</div>`;
                     barra.html(html);
@@ -87,30 +132,9 @@ function verificando(e) {
                     responsiveVoice.speak(palabrasSwap[indice].ingles);
                     emitirIncrementoContador();
                   } else {
-                    var monedas = 3;
-                    porcentajeBarra += 5;
-                    html = `<div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:${porcentajeBarra}%;">${porcentajeBarra}%</div>`;
-                    barra.html(html);
-                    html = `<h1 class="text-center">Resumen</h1>
-                            <hr>
-                            <h2>Has ganado 3 monedas por terminar esta ronda</h2>
-                            <hr>`;
-                    html += ` <hr>
-                            <h2 class="text-center">Monedas totales = ${monedas}</h2>`;
-                    divFinal.html(html)
-                    e.preventDefault();
-
-                    $.ajax({
-                        url: '/setMonedas',
-                        method: 'POST',
-                        data: {
-                            monedas
-                        },
-                        success: function() {
-                            console.log("exito");
-                        }
-                    });
-                }
+                    emitirIncrementoContador();
+                    terminarJuego(e);
+                  }
             } else {
                 answer.value = "";
                 palabrasSwap[indice].equibocacion = true;

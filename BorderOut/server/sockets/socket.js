@@ -34,6 +34,10 @@ io.on('connection', (client) => {
     client.broadcast.to(data.sala).emit('estoyJugando',data.usuario)
     callback("funciona");
   });
+  client.on('terminarJuego', (data, callback) => {
+    client.broadcast.to(data.sala).emit('terminarJuego',data.resultado);
+    callback("funciona");
+  });
   client.on('escogerCategorias', (data, callback) => {
     salas.agregarCategoriaSala(data.divIdSala,data.categoriaSeleccionada);
     salaActual = salas.getSala(data.divIdSala);

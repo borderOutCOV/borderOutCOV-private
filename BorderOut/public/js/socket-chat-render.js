@@ -126,6 +126,7 @@ function escogerCategoria() {
         var html5 = '';
         html5 += "<h4 class='titulo'>Juego</h4>";
         html5 += htmlJuego;
+        html5 += "<input id='lugar' value = '0' type='hidden'>";
         divSalaEspera.html(html5);
         estoyJugando(divIdSala);
         socket.emit('categoriasEscogidas', divIdSala, function(mensaje) {
