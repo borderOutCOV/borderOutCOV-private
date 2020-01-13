@@ -14,6 +14,10 @@ var bandera = false;
 var divFinal = $("#divFinal");
 var palabrasEliminadas = [];
 
+
+function recargar(){
+  location.reload();
+}
 function asignarPalabras(palabrasJugar){
   palabrasSwap = palabrasJugar;
   indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
@@ -49,8 +53,8 @@ function terminarJuego(e){
     html5 += "<h2>Has ganado 1 monedas por terminar en "+lugarActual+" lugar  </h2> <hr>";
     monedas += 1;
   }
-  html5 += ` <hr>
-          <h2 class="text-center">Monedas totales = ${monedas}</h2>`;
+  html5 += ` <hr> <h2 class="text-center">Monedas totales = ${monedas}</h2> <hr>`;
+  html5 += '<button class= "btn btn-success btn-md btn-block " onClick="recargar();" >Regresar</button>';
   divFinal.html(html5)
   e.preventDefault();
 
@@ -109,7 +113,7 @@ function reproducir(e) {
 function verificando(e) {
     if (bandera) {
         if (palabrasSwap.length == 0) {
-            lalert("Terminaste el juego");
+            alert("Terminaste el juego");
         } else {
             answer = document.getElementById("answer");
             if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice].ingles.toLowerCase())) {

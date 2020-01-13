@@ -75,6 +75,8 @@ function sendInvitation(amigo,yo){
 }
 
 function unirseASala(amigo,yo){
+  var invitacion = "#"+amigo;
+  $(invitacion).css("display", "none");
   waitRoomHtml(amigo);
   let unirse = {
     yo : yo,
