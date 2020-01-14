@@ -107,15 +107,20 @@ io.on('connection', (client) => {
   client.on('sendRoomInvitation', (data, callback) => {
     let usuario_actual = usuarios.getPersonaConectada(data.origen);
     let sala_actual = usuario_actual.sala;
-
+    console.log(data.origen);
+    console.log(sala_actual);
     if(data && sala_actual){
-      id = usuarios.getId(data.destino);
-      frienToInvite = usuarios.getPersona(id);
-      if(frienToInvite.sala==null){
-        client.broadcast.to(id).emit('recibeInvitation',data.origen);
-        callback("Envitacion enviada");
+      if(data.origen == sala_actual){
+        id = usuarios.getId(data.destino);
+        frienToInvite = usuarios.getPersona(id);
+        if(frienToInvite.sala==null){
+          client.broadcast.to(id).emit('recibeInvitation',data.origen);
+          callback("Envitacion enviada");
+        }else {
+          callback("El usurio ya se encuentra en una sala");
+        }
       }else {
-        callback("El usurio ya se encuentra en una sala");
+        callback("Solo el host puede invitar a la sala");
       }
     }else {
       callback(null);
@@ -133,6 +138,9 @@ io.on('connection', (client) => {
         fs.writeFileSync('./server/data/userConnected.json',jsonContent);
         client.broadcast.emit('usuariosConectados', usuarios.getPersonas());
         if(personaBorrada.sala){
+          if(personaBorrada.nombre==personaBorrada.sala){
+            client.broadcast.to(personaBorrada.sala).emit('hostAbandona',personaBorrada.sala);
+          }
           client.broadcast.emit('usuariosConectadosSala',usuarios.personasPorSala(personaBorrada.sala));
           salas.decrementarContador(personaBorrada.sala);
         }

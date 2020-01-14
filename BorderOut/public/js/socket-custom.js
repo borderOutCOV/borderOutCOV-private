@@ -34,7 +34,9 @@ socket.on('recibirPalabras', function(palabras) {
 });
 
 socket.on('usuariosConectadosSala', function(personas) {
-  renderRoom(personas);
+  if ( $("#estoyEnSala").length > 0 ) {
+    renderRoom(personas);
+  }
 });
 socket.on('escogerCategorias', function(mensaje) {
   if(mensaje=="Llena"){
@@ -101,7 +103,12 @@ function unirseASala(amigo,yo){
 socket.on('recibeInvitation', function(mensaje) {
   var invitacion = "#"+mensaje;
   $(invitacion).css("display", "inline");
-  alert("Recibiste una invitacion de "+mensaje);
+  //alert("Recibiste una invitacion de "+mensaje);
+});
+
+socket.on('hostAbandona', function(mensaje) {
+  alert("El host abandonó la sala");
+  location.reload();
 });
 
 socket.on('aumentarContador', function(usuario) {

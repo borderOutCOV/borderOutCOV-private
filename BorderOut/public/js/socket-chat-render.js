@@ -215,6 +215,7 @@ function renderRoom(personas) {
     if (divIdSala == yo) {
       html5 += '<button class= "btn btn-success btn-md btn-block " onClick="iniciarCategoria();" id="btn-start-votacion" name="btn-start-votacion" >Iniciar Partida</button>';
     }
+    html5 += "<input type='hidden' id='estoyEnSala' value='0'>";
     divSalaEspera.html(html5);
   });
 }
@@ -223,8 +224,6 @@ function renderConnectedFriends(peopleConnected) {
   var navAmigos = $('#navAmigos');
   var html5 = '';
   navAmigos.html(html5);
-  //Hacer promesa de ajax
-  console.log("Esperando promesa");
   let userConnected = WhoAmI();
   userConnected.then((yo) => {
     if (yo) {
