@@ -33,7 +33,7 @@ function showMyRequests ()
           }
           else
           {
-              alert("Algo esta mal");
+              showNotification("Algo esta mal","r");
           }
       }
   })
@@ -47,12 +47,12 @@ $(document).on('click', '#agregar', function() {
       {
         if(data=="Done")
         {
-          alert("Solicitud aceptada");
+          showNotification("Solicitud aceptada","g");
           location.reload();
         }
         else
         {
-          alert("Algo fallo");
+          showNotification("Algo fallo","r");
         }
       }
     });

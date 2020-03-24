@@ -16,7 +16,7 @@ function WhoAmI() {
                  }
                },
                error: function(error) {
-                   alert("Hubo un error en el sistema");
+                   showNotification("Hubo un error en el sistema","r");
                    console.log(error);
                    resolve(false);
                }

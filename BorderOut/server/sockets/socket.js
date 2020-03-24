@@ -7,12 +7,7 @@ const controller = require('../controller/controlerUsuario');
 const usuarios = new Usuarios();
 const salas = new Salas();
 
-
-
-
 io.on('connection', (client) => {
-
-
   client.on('conectarse', (data, callback) => {
     if(data){
       let personas = usuarios.agregarPersona(client.id,data);
@@ -115,7 +110,7 @@ io.on('connection', (client) => {
         frienToInvite = usuarios.getPersona(id);
         if(frienToInvite.sala==null){
           client.broadcast.to(id).emit('recibeInvitation',data.origen);
-          callback("Envitacion enviada");
+          callback("Invitacion enviada");
         }else {
           callback("El usurio ya se encuentra en una sala");
         }

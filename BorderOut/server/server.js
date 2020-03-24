@@ -26,10 +26,6 @@ app.use(session({
     }
 }));
 
-
-
-
-
 app.use('/', rutasUsuario);
 
 hbs.registerPartials(path.resolve(__dirname, '../views/parciales'));
@@ -37,18 +33,9 @@ hbs.registerPartials(path.resolve(__dirname, '../views/parciales'));
 console.log(path.resolve(__dirname, '../views/parciales'));
 app.set('view engine', 'hbs');
 
-
 // IO = esta es la comunicacion del backend
 module.exports.io = socketIO(server);
 require('./sockets/socket');
-
-
-/*var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Alejandro',
-    database: 'limitbreaker'
-});*/
 
 server.listen(port, (err) => {
 

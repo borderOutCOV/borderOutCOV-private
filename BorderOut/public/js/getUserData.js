@@ -16,7 +16,7 @@ function MostrarDatos() {
           }
           else
           {
-              alert("Algo esta mal");
+              showNotification("Algo esta mal","r");
           }
       }
   })

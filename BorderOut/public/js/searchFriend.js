@@ -47,7 +47,7 @@ function getFieldValue (evt)
             }
             else
             {
-                alert("Algo esta mal");
+                showNotification("Algo esta mal","r");
             }
         }
     })
@@ -63,19 +63,19 @@ $(document).on('click', '#agregar', function() {
       {
         if(data=="Same")
         {
-          alert("No puedes mandarte solicitud a ti mismo");
+          showNotification("No puedes mandarte solicitud a ti mismo","r");
         }
         else if(data=="Already")
         {
-          alert("El usuario ya es tu amigo o ya enviste una solicitud");
+          showNotification("El usuario ya es tu amigo o ya enviste una solicitud","b");
         }
         else if(data=="Done")
         {
-          alert("Solicitud enviada");
+          showNotification("Solicitud enviada","g");
         }
         else
         {
-          alert("Algo fallo");
+          showNotification("Algo fallo","r");
         }
       }
     });

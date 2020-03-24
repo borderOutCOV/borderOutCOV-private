@@ -443,9 +443,6 @@ function verificaConrasena(contrasena, hash) {
     }
 }
 
-
-
-
 controller.abreLogin = (req, res) => {
     var mensaje = "";
     res.render('index', {});
@@ -587,10 +584,10 @@ controller.save = async(req, res) => {
         res.render('error', { mensaje: "Error ese correo ya esta registrado" });
     }
 }
-
-
-
-
+controller.logout= async(req, res) => {
+    req.session.token = null;
+    res.redirect('/inicio');
+}
 controller.login = async(req, res) => {
 
     let existe = await pool.query('SELECT * FROM usuario WHERE correo = ?', [req.body.email]);
@@ -602,7 +599,6 @@ controller.login = async(req, res) => {
                 usuario: existe[0]
             }, process.env.seed, { expiresIn: 60 * 60 * 24 * 30 });
             req.session.token = token;
-
             if (existe[0].tipo == 1) {
                 res.redirect('/admin');
             } else {
@@ -626,10 +622,6 @@ controller.verificaToken = (req, res, netx) => {
             netx();
         }
     })
-
-
-
-
     /*
     const newuser = {
         username: 'q',

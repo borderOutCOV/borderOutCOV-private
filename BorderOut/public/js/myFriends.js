@@ -53,7 +53,7 @@ function showMyFriends ()
                     }
                     else
                     {
-                        alert("Algo esta mal");
+                      showNotification("Algo esta mal","r");
                     }
                 }
             })
@@ -61,7 +61,7 @@ function showMyFriends ()
           }
           else
           {
-              alert("Algo esta mal");
+            showNotification("Algo esta mal","r");
           }
       }
   });
@@ -79,7 +79,7 @@ $(document).on('click', '#eliminar', function() {
         }
         else
         {
-          alert("Algo fallo");
+          showNotification("Algo fallo","r");
         }
       }
     });

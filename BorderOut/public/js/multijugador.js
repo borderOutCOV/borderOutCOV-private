@@ -113,7 +113,7 @@ function reproducir(e) {
 function verificando(e) {
     if (bandera) {
         if (palabrasSwap.length == 0) {
-            alert("Terminaste el juego");
+            showNotification("Terminaste el juego","g");
         } else {
             answer = document.getElementById("answer");
             if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice].ingles.toLowerCase())) {

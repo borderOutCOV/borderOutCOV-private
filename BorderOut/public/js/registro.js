@@ -7,5 +7,5 @@ var Validaregistro = function() {
     var username = document.getElementById("username").value;
     //console.log(encrip);
     //var password = encriptar(document.getElementById("password").value);
-    alert(apaterno + amaterno + nombre + email + username /*+ password*/ );
+    showNotification(apaterno + amaterno + nombre + email + username,"b");
 }

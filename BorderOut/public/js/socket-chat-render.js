@@ -12,7 +12,7 @@ function crearSalaDeJuego(){
         if(personas){
           renderRoom(personas);
         }else {
-          alert("Fallo algo en las personas de la sala");
+          showNotification("Fallo algo en las personas de la sala","r");
         }
       });
     });
@@ -47,7 +47,7 @@ function damePalabra(categoria){
         resolve(palabra);
       },
       error: function(error) {
-        alert("Hubo un error en el sistema");
+        showNotification("Hubo un error en el sistema","r");
         console.log(error);
         resolve(false);
       }
@@ -90,7 +90,7 @@ function asignarIdCategorias(categorias, contador, ids) {
         }
       },
       error: function(error) {
-        alert("Hubo un error en el sistema");
+        showNotification("Hubo un error en el sistema","r");
         console.log(error);
         resolve(false);
       }
@@ -119,7 +119,7 @@ function escogerCategoria() {
   };
   socket.emit('escogerCategorias', data, function(mensaje) {
     if (!mensaje) {
-      alert("Fallo algo en las categorias");
+      showNotification("Fallo algo en las categorias","r");
     } else {
       if (mensaje == "Llena") {
         var divSalaEspera = $('#renderSalaDeEspera');
@@ -195,7 +195,7 @@ function iniciarCategoria() {
         }
       });
     } else {
-      alert("Fallo algo en la transicion a categorias");
+      showNotification("Fallo algo en la transicion a categorias","r");
     }
   });
 }
@@ -273,7 +273,7 @@ function renderConnectedFriends(peopleConnected) {
               });
             }
           } else {
-            alert("Algo esta mal");
+            showNotification("Algo esta mal","r");
           }
         }
       });

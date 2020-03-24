@@ -86,7 +86,7 @@ function reproducir(e) {
 function verificando(e) {
     if (bandera) {
         if (palabrasSwap.length == 0) {
-            alert("Felicidades ganaste");
+            showNotification("Felicidades ganaste","g");
         } else {
             answer = document.getElementById("answer");
             if (String(answer.value.toLowerCase()) == String(palabrasSwap[indice].ingles.toLowerCase())) {

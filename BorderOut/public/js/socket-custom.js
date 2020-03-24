@@ -1,5 +1,5 @@
 var socket = io();
-
+var divNotification = $('#Notifications');
 
 socket.on('connect', function() {
     console.log('Conectado al servidor');
@@ -10,7 +10,7 @@ socket.on('connect', function() {
                  if(personas){
                    renderConnectedFriends(personas);
                  }else {
-                   alert("Fallo algo");
+                   showNotification("Fallo algo","r");
                  }
                });
              }else {
@@ -55,9 +55,10 @@ socket.on('escogerCategorias', function(mensaje) {
 
 
 socket.on('recibirSolicitud', function(mensaje) {
-  alert(mensaje);
+  showNotification("mensaje","b");
   document.getElementById("solicitudes").style.color = 'blue';
 });
+
 socket.on('terminarJuego', function(lugar) {
   $("#lugar").val(lugar);
 });
@@ -69,9 +70,9 @@ function sendInvitation(amigo,yo){
   };
   socket.emit('sendRoomInvitation',invitacion, function(message) {
     if(message){
-      alert(message);
+      showNotification(message,"g");
     }else {
-      alert("Crea o unete a una sala primero")
+      showNotification("Crea o unete a una sala primero","b");
     }
   });
 }
@@ -86,16 +87,16 @@ function unirseASala(amigo,yo){
   };
   socket.emit('unirseSala',unirse, function(message) {
     if(message){
-      alert(message);
+      showNotification(message,"g");
       socket.emit('personasSala', amigo, function(personas) {
         if(personas){
           renderRoom(personas);
         }else {
-          alert("Fallo algo en las personas de la sala");
+          showNotification("Fallo algo en las personas de la sala","r");
         }
       });
     }else {
-      alert("No hay respuesta");
+      showNotification("No hay respuesta","r");
     }
   });
 }
@@ -104,10 +105,11 @@ socket.on('recibeInvitation', function(mensaje) {
   var invitacion = "#"+mensaje;
   $(invitacion).css("display", "inline");
   //alert("Recibiste una invitacion de "+mensaje);
+  showNotification("Recibiste una invitacion de "+mensaje,"b");
 });
 
 socket.on('hostAbandona', function(mensaje) {
-  alert("El host abandonó la sala");
+  showNotification("El host abandonó la sala","r");
   location.reload();
 });
 

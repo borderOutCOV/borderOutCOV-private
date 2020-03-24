@@ -57,6 +57,7 @@ router.get('/dameCategorias', controller.verificaToken, controller.dameCategoria
 router.get('/dameIdCategoria/:categoria', controller.verificaToken, controller.dameIdCategoria);
 router.get('/palabraRandom/:idCategoria', controller.verificaToken, controller.palabraRandom);
 router.get('/palabrasCategorias/:idCategoria', controller.verificaToken, controller.palabrasCategorias);
+router.get('/logout', controller.verificaToken,controller.logout);
 
 
 //Solo administradores

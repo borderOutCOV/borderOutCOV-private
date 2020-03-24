@@ -28,17 +28,21 @@ function validarLogin()
   var password = $("#passwordlog").val();
   if(invalida(email))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   else if(invalida(password))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   return true;
 }
-
+function validar_email( email ) 
+{
+    var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email) ? true : false;
+}
 function validarRegistro(){
   var paterno = $("#apaterno").val();
   var materno = $("#amaterno").val();
@@ -49,32 +53,32 @@ function validarRegistro(){
 
   if(invalida(paterno))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   else if(invalida(materno))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
-  else if(invalida(email))
+  else if(validar_email(email))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   else if(invalida(nombre))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   else if(invalida(username))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   else if(invalida(password))
   {
-    alert("Estas usando un simbolo invalido");
+    showNotification("Estas usando un simbolo invalido","r");
     return false;
   }
   return true;
