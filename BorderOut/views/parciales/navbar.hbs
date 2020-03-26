@@ -1,45 +1,52 @@
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark  navegador  d-none d-lg-block azulhover">
     <div class="container azulhover">
-            <a class="navbar-brand" href="/videos"><img class="Pollo" id="pollo" href="/videos" src="imagenes/polloperron1.png" alt="BorderOut Logo">BorderOut</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <a class="navbar-brand" href="/videos"><img class="Pollo" id="pollo" href="/videos"
+                src="imagenes/polloperron1.png" alt="BorderOut Logo">BorderOut</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse navbar-nav  nav-fill" id="navbar">
-
-                <li class="nav-item active">
-                    <a class="nav-link" href="/videos">Videos </a>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="collapse navbar-collapse navbar-nav  nav-fill" id="navbar">
+            <li class="nav-item active">
+                <a class="nav-link" onclick="openNav()">Online</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/videos">Videos </a>
+            </li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     Mis palabras
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/addPalabra">Agregar palabra</a>
                     <a class="dropdown-item" href="/palabras_actuales">Palabras actuales</a>
                     <a class="dropdown-item" href="/myWords">Palabras agregadas</a>
                     <a class="dropdown-item" href="/palabras_aprendidas">Palabras aprendidas</a>
-                </li>
-                <li class="nav-item active">
-                <a class="nav-link" href="/ampliarVocabulario">Ampliar vocabulario  </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/ampliarVocabulario">Ampliar vocabulario </a>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Jugar
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Jugar
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/practica">Practicar</a>
-                <a id="createRoom" class="dropdown-item" href="#" onclick="crearSalaDeJuego();">Crear sala de juego</a>
+                    <a class="dropdown-item" href="/practica">Practicar</a>
+                    <a id="createRoom" class="dropdown-item" href="#" onclick="crearSalaDeJuego();">Crear sala de
+                        juego</a>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Amigos
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Amigos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/findFriend">Buscar un amigo</a>
-                <a id="solicitudes" class="dropdown-item" href="/acceptFriend">Solicitudes de amistad </a>
-                <a class="dropdown-item" href="/myFriends">Mis amigos</a>
+                    <a class="dropdown-item" href="/findFriend">Buscar un amigo</a>
+                    <a id="solicitudes" class="dropdown-item" href="/acceptFriend">Solicitudes de amistad </a>
+                    <a class="dropdown-item" href="/myFriends">Mis amigos</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/quejas">Quejas</a>
@@ -50,51 +57,58 @@
             <li class="form-inline my-2 my-lg-0 nav-item active">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Salir</a>
             </li>
-
-            </div>
+        </div>
     </div>
 </nav>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark  d-block d-lg-none">
-        <a class="navbar-brand" href="/videos"><img class="Pollo" id="pollo" href="/videos" src="imagenes/polloperron1.png" alt="BorderOut Logo">BorderOut</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand" href="/videos"><img class="Pollo" id="pollo" href="/videos" src="imagenes/polloperron1.png"
+            alt="BorderOut Logo">BorderOut</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" onclick="openNav()">Online</a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/videos">Videos </a>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Mis palabras
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Mis palabras
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/addPalabra">Agregar palabra</a>
+                    <a class="dropdown-item" href="/addPalabra">Agregar palabra</a>
                     <a class="dropdown-item" href="/palabras_actuales">Palabras actuales</a>
                     <a class="dropdown-item" href="/myWords">Palabras agregadas</a>
-                <a class="dropdown-item" href="/palabras_aprendidas">Palabras aprendidas</a>
+                    <a class="dropdown-item" href="/palabras_aprendidas">Palabras aprendidas</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/ampliarVocabulario">Ampliar vocabulario  </a>
+                <a class="nav-link" href="/ampliarVocabulario">Ampliar vocabulario </a>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Jugar
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Jugar
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/practica">Practicar</a>
-                <a  id="createRoom" class="dropdown-item" href="#" onclick="crearSalaDeJuego();">Crear sala de juego</a>
+                    <a class="dropdown-item" href="/practica">Practicar</a>
+                    <a id="createRoom" class="dropdown-item" href="#" onclick="crearSalaDeJuego();">Crear sala de
+                        juego</a>
             </li>
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Amigos
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Amigos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/findFriend">Buscar un amigo</a>
-                <a id="solicitudes" class="dropdown-item" href="/acceptFriend">Solicitudes de amistad</a>
-                <a class="dropdown-item" href="/myFriends">Mis amigos</a>
+                    <a class="dropdown-item" href="/findFriend">Buscar un amigo</a>
+                    <a id="solicitudes" class="dropdown-item" href="/acceptFriend">Solicitudes de amistad</a>
+                    <a class="dropdown-item" href="/myFriends">Mis amigos</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/quejas">Quejas</a>
@@ -105,25 +119,26 @@
             <li class="form-inline my-2 my-lg-0 nav-item active">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Salir</a>
             </li>
-        </div>
-    </nav>
-<div class="Notifications" id="Notifications"></div>
-     <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Desea cerrar Sesion?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <form action="/logout" method="GET">
-        <button type="submit" class="btn btn-primary">Aceptar</button>
-        </form>
-      </div>
     </div>
-  </div>
+</nav>
+<div class="Notifications" id="Notifications"></div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Desea cerrar Sesion?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <form action="/logout" method="GET">
+                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
