@@ -193,3 +193,41 @@ tr:hover td.bonita {
 .circle img {
 	border-radius: 50%;	
 }
+
+.dataTables_paginate {
+    display: inline-block;
+  }
+  
+.dataTables_paginate a {
+    margin: 0 4px;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: #ddd .3s;
+  }
+  .dataTables_paginate a:hover:not(.active) {
+      background-color: #007bff;
+      color: #ddd;
+}
+.dataTables_filter{
+    text-align: left;
+}
+.dataTables_filter label{
+    font-size: 20px;
+}
+.dataTables_filter input{
+    border: 2px solid #077971;
+    border-radius: 30px;
+    height: 32px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    color: #3D3D3C;
+    font-weight: 400;
+    padding-left: 15px;
+    padding-right: 20px;
+}
+.dataTables_length{
+    text-align: right;
+}

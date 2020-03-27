@@ -1,6 +1,5 @@
 var divTabla = $('#tabla');
 var palabrasSwap;
-
 function renderizarMisPalabras() {
     var html5 = '';
     $.ajax({
@@ -8,7 +7,7 @@ function renderizarMisPalabras() {
         success: function(palabras) {
             palabrasSwap = palabras;
             if (palabras != undefined) {
-                html5 += `<table class='table table-bordered table-striped table-hover '>
+                html5 += `<table id="table_id" class='table table-bordered table-striped table-hover display'>
                 <thead class='bonita'>
                     <tr class='bonita'>
                         <th class='text-center'>Español</th>
@@ -16,7 +15,8 @@ function renderizarMisPalabras() {
                         <th class='text-center'></th>
                         <th class='text-center'></th>
                     </tr>
-                </thead>`;
+                </thead>
+                <tbody>`;
 
                 for (var i = 0; i < palabras.length; i++) {
                     var json = palabras[i].espanol + "/" + palabras[i].ingles + "/" + palabras[i].IdPalabra;
@@ -27,11 +27,13 @@ function renderizarMisPalabras() {
                     <td class='bonita text-center'><button type="button" class="btn btn-danger" data-elemento="${json}"  id="eliminar">Borrar</button></td>
                 </tr>`;
                 }
-
+                html5 +=`</tbody>
+                </table>`;
             } else {
                 html5 += `<h5>No tienes palabras Aun</h5>`;
             }
             divTabla.html(html5);
+            $('#table_id').DataTable();
         }
     })
 }

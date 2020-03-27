@@ -345,7 +345,7 @@ controller.getPalabrasActuales = async(req, res) => {
         FROM palabrausuario AS pu
         LEFT JOIN palabra AS p
         ON pu.palabra=p.IdPalabra
-        WHERE pu.estado=1 AND pu.usuario="${req.session.usuario.username}"; `;
+        WHERE pu.estado=1 AND pu.usuario="${req.session.usuario.username}" ORDER BY p.espanol ASC; `;
         let palabrasUsuario = await pool.query(query, []);
         var result = [];
         result.push(palabrasUsuario);

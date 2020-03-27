@@ -23,13 +23,14 @@ function showMyFriends ()
                 {
                     if (data != undefined)
                     {
-                      html5 += `<table class='table table-bordered table-striped table-hover '>
+                      html5 += `<table id="table_id" class='table table-bordered table-striped table-hover display'>
                       <thead class='bonita'>
                         <tr class='bonita'>
                           <th class='text-center'>Usuario</th>
                           <th class='text-center'></th>
                         </tr>
-                      </thead>`;
+                      </thead>
+                      <tbody>`;
 
                       for (var i = 0; i < data.length; i++)
                       {
@@ -48,8 +49,10 @@ function showMyFriends ()
                           </tr>`;
                         }
                       }
+                      html5 +=`</tbody>
+                </table>`;
                       divTabla.html(html5);
-
+                      $('#table_id').DataTable();
                     }
                     else
                     {
@@ -57,7 +60,6 @@ function showMyFriends ()
                     }
                 }
             })
-
           }
           else
           {
