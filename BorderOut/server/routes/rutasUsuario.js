@@ -61,7 +61,11 @@ router.get('/palabrasCategorias/:idCategoria', controller.verificaToken, control
 router.get('/logout', controller.verificaToken,controller.logout);
 
 //Solo administradores
-router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreAdminConsole);
-router.get('/quejaAdmin', controller.verificaToken, controller.abreQuejasAdmin);
+router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreTipoAdmin);
+router.get('/quejaAdmin', [controller.verificaToken, controller.verificaAdmin], controller.abreQuejasAdmin);
+router.get('/tipoAdmin', [controller.verificaToken, controller.verificaAdmin], controller.abreTipoAdmin);
+router.get('/getTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.getTipoPalabra);
+router.post('/editarTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.editarTipoPalabra);
+router.post('/AddTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.AddTipoPalabra);
 
 module.exports = router;

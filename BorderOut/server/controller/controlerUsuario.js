@@ -36,21 +36,21 @@ controller.abreAmpliarVocabulario = (req, res) => {
 
 controller.getUserConected = (req, res) => {
     res.json(req.session.usuario.username);
-} 
+}
 
-controller.getCategorias = async(req, res) => {
+controller.getCategorias = async (req, res) => {
     let categorias = await pool.query('SELECT * FROM categoria');
     res.json(categorias)
 }
-controller.getQuejas = async(req,res) =>{
-    if(req.session.usuario.username != null || req.session.usuario.username != ""){
+controller.getQuejas = async (req, res) => {
+    if (req.session.usuario.username != null || req.session.usuario.username != "") {
         let quejas = await pool.query('SELECT * FROM queja ORDER BY date DESC');
         res.json(quejas);
-    }else{
-        res =null;
+    } else {
+        res = null;
     }
 }
-controller.setNuevoContador = async(req, res) => {
+controller.setNuevoContador = async (req, res) => {
     if (req.body.contador > 0) {
         query = `update palabraagregadausuario set contador = ${req.body.contador} where IdPalabra=${req.body.id};`;
     } else {
@@ -59,7 +59,7 @@ controller.setNuevoContador = async(req, res) => {
     await pool.query(query);
     res.send("Done");
 }
-controller.setNuevoContadorPractica = async(req, res) => {
+controller.setNuevoContadorPractica = async (req, res) => {
     if (req.body.contador > 0) {
         query = `update palabrausuario set contador = ${req.body.contador} where id=${req.body.id};`;
     } else {
@@ -68,17 +68,17 @@ controller.setNuevoContadorPractica = async(req, res) => {
     await pool.query(query);
     res.send("Done");
 }
-controller.setMonedas = async(req, res) => {
+controller.setMonedas = async (req, res) => {
     query = `update usuario set monedas = monedas+${req.body.monedas} where username="${req.session.usuario.username}";`;
     await pool.query(query);
     res.send("Done");
 }
-controller.deletePalabra = async(req, res) => {
+controller.deletePalabra = async (req, res) => {
     await pool.query(`DELETE FROM palabraagregadausuario WHERE IdPalabra =${req.body.id};`);
     res.send("Done");
 }
 
-controller.repasaPalabra = async(req, res) => {
+controller.repasaPalabra = async (req, res) => {
     var datos = req.body.datos.split("/");
     var id = datos[2];
     var bd_update = datos[3];
@@ -87,7 +87,7 @@ controller.repasaPalabra = async(req, res) => {
     res.send("Done");
 }
 
-controller.editarPalabra = async(req, res) => {
+controller.editarPalabra = async (req, res) => {
     var datos = req.body.datos.split("/");
     var espanol = datos[0];
     var ingles = datos[1];
@@ -96,7 +96,7 @@ controller.editarPalabra = async(req, res) => {
     res.send("Done");
 }
 
-controller.postPalabras = async(req, res) => {
+controller.postPalabras = async (req, res) => {
 
     const newPalabra = {
         estado: 1,
@@ -111,7 +111,7 @@ controller.postPalabras = async(req, res) => {
 
     res.send("Done");
 }
-controller.getMyWords = async(req, res) => {
+controller.getMyWords = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -125,7 +125,7 @@ controller.getMyWords = async(req, res) => {
     }
 }
 
-controller.getUserData = async(req, res) => {
+controller.getUserData = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -139,7 +139,7 @@ controller.getUserData = async(req, res) => {
     }
 }
 
-controller.myRequests = async(req, res) => {
+controller.myRequests = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -153,7 +153,7 @@ controller.myRequests = async(req, res) => {
 }
 
 
-controller.getActualUser = async(req, res) => {
+controller.getActualUser = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -161,7 +161,7 @@ controller.getActualUser = async(req, res) => {
     }
 }
 
-controller.getMyFriends = async(req, res) => {
+controller.getMyFriends = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -174,7 +174,7 @@ controller.getMyFriends = async(req, res) => {
     }
 }
 
-controller.getFriends = async(req, res) => {
+controller.getFriends = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -187,7 +187,7 @@ controller.getFriends = async(req, res) => {
     }
 }
 
-controller.searchFriend = async(req, res) => {
+controller.searchFriend = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -201,7 +201,7 @@ controller.searchFriend = async(req, res) => {
     }
 }
 
-controller.getFriendData = async(req, res) => {
+controller.getFriendData = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -215,7 +215,7 @@ controller.getFriendData = async(req, res) => {
     }
 }
 
-controller.acceptRequest = async(req, res) => {
+controller.acceptRequest = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -239,14 +239,14 @@ controller.acceptRequest = async(req, res) => {
     }
 }
 
-controller.agregarQueja = async(req, res) => {
-    var msg=req.body.queja.trim();
+controller.agregarQueja = async (req, res) => {
+    var msg = req.body.queja.trim();
     var query = `INSERT INTO queja(mensaje,usuario) VALUES ("${msg}","${req.session.usuario.username}")`;
     await pool.query(query, []);
     res.render("quejas", {});
 }
 
-controller.deleteFriend = async(req, res) => {
+controller.deleteFriend = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -258,7 +258,7 @@ controller.deleteFriend = async(req, res) => {
     }
 }
 
-controller.sendFriendRequest = async(req, res) => {
+controller.sendFriendRequest = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json("Error");
     } else {
@@ -303,7 +303,7 @@ controller.sendFriendRequest = async(req, res) => {
     }
 }
 
-controller.getPalabras = async(req, res) => {
+controller.getPalabras = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.send("Error");
     } else {
@@ -319,7 +319,7 @@ controller.getPalabras = async(req, res) => {
         res.json(palabras);
     }
 }
-controller.getPalabrasAprendidas = async(req, res) => {
+controller.getPalabrasAprendidas = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.send("Error");
     } else {
@@ -342,7 +342,7 @@ controller.getPalabrasAprendidas = async(req, res) => {
         res.json(result);
     }
 }
-controller.getPalabrasActuales = async(req, res) => {
+controller.getPalabrasActuales = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.send("Error");
     } else {
@@ -358,7 +358,7 @@ controller.getPalabrasActuales = async(req, res) => {
         res.json(result);
     }
 }
-controller.getPalabrasPractica = async(req, res) => {
+controller.getPalabrasPractica = async (req, res) => {
     if (req.session.usuario.username == undefined) {
         res.json("Error");
     } else {
@@ -371,7 +371,7 @@ controller.getPalabrasPractica = async(req, res) => {
     }
     res.json(req.session.username);
 }
-controller.getPalabrasPracticaUsuario = async(req, res) => {
+controller.getPalabrasPracticaUsuario = async (req, res) => {
     if (req.session.usuario.username == undefined) {
         res.json("Error");
     } else {
@@ -391,7 +391,7 @@ controller.setcategoria = (req, res) => {
     res.json({ message: "listo" });
 }
 
-controller.abreTinder = async(req, res) => {
+controller.abreTinder = async (req, res) => {
     let categoria = await pool.query('SELECT * FROM categoria WHERE idCategoria = ?', [req.session.idcategoria]);
     if (categoria.length === 0) {
         res.render('ampliarVocabulario', {});
@@ -458,7 +458,7 @@ controller.abreError = (req, res) => {
 }
 
 
-controller.changeUserData = async(req, res) => {
+controller.changeUserData = async (req, res) => {
 
     var username = req.body.username;
     var nombre = req.body.nombre;
@@ -491,7 +491,7 @@ controller.abreRoom = (req, res) => {
     res.render('room', {});
 }
 
-controller.dameCategorias = async(req, res) => {
+controller.dameCategorias = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -501,7 +501,7 @@ controller.dameCategorias = async(req, res) => {
         res.json(categorias);
     }
 }
-controller.dameIdCategoria = async(req, res) => {
+controller.dameIdCategoria = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -511,7 +511,7 @@ controller.dameIdCategoria = async(req, res) => {
     }
 }
 
-controller.palabraRandom = async(req, res) => {
+controller.palabraRandom = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -520,7 +520,7 @@ controller.palabraRandom = async(req, res) => {
         res.json(palabra);
     }
 }
-controller.palabrasCategorias = async(req, res) => {
+controller.palabrasCategorias = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
@@ -529,14 +529,24 @@ controller.palabrasCategorias = async(req, res) => {
         res.json(palabra);
     }
 }
-controller.addWord = async(req, res) => {
+controller.addWord = async (req, res) => {
+    var level = 0;
+    if (req.body.pingles.toLowerCase == req.body.pespanol.toLowerCase()) {
+        level = 1;
+    } else if (req.body.pingles < 4) {
+        level = 1;
+    } else if (req.body.pingles.length > 6) {
+        level = 3;
+    } else {
+        level = 2;
+    }
 
     const newPalabraUsuario = {
         IdPalabra: null,
         ingles: req.body.pingles,
-        nivel: 3,
-        categoria: 5,
-        idTipoPalabra: 6,
+        nivel: level,
+        categoria: 4,
+        idTipoPalabra: 1,
         espanol: req.body.pespanol,
         usuario: req.session.usuario.username,
         estado: 1,
@@ -551,7 +561,7 @@ controller.addWord = async(req, res) => {
     }
 }
 
-controller.save = async(req, res) => {
+controller.save = async (req, res) => {
     req.body.password = encriptaContrasena(req.body.password);
 
     let existe = await pool.query('SELECT * FROM usuario WHERE correo = ?', [req.body.email]);
@@ -590,11 +600,11 @@ controller.save = async(req, res) => {
         res.render('error', { mensaje: "Error ese correo ya esta registrado" });
     }
 }
-controller.logout= async(req, res) => {
+controller.logout = async (req, res) => {
     req.session.token = null;
     res.redirect('/inicio');
 }
-controller.login = async(req, res) => {
+controller.login = async (req, res) => {
 
     let existe = await pool.query('SELECT * FROM usuario WHERE correo = ?', [req.body.email]);
     if (existe.length == 0) {
@@ -650,8 +660,38 @@ controller.verificaAdmin = (req, res, netx) => {
         res.render('error', { mensaje: `No está autorizado para ver esta información` });
     }
 }
-controller.abreQuejasAdmin=(req, res) => {
+controller.abreQuejasAdmin = (req, res) => {
     res.render('QuejasAdmin', {});
+}
+
+controller.abreTipoAdmin = (req, res) => {
+    res.render('TipoAdmin', {});
+}
+
+controller.getTipoPalabra= async (req, res) =>{
+    if (req.session.usuario.username != null || req.session.usuario.username != "") {
+        let tipoPalabras = await pool.query('SELECT * FROM tipo');
+        res.json(tipoPalabras);
+    } else {
+        res = null;
+    }
+}
+
+controller.editarTipoPalabra = async (req, res) => {
+    var datos = req.body.datos.split("/");
+    var Id = datos[1];
+    var nameTipoPalabra = datos[0];
+    await pool.query(`UPDATE tipo SET nombre='${nameTipoPalabra}' WHERE Id=${Id};`);
+    res.send("Done");
+}
+
+controller.AddTipoPalabra = async (req, res) => {
+    try {
+        pool.query(`INSERT INTO tipo (nombre) VALUES ("${req.body.datos}")`);
+        res.render(`TipoAdmin`, {});
+    } catch {
+        res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
+    }
 }
 
 module.exports = controller;
