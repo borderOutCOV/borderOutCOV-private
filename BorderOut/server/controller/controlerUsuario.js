@@ -36,11 +36,19 @@ controller.abreAmpliarVocabulario = (req, res) => {
 
 controller.getUserConected = (req, res) => {
     res.json(req.session.usuario.username);
-}
+} 
 
 controller.getCategorias = async(req, res) => {
     let categorias = await pool.query('SELECT * FROM categoria');
     res.json(categorias)
+}
+controller.getQuejas = async(req,res) =>{
+    if(req.session.usuario.username != null || req.session.usuario.username != ""){
+        let quejas = await pool.query('SELECT * FROM queja ORDER BY date DESC');
+        res.json(quejas);
+    }else{
+        res =null;
+    }
 }
 controller.setNuevoContador = async(req, res) => {
     if (req.body.contador > 0) {
@@ -232,11 +240,9 @@ controller.acceptRequest = async(req, res) => {
 }
 
 controller.agregarQueja = async(req, res) => {
-    const nuevaQueja = {
-        usuario: req.session.usuario.username,
-        mensaje: req.body.queja
-    };
-    await pool.query('INSERT INTO queja set ?', [nuevaQueja]);
+    var msg=req.body.queja.trim();
+    var query = `INSERT INTO queja(mensaje,usuario) VALUES ("${msg}","${req.session.usuario.username}")`;
+    await pool.query(query, []);
     res.render("quejas", {});
 }
 
@@ -643,6 +649,9 @@ controller.verificaAdmin = (req, res, netx) => {
     } else {
         res.render('error', { mensaje: `No está autorizado para ver esta información` });
     }
+}
+controller.abreQuejasAdmin=(req, res) => {
+    res.render('QuejasAdmin', {});
 }
 
 module.exports = controller;

@@ -34,6 +34,7 @@ router.get('/getPalabrasActuales', controller.verificaToken, controller.getPalab
 router.post('/agregarQueja', controller.verificaToken, controller.agregarQueja);
 router.get('/myWords', controller.verificaToken, controller.openMyWords);
 router.get('/quejas', controller.verificaToken, controller.openQuejas);
+router.get('/getQuejas', controller.verificaToken, controller.getQuejas);
 router.get('/myRequests', controller.verificaToken, controller.myRequests);
 router.get('/getMyFriends', controller.verificaToken, controller.getMyFriends);
 router.get('/getFriends/:myself', controller.verificaToken, controller.getFriends);
@@ -59,8 +60,8 @@ router.get('/palabraRandom/:idCategoria', controller.verificaToken, controller.p
 router.get('/palabrasCategorias/:idCategoria', controller.verificaToken, controller.palabrasCategorias);
 router.get('/logout', controller.verificaToken,controller.logout);
 
-
 //Solo administradores
 router.get('/admin', [controller.verificaToken, controller.verificaAdmin], controller.abreAdminConsole);
+router.get('/quejaAdmin', controller.verificaToken, controller.abreQuejasAdmin);
 
 module.exports = router;
