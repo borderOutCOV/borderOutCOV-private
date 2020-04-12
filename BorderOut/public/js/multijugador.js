@@ -22,7 +22,7 @@ function asignarPalabras(palabrasJugar){
   palabrasSwap = palabrasJugar;
   indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
   html = `Traduce ${palabrasSwap[indice].espanol}`;
-  responsiveVoice.speak(palabrasSwap[indice].ingles);
+  //responsiveVoice.speak(palabrasSwap[indice].ingles);
   traduciendo.html(html);
   html = "";
   equibocacion.html(html);
@@ -69,6 +69,14 @@ function terminarJuego(e){
     }
   });
 
+  socket.emit('top7', 'juego terminado', function(mensaje) {
+    if(!mensaje){
+      console.log("No funciona top 7");
+    }else {
+      console.log("Top 7 emitido");
+    }
+  });
+
   $.ajax({
       url: '/setMonedas',
       method: 'POST',
@@ -107,7 +115,7 @@ function emitirIncrementoContador(){
     });
 }
 function reproducir(e) {
-    responsiveVoice.speak(palabrasSwap[indice].ingles);
+    //responsiveVoice.speak(palabrasSwap[indice].ingles);
 }
 
 function verificando(e) {
@@ -133,7 +141,7 @@ function verificando(e) {
                     traduciendo.html(html);
                     html = "";
                     equibocacion.html(html);
-                    responsiveVoice.speak(palabrasSwap[indice].ingles);
+                    //responsiveVoice.speak(palabrasSwap[indice].ingles);
                     emitirIncrementoContador();
                   } else {
                     emitirIncrementoContador();
@@ -147,7 +155,7 @@ function verificando(e) {
                 indice = Math.floor(Math.random() * (palabrasSwap.length - 0) + 0);
                 html = `Traduce ${palabrasSwap[indice].espanol}`
                 traduciendo.html(html);
-                responsiveVoice.speak(palabrasSwap[indice].ingles);
+                //responsiveVoice.speak(palabrasSwap[indice].ingles);
             }
         }
     } else {

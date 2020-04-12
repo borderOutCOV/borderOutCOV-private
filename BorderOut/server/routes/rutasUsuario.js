@@ -57,6 +57,7 @@ router.get('/room', controller.verificaToken, controller.abreRoom);
 router.get('/dameCategorias', controller.verificaToken, controller.dameCategorias);
 router.get('/dameIdCategoria/:categoria', controller.verificaToken, controller.dameIdCategoria);
 router.get('/palabraRandom/:idCategoria', controller.verificaToken, controller.palabraRandom);
+router.get('/top7', controller.verificaToken, controller.top7);
 router.get('/palabrasCategorias/:idCategoria', controller.verificaToken, controller.palabrasCategorias);
 router.get('/logout', controller.verificaToken,controller.logout);
 

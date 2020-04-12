@@ -141,4 +141,8 @@ io.on('connection', (client) => {
         }
       }
   });
+
+  client.on('top7', () => {
+    client.broadcast.emit('top7', "Este es el top 7");
+  });
 });

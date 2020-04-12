@@ -1,11 +1,52 @@
 var socket = io();
 var divNotification = $('#Notifications');
 
+
+function top7(){
+  let actualTop7 = getTop7();
+  actualTop7.then((response) => {
+      if(response){
+        if ( $("#top7-table").length ) {
+          var table = $("#top7-table");
+          var length = response.length;
+          for(var i=0; i<length; i++){
+
+            table.append("<tr><th>" + response[i].username + "</th><th>" + response[i].monedas + "</th><th>" + "<img class='foto-top7' src='"+response[i].foto+"' alt='No hay foto disponible' > </th></tr>");
+          }
+      }
+      }else {
+        console.log("Error consulta ajax");
+      }
+    });
+}
+
+function getTop7(){
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: '/top7',
+      success: function(top7) {
+        resolve(top7);
+      },
+      error: function(error) {
+        showNotification("Hubo un error en el sistema","r");
+        console.log(error);
+        resolve(false);
+      }
+    });
+  });
+}
+
+socket.on('top7', function(message) {
+  console.log(message);
+  top7();
+});
+
 socket.on('connect', function() {
     console.log('Conectado al servidor');
     let userConnected = WhoAmI();
          userConnected.then((response) => {
              if(response){
+               top7();
                socket.emit('conectarse', response, function(personas) {
                  if(personas){
                    renderConnectedFriends(personas);
