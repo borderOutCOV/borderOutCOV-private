@@ -15,7 +15,10 @@ controller.respond = function(socket_io){
 
 //Rutas de usuario
 controller.abreVideos = (req, res) => {
-    res.render('videos', {});
+    res.render('Ranking', {});
+}
+controller.abrePalabrasAdmin = (req, res) => {
+    res.render('palabrasAdmin', {});
 }
 controller.abreAdmin = (req, res) => {
     res.render('adminView', {});
@@ -75,6 +78,12 @@ controller.setMonedas = async (req, res) => {
 }
 controller.deletePalabra = async (req, res) => {
     await pool.query(`DELETE FROM palabraagregadausuario WHERE IdPalabra =${req.body.id};`);
+    res.send("Done");
+}
+
+controller.borrarPalabraAdmin = async (req, res) => {
+    await pool.query(`DELETE FROM palabra WHERE IdPalabra =${req.body.id};`);
+    await pool.query(`DELETE FROM palabrausuario WHERE palabra =${req.body.id};`);
     res.send("Done");
 }
 
@@ -598,7 +607,7 @@ controller.save = async (req, res) => {
 
                 req.session.token = token;
                 console.log(token);
-                res.redirect('videos');
+                res.redirect('Ranking');
             } catch {
                 res.render('error', { mensaje: "Hubo un error al tratar de guardar la información" });
             }
@@ -628,7 +637,7 @@ controller.login = async (req, res) => {
             if (existe[0].tipo == 1) {
                 res.redirect('/admin');
             } else {
-                res.redirect('videos');
+                res.redirect('Ranking');
             }
         } else {
             res.render('error', { mensaje: "Contraseña invalida" });
@@ -677,10 +686,13 @@ controller.abreQuejasAdmin = (req, res) => {
 controller.abreTipoAdmin = (req, res) => {
     res.render('TipoAdmin', {});
 }
+controller.abreCategoriaAdmin = (req, res) => {
+    res.render('categoriaAdmin', {});
+}
 
-controller.getTipoPalabra= async (req, res) =>{
+controller.getTipoPalabra = async (req, res) => {
     if (req.session.usuario.username != null || req.session.usuario.username != "") {
-        let tipoPalabras = await pool.query('SELECT * FROM tipo');
+        let tipoPalabras = await pool.query('SELECT * FROM tipo ORDER BY nombre ASC');
         res.json(tipoPalabras);
     } else {
         res = null;
@@ -703,5 +715,101 @@ controller.AddTipoPalabra = async (req, res) => {
         res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
     }
 }
+
+controller.AddCategoriaPalabra = async (req, res) => {
+    try {
+        console.log(`INSERT INTO categoria (nombre) VALUES ("${req.body.datos}")`);
+        pool.query(`INSERT INTO categoria (nombre) VALUES ("${req.body.datos}")`);
+        res.render(`categoriaAdmin`, {});
+    } catch {
+        res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
+    }
+}
+
+controller.editarCategoriaPalabra = async (req, res) => {
+    var datos = req.body.datos.split("/");
+    var Id = datos[1];
+    var nameCategoriaPalabra = datos[0];
+    await pool.query(`UPDATE categoria SET nombre='${nameCategoriaPalabra}' WHERE idCategoria=${Id};`);
+    res.send("Done");
+}
+
+controller.editarPalabraAdmin = async (req, res) => {
+    var datos = req.body.datos.split("/");
+    var idEditar = datos[0];
+    var pIngles = datos[1];
+    var pEspanol = datos[2];
+    var idCategoria = datos[3];
+    var nombreCategoria = datos[4];
+    var idTipo = datos[5];
+    var nombreTipo = datos[6];
+    await pool.query(`UPDATE palabra SET 
+                    ingles='${pIngles}',
+                    categoria='${idCategoria}',
+                    IdTipoPalabra='${idTipo}',
+                    espanol='${pEspanol}'
+                    WHERE IdPalabra=${idEditar};`);
+    res.send("Done");
+}
+
+controller.getCategoriaAdmin = async (req, res) => {
+    if (req.session.usuario.username != null || req.session.usuario.username != "") {
+        let categoriaPalabra = await pool.query('SELECT * FROM categoria ORDER BY nombre ASC');
+        res.json(categoriaPalabra);
+    } else {
+        res = null;
+    }
+}
+
+controller.getPalabrasAdmin = async (req, res) => {
+    if (req.session.usuario.username != null || req.session.usuario.username != "") {
+        var q = `SELECT 
+        p.IdPalabra,p.ingles,p.nivel,p.espanol,c.idCategoria,c.nombre AS categoria,t.Id AS idTipo,t.nombre AS nombreTipo
+        FROM palabra AS p
+        INNER JOIN categoria AS c ON p.categoria = c.idCategoria
+        INNER JOIN tipo AS t ON p.IdTipoPalabra = t.Id
+        ORDER BY p.ingles ASC;`;
+        let palabras = await pool.query(q);
+        res.json(palabras);
+    } else {
+        res = null;
+    }
+}
+
+controller.AddPalabraAdmin = async (req, res) =>{
+    var datos = req.body.datos.split("/");
+    var pIngles = datos[0];
+    var pEspanol = datos[1];
+    var idCategoria = datos[2];
+    var idTipo = datos[3];
+    var level = 0;
+
+    if (pIngles.toLowerCase() == pEspanol.toLowerCase()) {
+        level = 1;
+    } else if (pIngles < 4) {
+        level = 1;
+    } else if (pIngles.length > 6) {
+        level = 3;
+    } else {
+        level = 2;
+    }
+
+    const newPalabra = {
+        ingles: pIngles,
+        nivel: level,
+        categoria: idCategoria,
+        idTipoPalabra: idTipo,
+        espanol: pEspanol,
+        usuario: req.session.usuario.username
+    }
+    try {
+        pool.query('INSERT INTO palabra set ?', [newPalabra]);
+        // res.send("funciono");
+        res.render("palabrasAdmin", {});
+    } catch {
+        res.render('error', { mensaje: "Hubo un error al tratar de guardar la palabra" });
+    }
+}
+
 
 module.exports = controller;

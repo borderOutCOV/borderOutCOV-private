@@ -10,7 +10,7 @@ router.get('/error', controller.abreError);
 router.post('/agregar', controller.save);
 router.post('/login', controller.login);
 //Solo usuarios autenticados
-router.get('/videos', controller.verificaToken, controller.abreVideos);
+router.get('/Ranking', controller.verificaToken, controller.abreVideos);
 router.get('/practica', controller.verificaToken, controller.abrePractica);
 router.get('/ampliarVocabulario', controller.verificaToken, controller.abreAmpliarVocabulario);
 router.get('/configurar', controller.verificaToken, controller.abreConfigurar);
@@ -68,5 +68,14 @@ router.get('/tipoAdmin', [controller.verificaToken, controller.verificaAdmin], c
 router.get('/getTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.getTipoPalabra);
 router.post('/editarTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.editarTipoPalabra);
 router.post('/AddTipoPalabra', [controller.verificaToken, controller.verificaAdmin], controller.AddTipoPalabra);
+router.get('/categoriaAdmin', [controller.verificaToken, controller.verificaAdmin], controller.abreCategoriaAdmin);
+router.get('/getCategoriasAdmin', [controller.verificaToken, controller.verificaAdmin], controller.getCategoriaAdmin);
+router.post('/AddCategoriaPalabra', [controller.verificaToken, controller.verificaAdmin], controller.AddCategoriaPalabra);
+router.post('/editarCategoriaPalabra', [controller.verificaToken, controller.verificaAdmin], controller.editarCategoriaPalabra);
+router.get('/palabrasAdmin',[controller.verificaToken, controller.verificaAdmin], controller.abrePalabrasAdmin);
+router.get('/getPalabrasAdmin', [controller.verificaToken, controller.verificaAdmin], controller.getPalabrasAdmin);
+router.post('/AddPalabraAdmin',[controller.verificaToken, controller.verificaAdmin], controller.AddPalabraAdmin);
+router.post('/borrarPalabraAdmin',[controller.verificaToken, controller.verificaAdmin], controller.borrarPalabraAdmin);
+router.post('/editarPalabraAdmin',[controller.verificaToken, controller.verificaAdmin], controller.editarPalabraAdmin);
 
 module.exports = router;
