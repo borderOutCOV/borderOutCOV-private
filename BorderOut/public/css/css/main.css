@@ -231,3 +231,25 @@ tr:hover td.bonita {
 .dataTables_length{
     text-align: right;
 }
+
+.foto-top7{
+    width: 100px;
+    height:100px;
+    border-radius: 23%;
+}
+
+.oro{
+    background-color: gold;
+}
+.plata{
+    background-color: silver;
+}
+.bronce{
+    background-color: #6e4030;
+}
+
+.cardPhoto{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;	
+}

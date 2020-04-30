@@ -1,24 +1,23 @@
 {{> head}}
 {{> navbar}}
-
 <div class="container-fluid">
-    <div class="row">
-        <main class="main principal columna col-sm-12 col-md-10">
-          <div id="htmlToChange">
-            <div class="widget nueva_entrada">
-                <h3 class="titulo">TOP 7, Lo mejor de lo mejor</h3>
-                <table style="width:100%"  id="top7-table">
-                  <tr>
-                    <th>Nombre usuario</th>
-                    <th>Puntos</th>
-                    <th>Foto</th>
-                  </tr>
-                </table>
-            </div>
+  <div class="row">
+    <div class="col-1"></div>
+    <main class="main principal columna col-sm-12 col-md-10">
+      <div id="htmlToChange">
+        <div class="widget nueva_entrada">
+          <br>
+          <h3 class="titulo" style="text-align: center;">TOP 7, Lo mejor de lo mejor</h3>
+          <br>
+          <div id="top7-table">
           </div>
-        </main>
-        {{> amigos}}
-    </div>
+        </div>
+      </div>
+    </main>
+    <div class="col-1"></div>
+    {{> amigos}}
+  </div>
 </div>
+
 {{> footer}}
 {{> librerias}}

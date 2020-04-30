@@ -10,8 +10,54 @@ function top7(){
           var table = $("#top7-table");
           var length = response.length;
           for(var i=0; i<length; i++){
+            var foto = "imagenes/user.jpg";
+            var medalla="";
+            if (response[i].foto) {
+              foto = response[i].foto;
+            }
+            if(i==0){
+              medalla='oro';
+            }
+            if(i==1){
+              medalla='plata';
+            }
+            if(i==2){
+              medalla='bronce';
+            }
 
-            table.append("<tr><th>" + response[i].username + "</th><th>" + response[i].monedas + "</th><th>" + "<img class='foto-top7' src='"+response[i].foto+"' alt='No hay foto disponible' > </th></tr>");
+
+            table.append(
+              `<table id="table_id" class='table table-bordered table-striped table-hover display'>
+              <thead class='bonita'>
+                <tr class='bonita'>
+                <th class='text-center'>Pos</th>
+                  <th class='text-center'>${response[i].username}</th>
+                  <th class='text-center'>Puntos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='bonita'>
+                  <th class="${medalla}">
+                  <h1 class='text-center'>${i+1}</h1>
+                  </th>
+                  <th>
+                    <div class="row">
+                      <div class="col">
+                      </div>
+                      <div class="col">
+                      <img class='foto-top7 d-flex justify-content-center' src='${foto}' alt='No hay foto disponible'>
+                      </div>
+                      <div class="col">
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <h2 class='text-center'>${response[i].monedas}</h2>
+                  </th>
+                </tr>
+              </tbody>
+              </table>`
+            );
           }
       }
       }else {

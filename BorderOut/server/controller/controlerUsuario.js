@@ -152,7 +152,7 @@ controller.top7 = async (req, res) => {
     if (req.session.usuario.correo == undefined) {
         res.json();
     } else {
-        var query = `SELECT username, monedas, foto from usuario order by monedas asc limit 7`;
+        var query = `SELECT username, monedas, foto from usuario order by monedas DESC limit 7`;
         let data = await pool.query(query, []);
         res.json(data);
     }
