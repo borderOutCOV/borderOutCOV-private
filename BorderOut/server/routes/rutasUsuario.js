@@ -10,6 +10,7 @@ router.get('/error', controller.abreError);
 router.post('/agregar', controller.save);
 router.post('/login', controller.login);
 //Solo usuarios autenticados
+router.get('/Traduce',controller.verificaToken,controller.abreTraduce);
 router.get('/Ranking', controller.verificaToken, controller.abreVideos);
 router.get('/practica', controller.verificaToken, controller.abrePractica);
 router.get('/ampliarVocabulario', controller.verificaToken, controller.abreAmpliarVocabulario);

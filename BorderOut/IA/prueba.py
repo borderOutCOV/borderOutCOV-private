@@ -1,6 +1,7 @@
 import tensorflow as tf
 import helper
 import problem_unittests as tests
+import os
 
 class Traductor:
   def __init__(self,frase):
@@ -72,4 +73,9 @@ class Traductor:
         variableRetornar = format(" ".join([target_int_to_vocab[i] for i in translate_logits]))
         print('Resultado de ',pIngles)
         print(variableRetornar)
+
+        miTxt = open("BorderOut\\IA\\respuesta.txt",'w')
+        miTxt.write(variableRetornar)
+        miTxt.close()
+        
         return variableRetornar

@@ -14,6 +14,9 @@ controller.respond = function(socket_io){
 }*/
 
 //Rutas de usuario
+controller.abreTraduce = (req, res) => {
+    res.render('Traduce', {}); 
+}
 controller.abreVideos = (req, res) => {
     res.render('Ranking', {});
 }
