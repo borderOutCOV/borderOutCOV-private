@@ -2,7 +2,7 @@ var divRespuesta = $('#respuesta');
 
 function renderizarRespuesta(resp) {
     var html5 = '';
-    html5 += `<h4>${resp}</h4>`;
+    html5 += `<br><br><h4>${resp}</h4>`;
     html5+= `<div class="spinner-border"></div>`;
     divRespuesta.html(html5);
 }
@@ -10,20 +10,14 @@ function renderizarRespuesta(resp) {
 $(document).on('click', '#enviar', function () {
     var frase = $("#frase").val();
     var url = 'http://127.0.0.1:5000/IA/'+frase;
-    alert(url)
+    alert("Traduciendo tu frase, espera....");
     $.ajax({
         url: url,
         success: function (data) {
-            alert(data);
-            renderizarMisPalabras();
+            renderizarRespuesta(data);
         },
-        error: function(e) { 
-            console.log(e) 
-        }       
+        error: function(e) {
+            renderizarRespuesta('Falló traduccion');
+        }
     });
-    renderizarRespuesta('Holaa');
 });
-
-
-
-

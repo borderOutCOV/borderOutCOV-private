@@ -2,12 +2,17 @@ from flask import Flask
 import tensorflow as tf
 import helper
 import problem_unittests as tests
+from flask import jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 #Ejecutar correr Comando flask run --host=0.0.0.0
 
 @app.route('/IA/<string:frase>')
+@cross_origin()
 def traducir(frase):
     # Number of Epochs
     epochs = 10
@@ -58,11 +63,9 @@ def traducir(frase):
     print('  Spanish Words: {}'.format(" ".join([target_int_to_vocab[i] for i in translate_logits])))
     """
     variableRetornar = format(" ".join([target_int_to_vocab[i] for i in translate_logits]))
-    print('Resultado de ',pIngles)
-    print(variableRetornar)
     return variableRetornar
 
-    return fraseEspanol
+    #return fraseEspanol
 
 def sentence_to_seq(sentence, vocab_to_int):
     """
